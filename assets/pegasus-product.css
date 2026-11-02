@@ -8,17 +8,145 @@
 
 /* ---------- Gallery ---------- */
 
-@media screen and (min-width: 750px) {
-  /* "Fit the photo to the screen height" sizes the first photo to the width its height allows (548px in a 737px
-     column) while the photos under it run to the column edges. Give the tile the whole column and centre the photo
-     on a mat instead, so every edge lines up. */
-  .product-media-container.constrain-height.media-fit-contain {
+/* "Fit the photo to the screen height" sizes a photo to the width its height allows (548px in a 737px column)
+   while the photos under it run to the column edges. Give each tile the whole width and centre the photo on a mat
+   instead, so every edge lines up. */
+.product-media-container.constrain-height.media-fit-contain {
+  width: 100%;
+  background: rgb(var(--pg-mat));
+}
+
+.product-media-container.constrain-height.media-fit-contain .media > img {
+  object-fit: contain;
+}
+
+/* Limited / New run: bottom left of the first photo, like the badge on the product cards. */
+.product__media-item {
+  position: relative;
+}
+
+.pg-gallery-badge {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
+pg-gallery-progress {
+  display: none;
+}
+
+/* Craft lays the photos after the first out in pairs. A last photo with no partner (the second of two, the fourth
+   of four) would sit in half a row beside an empty cell, so it takes the whole row at its own proportions. */
+@media screen and (min-width: 990px) {
+  .product--stacked .product__media-item:nth-child(even):last-child {
     width: 100%;
-    background: rgb(var(--pg-mat));
+    max-width: 100%;
   }
 
-  .product-media-container.constrain-height.media-fit-contain .media > img {
-    object-fit: contain;
+  .product--stacked .product__media-item:nth-child(even):last-child .product-media-container.constrain-height .media {
+    padding-top: var(--ratio-percent);
+  }
+}
+
+/* Two columns on a tablet: Craft splits them evenly, which left the info column 284px wide at 768px. */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .product--left:not(.product--no-media) .product__media-wrapper {
+    width: 46%;
+    max-width: 46%;
+  }
+
+  .product--left:not(.product--no-media) .product__info-wrapper {
+    width: 54%;
+    max-width: 54%;
+    padding-left: 3rem;
+  }
+}
+
+/* Phone: photos run edge to edge, one at a time (no peek of the next one), with the count in a pill over the
+   photo and a progress line under it. Swiping needs no arrows; a mouse in a narrow window still gets them. */
+@media screen and (max-width: 749px) {
+  .product__media-wrapper slider-component[id^='GalleryViewer'] {
+    padding-bottom: 3.2rem;
+  }
+
+  /* No gap between photos: Craft counts the pages as (viewport / (photo + gap)), and with a photo as wide as the
+     viewport any gap makes that less than one page, so the counter would read "1/4" for three photos. */
+  .product__media-wrapper slider-component[id^='GalleryViewer'] .product__media-list {
+    width: 100%;
+    margin: 0;
+    column-gap: 0;
+    scroll-padding-left: 0;
+  }
+
+  .product__media-wrapper .product__media-list .product__media-item {
+    width: 100%;
+  }
+
+  /* Craft indents the first photo by 1.5rem to line up with the page gutter; with photos edge to edge that
+     indent only shifts the scroll start and throws off Craft's page count. */
+  .product__media-wrapper .product__media-list.slider .product__media-item:first-of-type {
+    margin-left: 0;
+  }
+
+  .product__media-wrapper .product__media-list:after {
+    display: none;
+  }
+
+  .pg-gallery-badge {
+    bottom: 1.7rem;
+  }
+
+  /* Above the photo's invisible zoom button (z-index 2), or the arrows could not be clicked. */
+  .product__media-wrapper .slider-buttons {
+    position: absolute;
+    z-index: 3;
+    right: 1.2rem;
+    bottom: 4.4rem;
+    min-width: 0;
+    background: rgba(var(--color-background), 0.94);
+    border: 1px solid var(--pg-hair);
+    border-radius: 99rem;
+  }
+
+  .product__media-wrapper .slider-counter {
+    min-width: 0;
+    padding: 0.7rem 1.4rem;
+    font-size: 1.3rem;
+    line-height: 1;
+    color: rgb(var(--color-foreground));
+  }
+
+  .product__media-wrapper .slider-button {
+    display: none;
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+
+  pg-gallery-progress {
+    display: block;
+    position: absolute;
+    right: 1.5rem;
+    bottom: 1.2rem;
+    left: 1.5rem;
+    height: 2px;
+    background: var(--pg-hair);
+  }
+
+  pg-gallery-progress > i {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--pg-p, 0) * (100% - 100% / var(--pg-n, 1)));
+    width: calc(100% / var(--pg-n, 1));
+    background: rgb(var(--color-foreground));
+  }
+}
+
+@media screen and (max-width: 749px) and (hover: hover) and (pointer: fine) {
+  .product__media-wrapper .slider-button {
+    display: flex;
   }
 }
 

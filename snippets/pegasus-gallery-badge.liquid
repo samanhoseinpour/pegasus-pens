@@ -1,0 +1,14 @@
+{% doc %}
+  Renders the "Limited" or "New run" badge over the first photo of the product gallery, from the product's tags.
+  The badge colors match the product cards. Nothing is rendered for a product with neither tag.
+
+  @param {product} product - The product whose tags are read.
+
+  @example
+  {% render 'pegasus-gallery-badge', product: product %}
+{% enddoc %}
+{%- if product.tags contains 'limited' -%}
+  <span class="badge pg-gallery-badge color-scheme-4">{{- 'products.product.badge_limited' | t -}}</span>
+{%- elsif product.tags contains 'new-run' -%}
+  <span class="badge pg-gallery-badge color-scheme-3">{{- 'products.product.badge_new_run' | t -}}</span>
+{%- endif -%}

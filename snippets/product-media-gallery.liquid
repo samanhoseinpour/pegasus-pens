@@ -5,6 +5,7 @@
   @param {product} [product] - The product whose media is rendered. Uses the current product when omitted.
   @param {object} [section] - The current product section context, supplied implicitly when rendered from that section and used for gallery IDs, behavior, and presentation.
   @param {number} [limit] - The maximum number of media items to render. Defaults to all media.
+  @param {boolean} [pegasus] - Whether to add the Pegasus extras: the Limited / New run badge on the first photo and the phone progress line. Defaults to `false`.
   @param {model} [first_3d_model] - The first 3D model, used to render the gallery's Shopify XR button.
 
   @example
@@ -83,6 +84,9 @@
             constrain_to_viewport: section.settings.constrain_to_viewport,
             lazy_load: false
           %}
+          {%- if pegasus -%}
+            {%- render 'pegasus-gallery-badge', product: product -%}
+          {%- endif -%}
         </li>
       {%- endif -%}
       {%- for media in product.media -%}
@@ -121,6 +125,9 @@
               constrain_to_viewport: section.settings.constrain_to_viewport,
               lazy_load: lazy_load
             %}
+            {%- if pegasus and media_position == 1 -%}
+              {%- render 'pegasus-gallery-badge', product: product -%}
+            {%- endif -%}
           </li>
         {%- endunless -%}
       {%- endfor -%}
@@ -153,6 +160,9 @@
         </span>
       </button>
     </div>
+    {%- if pegasus and media_count > 1 -%}
+      <pg-gallery-progress aria-hidden="true"><i></i></pg-gallery-progress>
+    {%- endif -%}
   </slider-component>
   {%- if first_3d_model -%}
     <button
