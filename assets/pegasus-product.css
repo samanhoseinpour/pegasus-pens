@@ -4,6 +4,10 @@
 .product {
   /* The studio photos are shot on rgb(254, 254, 254); a mat of the same white hides their edges. */
   --pg-mat: 254, 254, 254;
+
+  /* Hairlines in the text color of this section's scheme. (--pg-hair is resolved once, at the page root, in the
+     light scheme's ink, so it would vanish if this section were given a dark scheme.) */
+  --pg-line: rgba(var(--color-foreground), 0.16);
 }
 
 /* ---------- Gallery ---------- */
@@ -106,7 +110,7 @@ pg-gallery-progress {
     bottom: 4.4rem;
     min-width: 0;
     background: rgba(var(--color-background), 0.94);
-    border: 1px solid var(--pg-hair);
+    border: 1px solid var(--pg-line);
     border-radius: 99rem;
   }
 
@@ -131,7 +135,7 @@ pg-gallery-progress {
     bottom: 1.2rem;
     left: 1.5rem;
     height: 2px;
-    background: var(--pg-hair);
+    background: var(--pg-line);
   }
 
   pg-gallery-progress > i {
@@ -207,7 +211,7 @@ pg-gallery-progress {
   container-type: inline-size;
   margin: 2.4rem 0;
   padding-top: 2rem;
-  border-top: 1px solid var(--pg-hair);
+  border-top: 1px solid var(--pg-line);
 }
 
 .pg-facts__list {
@@ -256,11 +260,11 @@ pg-gallery-progress {
 .product__info-container .product__accordion {
   margin: 0;
   border: 0;
-  border-top: 1px solid var(--pg-hair);
+  border-top: 1px solid var(--pg-line);
 }
 
 .product__info-container .product__accordion:not(:has(~ .product__accordion)) {
-  border-bottom: 1px solid var(--pg-hair);
+  border-bottom: 1px solid var(--pg-line);
 }
 
 .product__accordion summary {
