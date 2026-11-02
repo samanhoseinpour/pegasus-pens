@@ -12,13 +12,35 @@
   var RISE =
     '[data-pg-rise], .banner__heading, .image-with-text__heading, .rich-text__heading, .collapsible-content__heading, .title--primary';
 
+  // Reveal only once the images inside have loaded, or a wipe would play over an empty box. A stalled image
+  // must not keep the element hidden, so the wait is capped.
+  function reveal(el) {
+    var waiting = [].filter.call(el.querySelectorAll('img'), function (img) { return !img.complete; });
+    var done = false;
+    function go() {
+      if (done) return;
+      done = true;
+      el.classList.remove('pg-pending');
+      el.classList.add('pg-in');
+    }
+    if (!waiting.length) return go();
+    var left = waiting.length;
+    function one() { if (--left === 0) go(); }
+    waiting.forEach(function (img) {
+      // A fully clipped image never counts as near the viewport, so a lazy one would not start loading.
+      img.loading = 'eager';
+      img.addEventListener('load', one, { once: true });
+      img.addEventListener('error', one, { once: true });
+    });
+    setTimeout(go, 2500);
+  }
+
   var io = enabled
     ? new IntersectionObserver(
         function (entries) {
           entries.forEach(function (entry) {
             if (!entry.isIntersecting) return;
-            entry.target.classList.remove('pg-pending');
-            entry.target.classList.add('pg-in');
+            reveal(entry.target);
             io.unobserve(entry.target);
           });
         },
@@ -55,7 +77,8 @@
     el.dataset.pgSeen = '1';
     var rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
-      el.classList.add('pg-in');
+      el.classList.add('pg-pending');
+      reveal(el);
       return;
     }
     el.classList.add('pg-pending');
