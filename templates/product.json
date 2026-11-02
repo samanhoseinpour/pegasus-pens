@@ -131,6 +131,51 @@
         "padding_bottom": 44
       }
     },
+    "reviews": {
+      "type": "pegasus-review-wall",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "text": "It feels made for my hand, and the gold catches the light every time I sign.",
+            "name": "Maya R.",
+            "detail": "Vancouver",
+            "rating": 0
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "text": "It arrived in a gift box with a note about the wood. That is the whole reason I came back.",
+            "name": "Tomás A.",
+            "detail": "Lisbon",
+            "rating": 0
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "text": "I bought one as a gift and kept it. Now I am waiting for the next one.",
+            "name": "Priya S.",
+            "detail": "Leeds",
+            "rating": 0
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "heading": "Kind words",
+        "label": "Customer reviews",
+        "speed": 18,
+        "color_scheme": "scheme-1",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -161,6 +206,7 @@
     "breadcrumbs",
     "main",
     "disclosures",
+    "reviews",
     "related-products"
   ]
 }
