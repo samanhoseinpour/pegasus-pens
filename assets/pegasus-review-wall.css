@@ -1,0 +1,117 @@
+/* A slow loop of review cards. Two identical tracks sit side by side; each slides left by exactly its own width, so
+   the loop never shows a seam. It pauses under the pointer and when the wall has keyboard focus. */
+
+.pg-wall__heading {
+  margin: 0 0 4rem;
+}
+
+.pg-wall {
+  display: flex;
+  overflow: hidden;
+  outline-offset: -0.4rem;
+}
+
+.pg-wall__track {
+  display: flex;
+  flex: none;
+  gap: 2rem;
+  min-width: 100%;
+  margin: 0;
+  padding: 0 2rem 0 0;
+  list-style: none;
+  animation: pg-wall-loop var(--pg-wall-time, 80s) linear infinite;
+}
+
+@keyframes pg-wall-loop {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.pg-wall:hover .pg-wall__track,
+.pg-wall:focus-within .pg-wall__track,
+.pg-wall:focus-visible .pg-wall__track {
+  animation-play-state: paused;
+}
+
+.pg-review {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2.4rem;
+  width: 38rem;
+  padding: 3.2rem;
+  border: 1px solid var(--pg-hair);
+  background: rgba(var(--color-foreground), 0.04);
+}
+
+.pg-review__stars {
+  display: flex;
+  gap: 0.2rem;
+  margin: 0;
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.pg-review__star.is-off {
+  opacity: 0.25;
+}
+
+.pg-review__text {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: rgb(var(--color-foreground));
+  font-family: var(--pg-display);
+  font-size: 2.3rem;
+  font-style: italic;
+  line-height: 1.3;
+  text-wrap: pretty;
+}
+
+.pg-review__by {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.pg-review__by span {
+  opacity: 0.85;
+}
+
+@media screen and (max-width: 749px) {
+  .pg-review {
+    width: 30rem;
+    padding: 2.4rem;
+  }
+
+  .pg-review__text {
+    font-size: 2rem;
+  }
+}
+
+/* No continuous motion: one track the visitor can scroll or swipe by hand. */
+@media (prefers-reduced-motion: reduce) {
+  .pg-wall {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+  }
+
+  .pg-wall__track {
+    animation: none;
+  }
+
+  .pg-wall__track[aria-hidden='true'] {
+    display: none;
+  }
+
+  .pg-review {
+    scroll-snap-align: start;
+  }
+}

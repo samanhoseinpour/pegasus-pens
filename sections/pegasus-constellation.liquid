@@ -3,7 +3,10 @@
 
 {%- assign heading_text = section.settings.heading | strip_html | strip -%}
 
-<pg-constellation class="pg-const color-{{ section.settings.color_scheme }} gradient">
+<pg-constellation
+  class="pg-const color-{{ section.settings.color_scheme }} gradient"
+  style="--pg-const-length: {{ section.settings.scroll_length | default: 360 }}svh;"
+>
   <div class="pg-const__stage">
     <div class="page-width pg-const__grid">
       <div class="pg-const__intro">
@@ -70,6 +73,17 @@
       "id": "intro",
       "label": "Text",
       "default": "Pegasus is a constellation of four bright stars. Ours are four materials."
+    },
+    {
+      "type": "range",
+      "id": "scroll_length",
+      "label": "Scroll length",
+      "info": "How long the section stays pinned while the four stars light up, in screen heights (about 90% per star).",
+      "min": 280,
+      "max": 560,
+      "step": 20,
+      "unit": "%",
+      "default": 360
     },
     {
       "type": "color_scheme",

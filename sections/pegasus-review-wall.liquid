@@ -1,0 +1,181 @@
+{{ 'pegasus-review-wall.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign total = section.blocks.size
+  assign repeat = 1
+  if total > 0
+    comment
+      A track has to be wider than the screen for the loop to be seamless; a card plus its gap is about 40 rem.
+    endcomment
+    assign per_card = 400
+    assign needed = 2400
+    assign repeat = needed | divided_by: per_card | divided_by: total | plus: 1
+  endif
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #pg-wall-{{ section.id }} {
+    --pg-wall-time: {{ total | times: repeat | times: section.settings.speed }}s;
+  }
+{%- endstyle -%}
+
+
+<div class="pg-wall-sec color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  {%- if section.settings.heading != blank -%}
+    <div class="page-width">
+      <h2 class="pg-wall__heading h1" data-pg-rise>{{ section.settings.heading | escape }}</h2>
+    </div>
+  {%- endif -%}
+
+  <div id="pg-wall-{{ section.id }}" class="pg-wall" role="region" aria-label="{{ section.settings.label | escape }}" tabindex="0">
+    {%- for copy in (1..2) -%}
+      <ul class="pg-wall__track" role="list"{% if copy == 2 %} aria-hidden="true"{% endif %}>
+        {%- for r in (1..repeat) -%}
+          {%- for block in section.blocks -%}
+            <li
+              class="pg-review"
+              {% if copy == 2 or r > 1 %}aria-hidden="true"{% else %}{{ block.shopify_attributes }}{% endif %}
+            >
+              {%- if block.settings.rating > 0 -%}
+                <p class="pg-review__stars" role="img" aria-label="{{ block.settings.rating }} / 5">
+                  {%- for star in (1..5) -%}<span class="pg-review__star{% if star > block.settings.rating %} is-off{% endif %}" aria-hidden="true">★</span>{%- endfor -%}
+                </p>
+              {%- endif -%}
+              <blockquote class="pg-review__text">{{ block.settings.text | escape }}</blockquote>
+              {%- if block.settings.name != blank -%}
+                <p class="pg-review__by">
+                  <strong>{{ block.settings.name | escape }}</strong>
+                  {%- if block.settings.detail != blank -%}
+                    <span>{{ block.settings.detail | escape }}</span>
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        {%- endfor -%}
+      </ul>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pegasus review wall",
+  "tag": "section",
+  "class": "pg-wall-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Kind words"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Accessible name",
+      "info": "Read aloud by screen readers when the reviews receive keyboard focus.",
+      "default": "Customer reviews"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Seconds per card",
+      "info": "How long each card takes to pass. Higher is slower. It pauses under the pointer and for visitors who prefer reduced motion.",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "s",
+      "default": 18
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 104
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 104
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review",
+          "default": "It feels made for my hand, and the gold catches the light every time I sign."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Maya R."
+        },
+        {
+          "type": "text",
+          "id": "detail",
+          "label": "Detail",
+          "default": "Vancouver"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Stars",
+          "info": "0 hides the stars. Only show stars that a customer actually gave.",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pegasus review wall",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review", "settings": { "text": "It arrived in a gift box with a note about the wood.", "name": "Tomás A.", "detail": "Lisbon" } },
+        { "type": "review", "settings": { "text": "I bought one as a gift and kept it.", "name": "Priya S.", "detail": "Leeds" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

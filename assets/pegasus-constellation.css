@@ -190,8 +190,8 @@
 /* ---------- Pinned mode ---------- */
 
 .pg-const.is-pinned {
-  height: 480vh;
-  height: 480svh;
+  height: 360vh;
+  height: var(--pg-const-length, 360svh);
 }
 
 .pg-const.is-pinned .pg-const__stage {
