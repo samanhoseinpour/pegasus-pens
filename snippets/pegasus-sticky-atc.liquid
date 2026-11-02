@@ -1,0 +1,68 @@
+{% doc %}
+  Renders the sticky add-to-cart bar for the main product section.
+  It stays hidden until the real buy buttons scroll out of view. Its button clicks the real
+  submit button, and pegasus-sticky-atc.js mirrors that button's label and state, plus the price.
+
+  @param {product} product - The product shown on the page.
+  @param {string} section_id - The ID of the main product section (used to find the real buy button and price).
+
+  @example
+  {% render 'pegasus-sticky-atc', product: product, section_id: section.id %}
+{% enddoc %}
+{{ 'pegasus-sticky-atc.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pegasus-sticky-atc.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign thumb = product.featured_media.preview_image
+  if current_variant.featured_media
+    assign thumb = current_variant.featured_media.preview_image
+  endif
+-%}
+
+<pg-sticky-atc
+  class="pg-sticky color-scheme-4 gradient"
+  data-section-id="{{ section_id }}"
+  role="region"
+  aria-label="{{ 'products.product.add_to_cart' | t }}"
+  inert
+>
+  <div class="pg-sticky__inner page-width">
+    <div class="pg-sticky__product">
+      {%- if thumb != blank -%}
+        <img
+          class="pg-sticky__thumb"
+          src="{{ thumb | image_url: width: 120, height: 120 }}"
+          alt=""
+          width="48"
+          height="48"
+          loading="lazy"
+          data-sticky-thumb
+        >
+      {%- endif -%}
+      <div class="pg-sticky__text">
+        <p class="pg-sticky__title">{{ product.title | escape }}</p>
+        <div class="pg-sticky__meta">
+          {%- unless product.has_only_default_variant -%}
+            <span class="pg-sticky__variant" data-sticky-variant>{{ current_variant.title | escape }}</span>
+          {%- endunless -%}
+          <div class="pg-sticky__price" data-sticky-price>
+            {%- render 'price', product: product, use_variant: true -%}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="pg-sticky__button button" data-sticky-submit>
+      <span data-sticky-label>
+        {%- if current_variant == null -%}
+          {{ 'products.product.unavailable' | t }}
+        {%- elsif current_variant.available == false -%}
+          {{ 'products.product.sold_out' | t }}
+        {%- else -%}
+          {{ 'products.product.add_to_cart' | t }}
+        {%- endif -%}
+      </span>
+    </button>
+  </div>
+</pg-sticky-atc>

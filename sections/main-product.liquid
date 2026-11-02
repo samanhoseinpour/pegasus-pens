@@ -748,6 +748,10 @@
       </script>
     </div>
   </product-component>
+
+  {%- if section.settings.sticky_bar -%}
+    {%- render 'pegasus-sticky-atc', product: product, section_id: section.id -%}
+  {%- endif -%}
 </product-info>
 
 {% schema %}
@@ -2149,6 +2153,13 @@
       "id": "enable_sticky_info",
       "default": true,
       "label": "t:sections.main-product.settings.enable_sticky_info.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_bar",
+      "default": true,
+      "label": "Show sticky add to cart bar",
+      "info": "Appears at the bottom of the screen after the buy buttons scroll out of view."
     },
     {
       "type": "color_scheme",
