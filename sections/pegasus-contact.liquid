@@ -1,0 +1,383 @@
+{{ 'pegasus-contact.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pegasus-contact.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign heading = section.settings.heading
+  if heading == blank
+    assign heading = page.title
+  endif
+-%}
+
+<div class="pg-contact-sec color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <pg-contact class="pg-contact">
+      {%- form 'contact', id: 'ContactForm', class: 'pg-contact__grid', aria-labelledby: 'PgContactHeading' -%}
+        {%- assign sent = false -%}
+        {%- if form.posted_successfully? -%}
+          {%- assign sent = true -%}
+        {%- endif -%}
+
+        <div class="pg-contact__intro">
+          <h1 class="pg-contact__heading h0" id="PgContactHeading" data-pg-rise>{{ heading | escape }}</h1>
+          {%- if section.settings.text != blank -%}
+            <p class="pg-contact__text">{{ section.settings.text | escape }}</p>
+          {%- endif -%}
+
+          {%- comment -%} The plate engraves the chosen topic (see pegasus-contact.js), and the confirmation once it is sent. {%- endcomment -%}
+          <div class="pg-contact__plate" aria-hidden="true" data-plate data-size="m"{% unless sent %} data-empty{% endunless %}>
+            <span
+              class="pg-contact__line"
+              data-line
+              data-placeholder="{{ section.settings.plate_placeholder | escape }}"
+            >
+              {%- if sent -%}{{ section.settings.success_plate | escape }}{%- endif -%}
+            </span>
+          </div>
+          {%- if section.settings.workshop_line != blank -%}
+            <p class="pg-contact__workshop">{{ section.settings.workshop_line | escape }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="pg-contact__main">
+          {%- if sent -%}
+            <div class="pg-contact__sent" role="status">
+              <h2 class="pg-contact__sent-heading h2" tabindex="-1" autofocus>{{ section.settings.success_heading | escape }}</h2>
+              <p>{{ section.settings.success_text | escape }}</p>
+              <p class="pg-contact__sent-links">
+                <a class="button" href="{{ routes.all_products_collection_url }}">{{ section.settings.shop_label | escape }}</a>
+                <a class="pg-contact__again" href="{{ page.url }}">{{ section.settings.again_label | escape }}</a>
+              </p>
+            </div>
+          {%- else -%}
+            {%- if form.errors -%}
+              <div class="pg-contact__errors" role="alert" tabindex="-1" autofocus>
+                <p class="pg-contact__errors-title">{{ 'templates.contact.form.error_heading' | t }}</p>
+                <ul role="list">
+                  {%- for field in form.errors -%}
+                    <li>
+                      <a href="#PgContact-{{ field }}" class="link">
+                        {{ form.errors.translated_fields[field] | capitalize }}
+                        {{ form.errors.messages[field] }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endif -%}
+
+            {%- if section.blocks.size > 0 -%}
+              <fieldset class="pg-contact__topics">
+                <legend class="pg-contact__legend">{{ section.settings.topic_legend | escape }}</legend>
+                <div class="pg-contact__chips">
+                  {%- for block in section.blocks -%}
+                    <div class="pg-chip" {{ block.shopify_attributes }}>
+                      <input
+                        type="radio"
+                        class="pg-chip__input"
+                        name="contact[{{ section.settings.topic_field | default: 'Topic' | escape }}]"
+                        id="PgTopic-{{ block.id }}"
+                        value="{{ block.settings.label | escape }}"
+                        data-topic
+                        data-hint="{{ block.settings.hint | escape }}"
+                        data-ref-label="{{ block.settings.ref_label | escape }}"
+                      >
+                      <label class="pg-chip__label" for="PgTopic-{{ block.id }}">{{ block.settings.label | escape }}</label>
+                    </div>
+                  {%- endfor -%}
+                </div>
+                <p class="pg-contact__hint" id="PgContactHint" aria-live="polite" data-hint></p>
+              </fieldset>
+            {%- endif -%}
+
+            <div class="pg-contact__row">
+              <div class="pg-contact__field">
+                <label class="pg-contact__label" for="PgContact-name">{{ 'templates.contact.form.name' | t }}</label>
+                <input
+                  class="pg-contact__input"
+                  type="text"
+                  id="PgContact-name"
+                  name="contact[name]"
+                  autocomplete="name"
+                  value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                >
+              </div>
+              <div class="pg-contact__field">
+                <label class="pg-contact__label" for="PgContact-email">
+                  {{- 'templates.contact.form.email' | t }} <span class="pg-contact__req">({{ section.settings.required_label | escape }})</span>
+                </label>
+                <input
+                  class="pg-contact__input"
+                  type="email"
+                  id="PgContact-email"
+                  name="contact[email]"
+                  autocomplete="email"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  required
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                  {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="PgContact-email-error"{% endif %}
+                >
+                {%- if form.errors contains 'email' -%}
+                  <p class="pg-contact__error" id="PgContact-email-error">
+                    <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
+                    {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+                  </p>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <div class="pg-contact__field" data-ref>
+              <label class="pg-contact__label" for="PgContact-ref" data-ref-text>{{ section.settings.ref_default_label | escape }}</label>
+              <input
+                class="pg-contact__input"
+                type="text"
+                id="PgContact-ref"
+                name="contact[{{ section.settings.ref_field | default: 'Pen or order' | escape }}]"
+                autocomplete="off"
+              >
+            </div>
+
+            <div class="pg-contact__field">
+              <label class="pg-contact__label" for="PgContact-body">
+                {{- section.settings.message_label | escape }} <span class="pg-contact__req">({{ section.settings.required_label | escape }})</span>
+              </label>
+              <textarea
+                class="pg-contact__input pg-contact__textarea"
+                id="PgContact-body"
+                name="contact[body]"
+                rows="8"
+                required
+                aria-describedby="PgContactHint"
+              >{{ form.body }}</textarea>
+            </div>
+
+            <div class="pg-contact__actions">
+              <button type="submit" class="button">{{ section.settings.send_label | escape }}</button>
+              {%- if shop.email != blank and section.settings.email_label != blank -%}
+                <p class="pg-contact__email">
+                  {{ section.settings.email_label | escape }}
+                  <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>
+                </p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endform -%}
+    </pg-contact>
+
+    {%- if page.content != blank -%}
+      <div class="pg-contact__content rte">{{ page.content }}</div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pegasus contact",
+  "tag": "section",
+  "class": "pg-contact-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave empty to use the page title.",
+      "default": "Write to the workshop."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Intro",
+      "default": "Questions about a pen, an engraving, a gift or an order? Tell us what it is about and write to us here."
+    },
+    {
+      "type": "text",
+      "id": "workshop_line",
+      "label": "Line under the plate",
+      "default": "Hand-turned in British Columbia, Canada."
+    },
+    {
+      "type": "header",
+      "content": "Form"
+    },
+    {
+      "type": "text",
+      "id": "topic_legend",
+      "label": "Topic question",
+      "default": "What is it about?"
+    },
+    {
+      "type": "text",
+      "id": "plate_placeholder",
+      "label": "Plate text before a topic is chosen",
+      "default": "Choose a topic"
+    },
+    {
+      "type": "text",
+      "id": "topic_field",
+      "label": "Topic field name",
+      "info": "How the topic appears in the message you receive.",
+      "default": "Topic"
+    },
+    {
+      "type": "text",
+      "id": "ref_default_label",
+      "label": "Pen or order field label",
+      "default": "Pen or order number (if you have one)"
+    },
+    {
+      "type": "text",
+      "id": "ref_field",
+      "label": "Pen or order field name",
+      "info": "How that field appears in the message you receive.",
+      "default": "Pen or order"
+    },
+    {
+      "type": "text",
+      "id": "message_label",
+      "label": "Message label",
+      "default": "Message"
+    },
+    {
+      "type": "text",
+      "id": "required_label",
+      "label": "Required marker",
+      "default": "required"
+    },
+    {
+      "type": "text",
+      "id": "send_label",
+      "label": "Send button",
+      "default": "Send message"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Text before your email address",
+      "info": "Your store's email address is shown after it. Leave empty to hide both.",
+      "default": "Prefer your own email app? Write to"
+    },
+    {
+      "type": "header",
+      "content": "After sending"
+    },
+    {
+      "type": "text",
+      "id": "success_plate",
+      "label": "Text engraved on the plate",
+      "default": "Message sent."
+    },
+    {
+      "type": "text",
+      "id": "success_heading",
+      "label": "Confirmation heading",
+      "default": "Thank you for writing."
+    },
+    {
+      "type": "textarea",
+      "id": "success_text",
+      "label": "Confirmation text",
+      "default": "We have your message and will reply by email."
+    },
+    {
+      "type": "text",
+      "id": "shop_label",
+      "label": "Button after sending",
+      "default": "Back to all pens"
+    },
+    {
+      "type": "text",
+      "id": "again_label",
+      "label": "Link after sending",
+      "default": "Send another message"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 120
+    }
+  ],
+  "blocks": [
+    {
+      "type": "topic",
+      "name": "Topic",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Topic",
+          "default": "A pen"
+        },
+        {
+          "type": "text",
+          "id": "hint",
+          "label": "Hint shown when chosen",
+          "default": "Ask about materials, ink colours or refills."
+        },
+        {
+          "type": "text",
+          "id": "ref_label",
+          "label": "Label for the pen or order field",
+          "info": "Leave empty to keep the default label.",
+          "default": "Which pen? (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pegasus contact",
+      "blocks": [
+        { "type": "topic" },
+        { "type": "topic", "settings": { "label": "Engraving", "hint": "Tell us the pen and the words you would like engraved.", "ref_label": "Which pen? (optional)" } },
+        { "type": "topic", "settings": { "label": "A gift", "hint": "Tell us who it is for, and any message for the card.", "ref_label": "Which pen? (optional)" } },
+        { "type": "topic", "settings": { "label": "An order", "hint": "Tell us what you need to know or change.", "ref_label": "Order number" } },
+        { "type": "topic", "settings": { "label": "Something else", "hint": "Write as much as you like.", "ref_label": "" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

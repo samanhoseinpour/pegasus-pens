@@ -96,6 +96,18 @@ All in `assets/pegasus-chrome.css` plus a few lines in `sections/footer.liquid`,
 - **Programmatic scrolling:** call `window.Pegasus.lenis.scrollTo(...)` when it exists. The back-to-top button does; a native `behavior: 'smooth'` would fight Lenis's easing. Tests that count native wheel steps (`ixheader`) destroy it first with `window.Pegasus.lenis.destroy()`.
 - CSS for it ("Lenis smooth scroll") is at the end of `pegasus.css`.
 
+## Contact page
+
+`templates/page.contact.json` uses one section, `sections/pegasus-contact.liquid` (+ `assets/pegasus-contact.css`, `assets/pegasus-contact.js`), instead of Craft's `main-page` + `contact-form`. It is Shopify's own contact form (`{% form 'contact' %}`, posts to `/contact`), so spam protection, the email to the store and the success redirect are Shopify's.
+
+- **The plate:** the dark engraving plate from the home page returns as the form's header. `<pg-contact>` engraves the chosen **topic** on it (characters cut in one after another, staggered with `--i`; text added as text nodes), shows that topic's hint line (`aria-live="polite"`, also the textarea's `aria-describedby`) and relabels the "pen or order" field. After a successful send the plate engraves `success_plate` and the form is replaced by a confirmation whose heading takes focus. Topics are **blocks** (label, hint, label for the pen/order field), so the merchant edits them in the theme editor.
+- **Radios:** topics are real radios in a `<fieldset>`; the chip is the label, the (transparent) input covers it. In tests click the input, not the label (the input intercepts the pointer). `?topic=a gift` preselects a topic by its text, so another page can link to `/pages/contact?topic=engraving`.
+- **Without JavaScript** every field and the chosen topic are still posted; only the plate stays empty. Required fields are the email and the message (native `required`, and "(required)" in the label text, not just a symbol).
+- **Field names** are Shopify's: `contact[name]`, `contact[email]`, `contact[body]`, plus `contact[Topic]` and `contact[Pen or order]`, which arrive in the message as extra lines (their names are settings). No phone field, on purpose.
+- **Errors:** an `role="alert"` summary (focused) links to the field; the email input gets `aria-invalid` and `aria-describedby`. Shopify gives back `form.name`, `form.email` and `form.body` after an error but not custom fields, so the chosen topic is not restored.
+- **No invented facts:** no phone, address, hours or reply time. The only facts are the ones already on the site ("Hand-turned in British Columbia, Canada") and the store's own `shop.email`. The announcement bar's "Contact us" link (`shopify://pages/contact`) opens this page, so a page with the handle `contact` and the template suffix `contact` must exist in the Shopify admin.
+- Preview harness: `/pages/contact` renders it; `?state=success` and `?state=error` simulate Shopify's two outcomes, and a POST to `/contact` redirects to them (harness only, not in the repo).
+
 ## Compact header
 
 Once the header has been scrolled past and comes back (scroll up, with `sticky_header_type: on-scroll-up`), Craft adds `scrolled-past-header` to `.section-header`. `assets/pegasus-chrome.css` ("Compact header") then collapses the header to one row at every width: the `header-drawer` menu button (the nav row is hidden and stays reachable through that drawer), the smaller wordmark, the search (a 40rem field from 990 px, an icon below) and the icons. With sticky type "None" Craft never adds the class, so nothing changes.

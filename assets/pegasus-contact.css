@@ -1,0 +1,371 @@
+/* Contact page: the intro and an engraving plate on the left, the form on the right. */
+
+.pg-contact__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4.8rem;
+}
+
+@media screen and (min-width: 990px) {
+  .pg-contact__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(4.8rem, 7vw, 12rem);
+    align-items: start;
+  }
+
+  /* The intro and plate stay in view while the form scrolls. */
+  .pg-contact__intro {
+    position: sticky;
+    top: 12rem;
+  }
+}
+
+.pg-contact__heading {
+  margin: 0 0 2.4rem;
+  max-width: 12ch;
+}
+
+.pg-contact__text {
+  max-width: 40ch;
+  margin: 0 0 3.6rem;
+  font-size: 1.7rem;
+  line-height: 1.65;
+}
+
+/* ---------- The plate ---------- */
+
+.pg-contact__plate {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 16rem;
+  padding: 3.2rem 3.2rem;
+  background: var(--pg-espresso);
+  box-shadow: inset 0 0 0 1px rgba(var(--pg-gold-rgb), 0.6), inset 0 0 0 0.6rem var(--pg-espresso),
+    inset 0 0 0 0.7rem rgba(var(--pg-gold-rgb), 0.32);
+  color: var(--pg-gold);
+  text-align: center;
+}
+
+.pg-contact__plate::before,
+.pg-contact__plate::after {
+  content: '';
+  position: absolute;
+  top: 1.8rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: rgba(var(--pg-gold-rgb), 0.55);
+}
+
+.pg-contact__plate::before {
+  left: 1.8rem;
+}
+
+.pg-contact__plate::after {
+  right: 1.8rem;
+}
+
+.pg-contact__line {
+  display: block;
+  max-width: 100%;
+  font-family: var(--pg-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  font-size: clamp(3.4rem, 4.4vw, 5.4rem);
+}
+
+/* Longer words step down a size so they stay on one or two lines. */
+.pg-contact__plate[data-size='m'] .pg-contact__line {
+  font-size: clamp(3rem, 3.8vw, 4.6rem);
+}
+
+.pg-contact__plate[data-size='s'] .pg-contact__line {
+  font-size: clamp(2.6rem, 3.2vw, 3.8rem);
+}
+
+.pg-contact__plate[data-empty] .pg-contact__line::before {
+  content: attr(data-placeholder);
+  font-size: clamp(2.4rem, 3vw, 3.4rem);
+  opacity: 0.4;
+}
+
+/* Each character is cut in one after another: it lands out of focus and large, flashes pale, then settles to gold. */
+.pg-contact__c {
+  display: inline-block;
+  white-space: pre;
+}
+
+.pg-contact__c.is-new {
+  animation: pg-contact-cut 0.7s var(--pg-ease) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+@keyframes pg-contact-cut {
+  0% {
+    opacity: 0;
+    filter: blur(0.5rem);
+    color: var(--pg-parchment);
+    transform: scale(1.18);
+  }
+  45% {
+    opacity: 1;
+    filter: blur(0);
+    color: var(--pg-parchment);
+    transform: none;
+  }
+  100% {
+    color: var(--pg-gold);
+  }
+}
+
+.pg-contact__workshop {
+  margin: 1.6rem 0 0;
+  font-size: 1.4rem;
+  opacity: 0.9;
+}
+
+/* ---------- Form ---------- */
+
+.pg-contact__topics {
+  min-width: 0;
+  margin: 0 0 3.2rem;
+  padding: 0;
+  border: 0;
+}
+
+.pg-contact__legend {
+  float: left;
+  width: 100%;
+  margin: 0 0 1.4rem;
+  padding: 0;
+  font-family: var(--pg-display);
+  font-size: 2.2rem;
+  line-height: 1.2;
+}
+
+.pg-contact__legend + * {
+  clear: both;
+}
+
+.pg-contact__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pg-chip {
+  position: relative;
+}
+
+/* The radio is the real control; the chip is its label. */
+.pg-chip__input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.pg-chip__label {
+  display: block;
+  padding: 0.9rem 2rem 1.1rem;
+  border: 1px solid rgba(var(--color-foreground), 0.55);
+  font-family: var(--pg-display);
+  font-size: 2rem;
+  font-style: italic;
+  line-height: 1.2;
+  transition: background-color 0.25s var(--pg-ease), color 0.25s var(--pg-ease), border-color 0.25s var(--pg-ease);
+}
+
+.pg-chip__input:hover + .pg-chip__label {
+  border-color: rgb(var(--color-foreground));
+}
+
+.pg-chip__input:checked + .pg-chip__label {
+  border-color: rgb(var(--color-foreground));
+  background: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
+.pg-chip__input:focus-visible + .pg-chip__label {
+  outline: 0.2rem solid rgb(var(--color-foreground));
+  outline-offset: 0.3rem;
+}
+
+.pg-contact__hint {
+  min-height: 2.4rem;
+  margin: 1.4rem 0 0;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.pg-contact__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0 2.4rem;
+}
+
+@media screen and (min-width: 750px) {
+  .pg-contact__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.pg-contact__field {
+  margin-bottom: 2.4rem;
+}
+
+.pg-contact__label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.pg-contact__req {
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.pg-contact__input {
+  display: block;
+  width: 100%;
+  padding: 1.3rem 1.6rem;
+  border: 1px solid rgba(var(--color-foreground), 0.55);
+  border-radius: 0;
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font: inherit;
+  font-size: 1.7rem;
+  line-height: 1.4;
+}
+
+.pg-contact__textarea {
+  min-height: 18rem;
+  resize: vertical;
+}
+
+.pg-contact__input:focus-visible {
+  outline: 0.2rem solid rgb(var(--color-foreground));
+  outline-offset: 0.2rem;
+}
+
+.pg-contact__input[aria-invalid='true'] {
+  border-width: 2px;
+  border-color: rgb(var(--color-foreground));
+}
+
+.pg-contact__error {
+  margin: 0.8rem 0 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.pg-contact__errors {
+  margin-bottom: 3.2rem;
+  padding: 1.6rem 2rem;
+  border: 2px solid rgb(var(--color-foreground));
+}
+
+.pg-contact__errors:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.pg-contact__errors-title {
+  margin: 0 0 0.6rem;
+  font-weight: 600;
+}
+
+.pg-contact__errors ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pg-contact__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem 3.2rem;
+}
+
+.pg-contact__email {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.pg-contact__email a {
+  color: rgb(var(--color-foreground));
+  text-underline-offset: 0.3rem;
+}
+
+/* ---------- Sent ---------- */
+
+.pg-contact__sent {
+  max-width: 48rem;
+}
+
+.pg-contact__sent-heading {
+  margin: 0 0 1.6rem;
+}
+
+.pg-contact__sent-heading:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.pg-contact__sent p {
+  margin: 0 0 2.4rem;
+  font-size: 1.7rem;
+  line-height: 1.6;
+}
+
+.pg-contact__sent-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.6rem 3.2rem;
+}
+
+.pg-contact__again {
+  color: rgb(var(--color-foreground));
+  font-size: 1.6rem;
+  text-underline-offset: 0.4rem;
+}
+
+.pg-contact__content {
+  max-width: 62rem;
+  margin-top: 6.4rem;
+}
+
+@media screen and (max-width: 749px) {
+  .pg-contact__plate {
+    min-height: 12rem;
+    padding: 2.4rem;
+  }
+
+  .pg-chip__label {
+    font-size: 1.8rem;
+    padding: 0.8rem 1.6rem 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-contact__c.is-new {
+    animation: none;
+  }
+
+  .pg-chip__label {
+    transition: none;
+  }
+}
