@@ -26,13 +26,16 @@ if (!customElements.get('pg-personalize')) {
           this.update(field);
         });
 
-        // The home page engraving preview links here with ?engrave=<text>: open the panel with it filled in.
-        const wanted = new URLSearchParams(window.location.search).get('engrave');
-        if (wanted && this.input) {
+        // The home page engraving preview and the featured pen link here with ?engrave=<text>: open the panel, with the
+        // text filled in. An empty ?engrave= (the "Engrave it" link) opens it and puts the cursor in the field.
+        const params = new URLSearchParams(window.location.search);
+        if (this.input && params.has('engrave')) {
+          const wanted = (params.get('engrave') || '').trim();
           this.engraving.querySelector('[data-toggle]').checked = true;
-          this.input.value = wanted.trim().slice(0, Number(this.input.dataset.limit));
+          this.input.value = wanted.slice(0, Number(this.input.dataset.limit));
           this.sync(this.engraving);
           this.update(this.input);
+          if (!wanted) requestAnimationFrame(() => this.input.focus());
         }
 
         // Listening on the document survives the product form being re-rendered, and the capture phase

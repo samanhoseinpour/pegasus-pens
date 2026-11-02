@@ -5,6 +5,7 @@
 
   @param {product} product - The product whose option values are shown.
   @param {number} [limit] - How many dots to show before "+N". Defaults to `5`.
+  @param {boolean} [decorative] - Hide the dots from assistive tech (the value names are already written out next to them). Defaults to `false`.
 
   @example
   {% render 'pegasus-swatch-dots', product: card_product %}
@@ -25,11 +26,13 @@
 -%}
 {%- if shown_option -%}
   {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
-  <ul class="pg-dots" aria-label="{{ shown_option.name | escape }}">
+  <ul class="pg-dots"{% if decorative %} aria-hidden="true"{% else %} aria-label="{{ shown_option.name | escape }}"{% endif %}>
     {%- for value in shown_option.values limit: dot_limit -%}
       <li class="pg-dots__item" title="{{ value | escape }}">
         {%- render 'swatch', swatch: value.swatch -%}
-        <span class="visually-hidden">{{ value | escape }}</span>
+        {%- unless decorative -%}
+          <span class="visually-hidden">{{ value | escape }}</span>
+        {%- endunless -%}
       </li>
     {%- endfor -%}
     {%- assign extra = shown_option.values.size | minus: dot_limit -%}
