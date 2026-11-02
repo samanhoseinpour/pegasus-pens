@@ -121,13 +121,17 @@ pg-personalize:not(:defined) {
   transition-delay: 0s;
 }
 
+/* The panel clips its content so the height can animate. A focus ring sits 0.4rem outside its field (outline
+   0.2rem + offset 0.2rem), so the clip box is widened by 0.6rem on each side and the fields keep room below. */
 .pg-personalize__panel-inner {
   min-height: 0;
   overflow: hidden;
+  margin-inline: -0.6rem;
+  padding-inline: 0.6rem;
 }
 
 .pg-personalize__fields {
-  padding: 1.4rem 0.2rem 0.2rem;
+  padding: 1.4rem 0.2rem 0.6rem;
 }
 
 .pg-personalize__help {
