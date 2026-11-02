@@ -1,0 +1,91 @@
+/* Page hero: a calm opening for inner pages. Headline and lead on the left, the emblem (or a photo) on the right. */
+
+.pg-pagehero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4rem;
+  align-items: center;
+}
+
+.pg-pagehero__heading {
+  margin: 0;
+}
+
+.pg-pagehero__lead {
+  max-width: 34em;
+  margin: 2.4rem 0 0;
+  font-size: 1.7rem;
+  line-height: 1.6;
+}
+
+.pg-pagehero__visual {
+  justify-self: center;
+  width: 100%;
+  max-width: min(78vw, 42rem);
+}
+
+/* The shadow sits on the wrapper, so it follows the circle as it opens (a clip-path on the image itself would cut it). */
+.pg-pagehero__emblem {
+  filter: drop-shadow(0 2.8rem 3.4rem rgba(var(--pg-espresso-rgb), 0.26));
+}
+
+.pg-pagehero__emblem img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pg-pagehero__photo {
+  aspect-ratio: 3 / 4;
+}
+
+.pg-pagehero__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pg-pagehero__emblem img {
+    animation: pg-emblem-open 1.8s var(--pg-ease) 0.3s both;
+  }
+
+  html[data-pg-motion='off'] .pg-pagehero__emblem img {
+    animation: none;
+  }
+}
+
+@keyframes pg-emblem-open {
+  from {
+    clip-path: circle(0% at 50% 50%);
+    transform: scale(0.94);
+  }
+
+  to {
+    clip-path: circle(50% at 50% 50%);
+    transform: none;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .pg-pagehero__lead {
+    font-size: 1.9rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pg-pagehero__grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 6.4rem;
+  }
+
+  .pg-pagehero__lead {
+    font-size: 2rem;
+  }
+
+  .pg-pagehero__visual {
+    justify-self: end;
+    max-width: 54rem;
+  }
+}

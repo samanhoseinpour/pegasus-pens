@@ -1,0 +1,149 @@
+{{ 'pegasus-page-hero.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign heading = section.settings.heading | default: page.title
+-%}
+
+<div class="pg-pagehero color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width pg-pagehero__grid">
+    <div class="pg-pagehero__copy">
+      <h1 class="pg-pagehero__heading h0" data-pg-rise>{{ heading | escape }}</h1>
+      {%- if section.settings.text != blank -%}
+        <p class="pg-pagehero__lead">{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+    </div>
+    <div class="pg-pagehero__visual">
+      {%- if section.settings.visual == 'photo' -%}
+        <div class="pg-pagehero__photo" data-pg-wipe>
+          {%- if section.settings.image != blank -%}
+            {{
+              section.settings.image
+              | image_url: width: 1200
+              | image_tag:
+                class: 'pg-pagehero__img',
+                loading: 'eager',
+                fetchpriority: 'high',
+                widths: '600, 900, 1200',
+                sizes: '(min-width: 990px) 42vw, 78vw'
+            }}
+          {%- else -%}
+            {%- render 'pegasus-scene', name: section.settings.scene, class: 'pg-pagehero__img', loading: 'eager' -%}
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        {%- comment -%} Decorative: the lead already says where the pens are made. {%- endcomment -%}
+        <div class="pg-pagehero__emblem">
+          <img
+            src="{{ 'pegasus-emblem-large.webp' | asset_url }}"
+            alt=""
+            width="1080"
+            height="1080"
+            loading="eager"
+            fetchpriority="high"
+          >
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pegasus page hero",
+  "tag": "section",
+  "class": "pg-pagehero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave empty to use the page title.",
+      "default": "Where your pen comes from."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Each Pegasus pen is turned from a single blank of wood or resin in a workshop in British Columbia, Canada. Below is what happens between the blank and the box."
+    },
+    {
+      "type": "select",
+      "id": "visual",
+      "label": "Picture",
+      "options": [
+        { "value": "emblem", "label": "Pegasus emblem" },
+        { "value": "photo", "label": "Photo" }
+      ],
+      "default": "emblem"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Photo",
+      "info": "Used when the picture is a photo. Leave empty to use the bundled photo below."
+    },
+    {
+      "type": "select",
+      "id": "scene",
+      "label": "Bundled photo",
+      "options": [
+        { "value": "stone", "label": "Pen on slate" },
+        { "value": "leather", "label": "Pen on a leather journal" },
+        { "value": "burl", "label": "Burl pen on a desk" },
+        { "value": "desk", "label": "Pen on a marble desk" },
+        { "value": "skyline", "label": "Pen with a skyline" }
+      ],
+      "default": "stone"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 88
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 104
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pegasus page hero"
+    }
+  ]
+}
+{% endschema %}

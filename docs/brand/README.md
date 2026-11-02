@@ -6,6 +6,12 @@ Source files supplied by the owner on 2026-11-02. Nothing in `docs/` is deployed
 
 `logo-original.jpg` is the emblem: a gold, embossed medallion with a winged horse and pen, British Columbia mountains and pines, maple leaves, and a serif "PEGASUS PENS" wordmark on parchment. It is a JPEG on white, so there is no vector or transparent original. `assets/pegasus-emblem.png` (200 px, transparent, circular crop) is derived from it and used in the header, the footer and as the favicon fallback. A merchant-uploaded logo or favicon (Theme settings → Logo) overrides it.
 
+`assets/pegasus-emblem-large.webp` (1080 px, same circular crop, 220 KB) is the About page hero. It is cut from the original at full size, so it is as sharp as the source allows. To make it again:
+
+```
+magick docs/brand/logo-original.jpg -resize 1080x1080 \( -size 1080x1080 xc:black -fill white -draw "circle 540,540 540,5" \) -alpha off -compose CopyOpacity -composite -define webp:method=6 -quality 85 assets/pegasus-emblem-large.webp
+```
+
 ## Palette (sampled from the emblem, then checked for WCAG contrast)
 
 | Role | Value | Where |

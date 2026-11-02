@@ -1,0 +1,66 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "pegasus-page-hero",
+      "settings": {
+        "heading": "Where your pen comes from.",
+        "text": "Each Pegasus pen is turned from a single blank of wood or resin in a workshop in British Columbia, Canada. Below is what happens between the blank and the box.",
+        "visual": "emblem",
+        "scene": "stone",
+        "color_scheme": "scheme-1",
+        "padding_top": 88,
+        "padding_bottom": 104
+      }
+    },
+    "next": {
+      "type": "pegasus-pills",
+      "blocks": {
+        "link_1": {
+          "type": "link",
+          "settings": {
+            "label": "All pens",
+            "link": "shopify://collections/all"
+          }
+        },
+        "link_2": {
+          "type": "link",
+          "settings": {
+            "label": "Gift pens",
+            "link": "shopify://collections/gifts"
+          }
+        },
+        "link_3": {
+          "type": "link",
+          "settings": {
+            "label": "New runs",
+            "link": "shopify://collections/new-runs"
+          }
+        }
+      },
+      "block_order": [
+        "link_1",
+        "link_2",
+        "link_3"
+      ],
+      "settings": {
+        "heading": "Ready to choose?",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 120
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "next"
+  ]
+}
