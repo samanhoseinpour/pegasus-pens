@@ -118,6 +118,8 @@
       "add_to_cart": "Lisää ostoskoriin",
       "description": "Kuvaus",
       "on_sale": "Alennusmyynti",
+      "badge_new_run": "New run",
+      "badge_limited": "Limited",
       "quantity": {
         "label": "Määrä",
         "input_label": "Tuotteen {{ product }} määrä",

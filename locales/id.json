@@ -118,6 +118,8 @@
       "add_to_cart": "Tambahkan ke keranjang",
       "description": "Deskripsi",
       "on_sale": "Obral",
+      "badge_new_run": "New run",
+      "badge_limited": "Limited",
       "product_variants": "Varian produk",
       "quantity": {
         "label": "Jumlah",

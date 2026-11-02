@@ -119,6 +119,8 @@
       "add_to_cart": "Agregar al carrito",
       "description": "Descripción",
       "on_sale": "Oferta",
+      "badge_new_run": "New run",
+      "badge_limited": "Limited",
       "quantity": {
         "label": "Cantidad",
         "input_label": "Cantidad para {{ product }}",

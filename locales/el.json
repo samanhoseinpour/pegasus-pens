@@ -118,6 +118,8 @@
       "add_to_cart": "Προσθήκη στο καλάθι",
       "description": "Περιγραφή",
       "on_sale": "Έκπτωση",
+      "badge_new_run": "New run",
+      "badge_limited": "Limited",
       "product_variants": "Παραλλαγές προϊόντος",
       "quantity": {
         "label": "Ποσότητα",

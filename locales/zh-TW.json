@@ -118,6 +118,8 @@
       "add_to_cart": "加入購物車",
       "description": "說明",
       "on_sale": "特價",
+      "badge_new_run": "New run",
+      "badge_limited": "Limited",
       "product_variants": "產品子類",
       "quantity": {
         "label": "數量",

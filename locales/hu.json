@@ -118,6 +118,8 @@
       "add_to_cart": "Hozzáadás a kosárhoz",
       "description": "Leírás",
       "on_sale": "Akciós",
+      "badge_new_run": "New run",
+      "badge_limited": "Limited",
       "product_variants": "Termékváltozatok",
       "quantity": {
         "label": "Mennyiség",

@@ -120,6 +120,8 @@
       "add_to_cart": "Dodaj v košarico",
       "description": "Opis",
       "on_sale": "Znižanje",
+      "badge_new_run": "New run",
+      "badge_limited": "Limited",
       "product_variants": "Različice izdelka",
       "share": "Deli ta izdelek",
       "sold_out": "Razprodano",

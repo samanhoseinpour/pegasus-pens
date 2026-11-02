@@ -118,6 +118,8 @@
       "add_to_cart": "Lägg i varukorgen",
       "description": "Beskrivning",
       "on_sale": "Rea",
+      "badge_new_run": "New run",
+      "badge_limited": "Limited",
       "quantity": {
         "label": "Kvantitet",
         "input_label": "Kvantitet för {{ product }}",

@@ -119,6 +119,8 @@
       "add_to_cart": "Ajouter au panier",
       "description": "Description",
       "on_sale": "Promotion",
+      "badge_new_run": "New run",
+      "badge_limited": "Limited",
       "product_variants": "Variantes de produits",
       "quantity": {
         "label": "Quantité",

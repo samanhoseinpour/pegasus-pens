@@ -118,6 +118,8 @@
       "add_to_cart": "Добавяне към количката",
       "description": "Описание",
       "on_sale": "Разпродажба",
+      "badge_new_run": "New run",
+      "badge_limited": "Limited",
       "quantity": {
         "label": "Количество",
         "input_label": "Количество за {{ product }}",

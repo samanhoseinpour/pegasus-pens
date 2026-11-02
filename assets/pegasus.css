@@ -467,3 +467,24 @@ volume-pricing li,
     transform: none;
   }
 }
+
+/* ---------- Product cards: colour dots ---------- */
+
+.pg-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pg-dots__item .swatch {
+  --swatch--size: 1.4rem;
+}
+
+.pg-dots__more {
+  font-size: 1.2rem;
+  line-height: 1;
+  opacity: 0.8;
+}

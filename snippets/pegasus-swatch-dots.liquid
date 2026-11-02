@@ -1,0 +1,40 @@
+{% doc %}
+  Renders small colour dots for a product card, from the first option whose values have swatches
+  (set in the Shopify admin: Products > option > swatch). Renders nothing when no value has a swatch,
+  so a product without swatches looks exactly as before.
+
+  @param {product} product - The product whose option values are shown.
+  @param {number} [limit] - How many dots to show before "+N". Defaults to `5`.
+
+  @example
+  {% render 'pegasus-swatch-dots', product: card_product %}
+{% enddoc %}
+{%- liquid
+  assign dot_limit = limit | default: 5
+  assign shown_option = null
+  for option in product.options_with_values
+    unless shown_option
+      for value in option.values
+        if value.swatch
+          assign shown_option = option
+          break
+        endif
+      endfor
+    endunless
+  endfor
+-%}
+{%- if shown_option -%}
+  {{ 'component-swatch.css' | asset_url | stylesheet_tag }}
+  <ul class="pg-dots" aria-label="{{ shown_option.name | escape }}">
+    {%- for value in shown_option.values limit: dot_limit -%}
+      <li class="pg-dots__item" title="{{ value | escape }}">
+        {%- render 'swatch', swatch: value.swatch -%}
+        <span class="visually-hidden">{{ value | escape }}</span>
+      </li>
+    {%- endfor -%}
+    {%- assign extra = shown_option.values.size | minus: dot_limit -%}
+    {%- if extra > 0 -%}
+      <li class="pg-dots__more" aria-hidden="true">+{{ extra }}</li>
+    {%- endif -%}
+  </ul>
+{%- endif -%}

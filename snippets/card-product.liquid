@@ -143,6 +143,10 @@
                 >
                   {{- 'products.product.on_sale' | t -}}
                 </span>
+              {%- elsif card_product.tags contains 'limited' -%}
+                <span class="badge badge--bottom-left color-scheme-4">{{- 'products.product.badge_limited' | t -}}</span>
+              {%- elsif card_product.tags contains 'new-run' -%}
+                <span class="badge badge--bottom-left color-scheme-3">{{- 'products.product.badge_new_run' | t -}}</span>
               {%- endif -%}
             </div>
           </div>
@@ -209,6 +213,7 @@
               {%- endif -%}
 
               {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+              {%- render 'pegasus-swatch-dots', product: card_product -%}
               {%- if card_product.quantity_price_breaks_configured? -%}
                 {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                   {% liquid
@@ -567,6 +572,10 @@
               >
                 {{- 'products.product.on_sale' | t -}}
               </span>
+            {%- elsif card_product.tags contains 'limited' -%}
+              <span class="badge badge--bottom-left color-scheme-4">{{- 'products.product.badge_limited' | t -}}</span>
+            {%- elsif card_product.tags contains 'new-run' -%}
+              <span class="badge badge--bottom-left color-scheme-3">{{- 'products.product.badge_new_run' | t -}}</span>
             {%- endif -%}
           </div>
         </div>

@@ -118,6 +118,8 @@
       "add_to_cart": "添加到购物车",
       "description": "描述",
       "on_sale": "促销",
+      "badge_new_run": "New run",
+      "badge_limited": "Limited",
       "product_variants": "产品多属性",
       "quantity": {
         "label": "数量",
