@@ -98,6 +98,17 @@
     });
   }
 
+  // The header shrinks to one row after it has been scrolled past (see "Compact header" in pegasus.css). Keeping
+  // its full height reserved in the layout means the page never moves when that happens: browsers without scroll
+  // anchoring (Safari) would otherwise jump by the difference.
+  var wide = window.matchMedia('(min-width: 990px)');
+  function holdHeader() {
+    var header = document.querySelector('.section-header');
+    if (!header || header.classList.contains('scrolled-past-header')) return;
+    header.style.minHeight = '';
+    if (wide.matches) header.style.minHeight = header.offsetHeight + 'px';
+  }
+
   var ticking = false;
   function onScroll() {
     if (ticking) return;
@@ -109,7 +120,13 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', holdHeader);
+  wide.addEventListener('change', holdHeader);
   onScroll();
+  holdHeader();
+  window.addEventListener('load', holdHeader);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(holdHeader);
+  document.addEventListener('shopify:section:load', holdHeader);
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { init(); });
   else init();

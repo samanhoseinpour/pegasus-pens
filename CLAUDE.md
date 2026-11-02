@@ -46,6 +46,12 @@ New sections (all with presets, so merchants can add them anywhere; schema label
 
 `<pg-rail>` cancels native `dragstart` (links and images otherwise swallow the pointer events and break drag-to-scroll) and snaps explicitly after a drag.
 
+## Compact header
+
+On screens 990 px and wider, once the header has been scrolled past and comes back (scroll up, with `sticky_header_type: on-scroll-up`), Craft adds `scrolled-past-header` to `.section-header`. `assets/pegasus.css` ("Compact header") then collapses the two-row header to one row: the hidden `header-drawer` menu button is shown in the `left-icons` slot (the nav row is hidden and stays reachable through that drawer), the wordmark shrinks, padding drops. With sticky type "None" Craft never adds the class, so nothing changes. Phones and tablets are untouched.
+
+- **Do not remove the height reservation in `pegasus.js` (`holdHeader`).** Shrinking an in-flow sticky header moves the page up by the difference; Chrome and Firefox compensate with scroll anchoring but Safari does not (the test turns `overflow-anchor` off to prove it). The script keeps the full height as `min-height` on `.section-header` (re-measured on load, resize, fonts, section re-render and only while not compact); the empty strip below the compact bar is `pointer-events: none` so it never blocks clicks.
+
 ## Product page: sticky add-to-cart bar
 
 `snippets/pegasus-sticky-atc.liquid` is rendered at the end of `sections/main-product.liquid` (inside `<product-info>`), behind the `sticky_bar` section setting (default on). `<pg-sticky-atc>` (assets/pegasus-sticky-atc.js) never submits anything: its button calls `.click()` on the real `#ProductSubmitButton-<section id>`, and a MutationObserver mirrors that button's label, `disabled`, `aria-disabled` and `loading` state, so errors, spinners and sold-out behave exactly like the page. The price is copied from `#price-<section id>` (Craft rewrites it on variant change); the variant title and thumbnail come from the `variantChange` pubsub event.
