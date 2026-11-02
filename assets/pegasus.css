@@ -410,50 +410,6 @@ volume-pricing li,
   padding: 0.5rem 1rem;
 }
 
-/* ---------- Compact header ---------- */
-
-/* On wide screens, once the header has been scrolled past and comes back (scroll up), it shrinks to one row:
-   menu button, smaller wordmark and the icons. The nav row stays reachable through the menu button. Craft adds
-   `scrolled-past-header` only when a sticky header type is chosen, so "None" keeps the full header. */
-@media screen and (min-width: 990px) {
-  /* pegasus.js keeps the full header height reserved on the wrapper, so the empty strip under the compact row
-     must not catch clicks meant for the page. */
-  .section-header.scrolled-past-header {
-    pointer-events: none;
-  }
-
-  .section-header.scrolled-past-header > * {
-    pointer-events: auto;
-  }
-
-  .section-header.scrolled-past-header .header--top-center:not(.drawer-menu) {
-    grid-template-areas: 'left-icons heading icons';
-    grid-template-columns: 1fr auto 1fr;
-  }
-
-  .section-header.scrolled-past-header .header__inline-menu {
-    display: none;
-  }
-
-  .section-header.scrolled-past-header header-drawer {
-    display: block;
-  }
-
-  .section-header.scrolled-past-header .header {
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-  }
-
-  .section-header.scrolled-past-header .pg-wordmark__mark {
-    width: 3.6rem;
-    height: 3.6rem;
-  }
-
-  .section-header.scrolled-past-header .pg-wordmark__name {
-    font-size: 2.2rem;
-  }
-}
-
 /* ---------- Reveal choreography (driven by pegasus.js) ---------- */
 
 .pg-wipe {

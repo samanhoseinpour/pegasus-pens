@@ -2,8 +2,9 @@
    - It changes slides by itself only when the merchant allows it AND motion is allowed (not reduced motion, not the
      theme editor). The progress line of the active dot is a CSS animation, and its `animationend` moves to the next
      slide, so pausing (CSS animation-play-state) pauses the timing too.
-   - It holds while the pointer or keyboard focus is inside, while the tab is hidden or the slider is off screen, and
-     while the visitor has pressed pause.
+   - It holds while the pointer or keyboard focus is inside, and while the tab is hidden or the slider is off screen.
+     There are no arrows or pause button (the owner asked for a clean bar): the dots are the controls, and swiping works
+     on touch screens.
    - Inactive slides are `inert`, so their links and buttons are not reachable. */
 
 if (!customElements.get('pg-slider')) {
@@ -13,10 +14,8 @@ if (!customElements.get('pg-slider')) {
       connectedCallback() {
         this.slides = [...this.querySelectorAll('[data-slide]')];
         this.dots = [...this.querySelectorAll('[data-dot]')];
-        this.pauseButton = this.querySelector('[data-pause]');
         this.index = Math.max(0, this.slides.findIndex((s) => s.classList.contains('is-active')));
         this.holds = new Set();
-        this.userPaused = false;
 
         const motion =
           !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
@@ -28,8 +27,6 @@ if (!customElements.get('pg-slider')) {
         this.setAttribute('data-ready', '');
         this.show(this.index);
 
-        this.querySelector('[data-prev]')?.addEventListener('click', () => this.step(-1));
-        this.querySelector('[data-next]')?.addEventListener('click', () => this.step(1));
         this.dots.forEach((dot, i) => dot.addEventListener('click', () => this.show(i)));
         this.addEventListener('animationend', (e) => {
           if (this.autoplay && e.animationName === 'pg-dot-fill') this.step(1);
@@ -37,8 +34,6 @@ if (!customElements.get('pg-slider')) {
 
         if (this.autoplay) {
           this.setAttribute('data-playing', '');
-          this.pauseButton.hidden = false;
-          this.pauseButton.addEventListener('click', () => this.togglePause());
           this.addEventListener('pointerenter', () => this.hold('pointer'));
           this.addEventListener('pointerleave', () => this.release('pointer'));
           // Only keyboard focus holds it; a mouse click on a control should not stop the slider for good.
@@ -104,17 +99,7 @@ if (!customElements.get('pg-slider')) {
 
       release(reason) {
         this.holds.delete(reason);
-        if (!this.holds.size && !this.userPaused) this.classList.remove('is-held');
-      }
-
-      togglePause() {
-        this.userPaused = !this.userPaused;
-        this.classList.toggle('is-paused', this.userPaused);
-        if (this.userPaused) this.classList.add('is-held');
-        else if (!this.holds.size) this.classList.remove('is-held');
-        this.pauseButton.setAttribute('aria-label', this.userPaused ? this.dataset.playLabel : this.dataset.pauseLabel);
-        // Not announced while it changes by itself; announced when the visitor takes over.
-        this.querySelector('[data-stage]').setAttribute('aria-live', this.userPaused ? 'polite' : 'off');
+        if (!this.holds.size) this.classList.remove('is-held');
       }
     }
   );

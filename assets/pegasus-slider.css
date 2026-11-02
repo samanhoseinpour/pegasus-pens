@@ -64,8 +64,8 @@ pg-slider[data-ready] .pg-slide.is-active .pg-hero--has-image .pg-hero__image {
 
 /* The control bar is part of the first screen, so the slides give up its height. */
 .pg-slider .pg-hero {
-  min-height: clamp(54rem, calc(100vh - 26rem), 96rem);
-  min-height: clamp(54rem, calc(100svh - 26rem), 96rem);
+  min-height: clamp(54rem, calc(100vh - 25.4rem), 96rem);
+  min-height: clamp(54rem, calc(100svh - 25.4rem), 96rem);
 }
 
 .pg-slider .pg-hero--has-image .pg-hero__image {
@@ -81,9 +81,8 @@ pg-slider[data-ready] .pg-slide.is-active .pg-hero--has-image .pg-hero__image {
 .pg-slider__bar-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  min-height: 5.6rem;
+  justify-content: center;
+  min-height: 5.2rem;
 }
 
 .pg-slider__dots {
@@ -143,88 +142,17 @@ pg-slider[data-playing].is-held .pg-slider__dot.is-active .pg-slider__dot-fill::
   }
 }
 
-.pg-slider__dot:focus-visible,
-.pg-slider__button:focus-visible {
+.pg-slider__dot:focus-visible {
   outline: 0.2rem solid var(--pg-gold);
   outline-offset: -0.2rem;
 }
 
-.pg-slider__buttons {
-  display: flex;
-  align-items: center;
-}
-
-.pg-slider__button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 4.4rem;
-  height: 4.4rem;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: rgb(var(--color-foreground));
-  cursor: pointer;
-}
-
-.pg-slider__button[hidden] {
-  display: none;
-}
-
-.pg-slider__button:hover {
-  color: var(--pg-gold);
-}
-
-.pg-slider__arrow {
-  display: flex;
-  width: 2rem;
-  height: 2rem;
-}
-
-.pg-slider__arrow--prev {
-  transform: rotate(180deg);
-}
-
-/* Pause and play are drawn with borders so there is no extra icon file. */
-.pg-slider__icon {
-  display: block;
-}
-
-.pg-slider__icon--pause {
-  width: 1.2rem;
-  height: 1.4rem;
-  border-inline: 0.4rem solid currentColor;
-}
-
-.pg-slider__icon--play {
-  display: none;
-  width: 0;
-  height: 0;
-  border-block: 0.8rem solid transparent;
-  border-inline-start: 1.3rem solid currentColor;
-}
-
-pg-slider.is-paused .pg-slider__icon--pause {
-  display: none;
-}
-
-pg-slider.is-paused .pg-slider__icon--play {
-  display: block;
-}
-
 @media screen and (max-width: 420px) {
-  .pg-slider__bar-inner {
-    gap: 0.8rem;
-  }
-
   .pg-slider__dot {
     width: 4rem;
     padding: 0 0.5rem;
   }
 
-  .pg-slider__button {
-    width: 4rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

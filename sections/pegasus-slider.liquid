@@ -18,8 +18,6 @@
   aria-label="{{ section.settings.label | escape }}"
   data-autoplay="{{ section.settings.autoplay }}"
   data-interval="{{ interval_ms }}"
-  data-pause-label="{{ 'sections.slideshow.pause_slideshow' | t | escape }}"
-  data-play-label="{{ 'sections.slideshow.play_slideshow' | t | escape }}"
 >
   <div class="pg-slider__stage" data-stage>
     {%- for block in section.blocks -%}
@@ -60,18 +58,6 @@
               <span class="pg-slider__dot-fill"></span>
             </button>
           {%- endfor -%}
-        </div>
-        <div class="pg-slider__buttons">
-          <button type="button" class="pg-slider__button pg-slider__pause" aria-label="{{ 'sections.slideshow.pause_slideshow' | t }}" data-pause hidden>
-            <span class="pg-slider__icon pg-slider__icon--pause" aria-hidden="true"></span>
-            <span class="pg-slider__icon pg-slider__icon--play" aria-hidden="true"></span>
-          </button>
-          <button type="button" class="pg-slider__button" aria-label="{{ 'general.slider.previous_slide' | t }}" data-prev>
-            <span class="svg-wrapper pg-slider__arrow pg-slider__arrow--prev">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
-          </button>
-          <button type="button" class="pg-slider__button" aria-label="{{ 'general.slider.next_slide' | t }}" data-next>
-            <span class="svg-wrapper pg-slider__arrow">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
-          </button>
         </div>
       </div>
     </div>
