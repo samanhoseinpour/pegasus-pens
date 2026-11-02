@@ -346,6 +346,59 @@
         "label": "Customer quotes"
       }
     },
+    "pills": {
+      "type": "pegasus-pills",
+      "blocks": {
+        "link_1": {
+          "type": "link",
+          "settings": {
+            "label": "New runs",
+            "link": "shopify://collections/new-runs"
+          }
+        },
+        "link_2": {
+          "type": "link",
+          "settings": {
+            "label": "Gifts",
+            "link": "shopify://collections/gifts"
+          }
+        },
+        "link_3": {
+          "type": "link",
+          "settings": {
+            "label": "Limited",
+            "link": "shopify://collections/limited"
+          }
+        },
+        "link_4": {
+          "type": "link",
+          "settings": {
+            "label": "Bestsellers",
+            "link": "shopify://collections/bestsellers"
+          }
+        },
+        "link_5": {
+          "type": "link",
+          "settings": {
+            "label": "All pens",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "link_1",
+        "link_2",
+        "link_3",
+        "link_4",
+        "link_5"
+      ],
+      "settings": {
+        "heading": "Where would you like to start?",
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
     "promises": {
       "type": "multicolumn",
       "blocks": {
@@ -463,6 +516,7 @@
     "engrave",
     "nibs",
     "quotes",
+    "pills",
     "promises"
   ]
 }

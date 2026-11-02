@@ -1,0 +1,109 @@
+{{ 'pegasus-pills.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="pg-pills color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pg-pills__heading h2" id="PgPills-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    <ul class="pg-pills__list" {% if section.settings.heading != blank %}aria-labelledby="PgPills-{{ section.id }}"{% endif %}>
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          <a class="pg-pills__link" href="{{ block.settings.link | default: routes.all_products_collection_url }}">
+            {{- block.settings.label | escape -}}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pegasus quick links",
+  "tag": "section",
+  "class": "pg-pills-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Where would you like to start?"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "New runs"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Leave empty to open all products."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Pegasus quick links",
+      "blocks": [
+        { "type": "link", "settings": { "label": "New runs" } },
+        { "type": "link", "settings": { "label": "Gifts" } },
+        { "type": "link", "settings": { "label": "All pens" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
