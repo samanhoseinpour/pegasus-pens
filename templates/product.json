@@ -131,6 +131,60 @@
         "padding_bottom": 44
       }
     },
+    "anatomy": {
+      "type": "pegasus-anatomy",
+      "blocks": {
+        "twist": {
+          "type": "twist",
+          "settings": {
+            "name": "Twist action",
+            "text": "Twist the barrel to bring the tip out, and twist it back to put it away."
+          }
+        },
+        "clip": {
+          "type": "clip",
+          "settings": {
+            "name": "Clip",
+            "text": "Holds the pen to a pocket or a page."
+          }
+        },
+        "barrel": {
+          "type": "barrel",
+          "settings": {
+            "name": "Turned barrel",
+            "text": "Hand-turned from wood or resin."
+          }
+        },
+        "cartridge": {
+          "type": "cartridge",
+          "settings": {
+            "name": "Refillable cartridge",
+            "text": "Swap the cartridge and keep the pen."
+          }
+        },
+        "hardware": {
+          "type": "hardware",
+          "settings": {
+            "name": "Gold hardware",
+            "text": "The top, clip, bands and tip."
+          }
+        }
+      },
+      "block_order": [
+        "twist",
+        "clip",
+        "barrel",
+        "cartridge",
+        "hardware"
+      ],
+      "settings": {
+        "heading": "The pen, part by part.",
+        "drawing_label": "A Pegasus pen drawn in line, with its parts marked",
+        "color_scheme": "scheme-4",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
     "reviews": {
       "type": "pegasus-review-wall",
       "blocks": {
@@ -206,6 +260,7 @@
     "breadcrumbs",
     "main",
     "disclosures",
+    "anatomy",
     "reviews",
     "related-products"
   ]

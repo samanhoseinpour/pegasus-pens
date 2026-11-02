@@ -1,0 +1,266 @@
+/* Pen anatomy: a twist pen drawn in line with its parts named. On wide screens the names sit beside the drawing on
+   hairline leaders; on narrow ones the drawing stands alone and the names follow as a list. */
+
+.pg-anat__heading {
+  margin: 0 0 4.8rem;
+  text-align: center;
+}
+
+.pg-anat__stage {
+  position: relative;
+}
+
+.pg-anat__figure {
+  width: min(52%, 20rem);
+  margin: 0 auto;
+}
+
+.pg-anat__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.pg-anat__svg * {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Wood and resin in the text color, hardware in the scheme's button color (gold on espresso). */
+.pg-anat__body {
+  stroke: rgba(var(--color-foreground), 0.82);
+  stroke-width: 1.5;
+}
+
+.pg-anat__metal {
+  stroke: rgb(var(--color-button));
+  stroke-width: 1.7;
+}
+
+.pg-anat__axis {
+  stroke: rgba(var(--color-foreground), 0.22);
+  stroke-width: 1;
+  stroke-dasharray: 10 4 2 4;
+}
+
+.pg-anat__cart {
+  stroke: rgba(var(--color-foreground), 0.55);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 3;
+}
+
+.pg-anat__lead {
+  stroke: rgba(var(--color-foreground), 0.4);
+  stroke-width: 1;
+}
+
+.pg-anat__svg .pg-anat__dot {
+  fill: rgb(var(--color-button));
+  stroke: none;
+}
+
+/* ---------- Parts: a plain list when there is no room beside the drawing ---------- */
+
+.pg-anat__leaders {
+  display: none;
+}
+
+.pg-anat__parts {
+  margin: 4.8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The hairline is built here, not taken from --pg-hair: that token is resolved once at the page root, in the light
+   scheme's ink, and would stay invisible on this dark section. */
+.pg-anat__part {
+  padding: 1.8rem 0;
+  border-top: 1px solid rgba(var(--color-foreground), 0.18);
+}
+
+.pg-anat__name {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-heading-family);
+  font-size: 2.1rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.pg-anat__text {
+  display: block;
+  max-width: 44ch;
+  font-size: 1.4rem;
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.78);
+}
+
+@media screen and (min-width: 600px) and (max-width: 989px) {
+  .pg-anat__parts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 4rem;
+  }
+}
+
+/* ---------- Wide: names on both sides, each on a leader that meets its part ---------- */
+
+@media screen and (min-width: 990px) {
+  .pg-anat__figure {
+    width: 22rem;
+  }
+
+  .pg-anat__leaders {
+    display: inline;
+  }
+
+  .pg-anat__parts {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+  }
+
+  /* --y is where the leader meets the pen, as a share of the drawing's height (y / 720). */
+  .pg-anat__part {
+    position: absolute;
+    top: calc(var(--y) * 1%);
+    width: 25rem;
+    padding: 0;
+    border: 0;
+    transform: translateY(-50%);
+  }
+
+  .pg-anat__part::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 0.5px);
+    width: 2.4rem;
+    height: 1px;
+    background: rgba(var(--color-foreground), 0.4);
+  }
+
+  .pg-anat__part--twist {
+    --y: 14.03;
+  }
+
+  .pg-anat__part--clip {
+    --y: 23.61;
+  }
+
+  .pg-anat__part--barrel {
+    --y: 34.72;
+  }
+
+  .pg-anat__part--cartridge {
+    --y: 59.72;
+  }
+
+  .pg-anat__part--hardware {
+    --y: 73.19;
+  }
+
+  .pg-anat__part--twist,
+  .pg-anat__part--barrel,
+  .pg-anat__part--cartridge {
+    right: calc(50% + 11rem + 2.4rem);
+    text-align: right;
+  }
+
+  .pg-anat__part--twist::after,
+  .pg-anat__part--barrel::after,
+  .pg-anat__part--cartridge::after {
+    right: -2.4rem;
+  }
+
+  .pg-anat__part--clip,
+  .pg-anat__part--hardware {
+    left: calc(50% + 11rem + 2.4rem);
+  }
+
+  .pg-anat__part--clip::after,
+  .pg-anat__part--hardware::after {
+    left: -2.4rem;
+  }
+
+  .pg-anat__text {
+    margin-inline: auto 0;
+  }
+
+  .pg-anat__part--clip .pg-anat__text,
+  .pg-anat__part--hardware .pg-anat__text {
+    margin-inline: 0 auto;
+  }
+}
+
+/* ---------- Drawn by scrolling ----------
+   Each line is drawn between two points of the stage's scroll range (--a and --b), body first, then the clip and
+   hardware, then the leaders and names. Where the browser cannot tie an animation to scroll, and with reduced
+   motion, the drawing is simply there. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pg-anat__stage {
+      view-timeline: --pg-anat block;
+    }
+
+    .pg-anat__draw {
+      stroke-dasharray: 1;
+      animation: pg-anat-draw linear both;
+      animation-timeline: --pg-anat;
+      animation-range: cover var(--a, 8%) cover var(--b, 24%);
+    }
+
+    .pg-anat__fade {
+      animation: pg-anat-fade linear both;
+      animation-timeline: --pg-anat;
+      animation-range: cover var(--a, 8%) cover var(--b, 24%);
+    }
+  }
+}
+
+/* The names rise in only where they sit beside the drawing; as a plain list below it they just stay put. */
+@media screen and (min-width: 990px) {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .pg-anat__part {
+        animation: pg-anat-rise linear both;
+        animation-timeline: --pg-anat;
+        animation-range: cover var(--a, 8%) cover var(--b, 24%);
+      }
+    }
+  }
+}
+
+@keyframes pg-anat-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pg-anat-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pg-anat-rise {
+  from {
+    opacity: 0;
+    transform: translateY(calc(-50% + 1.2rem));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
