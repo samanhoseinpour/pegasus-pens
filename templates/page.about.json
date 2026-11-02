@@ -21,6 +21,60 @@
         "padding_bottom": 104
       }
     },
+    "process": {
+      "type": "pegasus-process",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Choose the blank",
+            "text": "Every pen starts as one block of burl wood, hardwood, laminated wood or resin."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Turn it on the lathe",
+            "text": "The barrel is shaped from that single piece on the lathe."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Polish by hand",
+            "text": "Every barrel is finished by hand: burl is sealed to a deep gloss, hardwood is oiled and resin is polished."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Fit and test",
+            "text": "Gold-plated hardware, the twist mechanism and a refillable cartridge go in. We write with every pen before it leaves the bench."
+          }
+        },
+        "step_5": {
+          "type": "step",
+          "settings": {
+            "title": "Engrave and box",
+            "text": "Engraved on request, then boxed. Add initials or a short line to any pen, and gift wrap and a card with your own words if it is a gift."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4",
+        "step_5"
+      ],
+      "settings": {
+        "heading": "Five stops between the blank and the box.",
+        "text": "What happens to a pen before it reaches you.",
+        "color_scheme": "scheme-4",
+        "padding_top": 112,
+        "padding_bottom": 128
+      }
+    },
     "next": {
       "type": "pegasus-pills",
       "blocks": {
@@ -61,6 +115,7 @@
   },
   "order": [
     "hero",
+    "process",
     "next"
   ]
 }

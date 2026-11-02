@@ -1,0 +1,232 @@
+/* Process: numbered stops down a line that is drawn as the page scrolls, led by a small pen.
+   Colors come from the section's color scheme: the button color is gold on the espresso scheme. */
+
+.pg-proc {
+  --pg-node: 4.4rem;
+  --pg-lift: 7.2rem;
+  --pg-title: calc(var(--font-heading-scale) * clamp(2.6rem, 2.7vw, 3.8rem));
+}
+
+.pg-proc__grid {
+  display: grid;
+  gap: 4.8rem;
+}
+
+.pg-proc__heading {
+  margin: 0;
+  font-size: calc(var(--font-heading-scale) * clamp(3.2rem, 3.9vw, 5.6rem));
+  line-height: 1.06;
+  letter-spacing: -0.016em;
+}
+
+.pg-proc__lead {
+  max-width: 26em;
+  margin: 2.4rem 0 0;
+  font-size: 1.7rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+pg-process {
+  display: block;
+  position: relative;
+}
+
+/* The line runs from the first ring's bottom edge to the last ring's top edge. The script measures its length;
+   without it the line falls back to the height of the track. */
+.pg-proc__rail {
+  position: absolute;
+  top: var(--pg-node);
+  inset-inline-start: calc(var(--pg-node) / 2);
+  width: 0.2rem;
+  height: var(--pg-rail, calc(100% - 2 * var(--pg-node)));
+  margin-inline-start: -0.1rem;
+  background: rgba(var(--color-button), 0.28);
+}
+
+/* --p is how much of the line is drawn. It is 1 (all of it) unless the script is live. */
+.pg-proc__ink {
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--color-button));
+  transform: scaleY(var(--p, 1));
+  transform-origin: top;
+}
+
+/* The pen's tip sits on the end of the drawn line. It runs behind the rings (they are z-index 1), so it slides out of the
+   first ring and threads through the others instead of covering their numbers. */
+.pg-proc__pen {
+  position: absolute;
+  top: calc(var(--p, 1) * 100%);
+  inset-inline-start: 0;
+  width: 1.8rem;
+  height: auto;
+  margin-inline-start: -0.8rem;
+  transform: translateY(-92.5%);
+}
+
+.pg-proc__pen-body {
+  fill: rgb(var(--color-background));
+  stroke: rgb(var(--color-button));
+  stroke-width: 1.2;
+}
+
+.pg-proc__pen-line {
+  fill: none;
+  stroke: rgb(var(--color-button));
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+.pg-proc__pen-tip {
+  fill: rgb(var(--color-button));
+}
+
+.pg-proc__steps {
+  display: grid;
+  gap: var(--pg-lift);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pg-proc__step {
+  position: relative;
+  min-height: var(--pg-node);
+  padding-inline-start: calc(var(--pg-node) + 2.4rem);
+}
+
+/* A ring is filled (lit) by default, so the section is complete without the script. */
+.pg-proc__node {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--pg-node);
+  height: var(--pg-node);
+  border: 0.15rem solid rgb(var(--color-button));
+  border-radius: 50%;
+  background: rgb(var(--color-button));
+  color: rgb(var(--color-button-text));
+  font-family: var(--font-heading-family);
+  font-size: 2rem;
+  font-style: italic;
+  line-height: 1;
+  transition: background-color 0.5s var(--pg-ease), border-color 0.5s var(--pg-ease), color 0.5s var(--pg-ease);
+}
+
+pg-process[data-live] .pg-proc__step:not(.is-lit) .pg-proc__node {
+  border-color: rgba(var(--color-button), 0.5);
+  background: rgb(var(--color-background));
+  color: rgba(var(--color-foreground), 0.72);
+}
+
+/* Steps the line has not reached yet are dimmed, but stay above 4.5:1 so they can be read ahead. */
+.pg-proc__body {
+  transition: opacity 0.6s var(--pg-ease);
+}
+
+pg-process[data-live] .pg-proc__step:not(.is-lit) .pg-proc__body {
+  opacity: 0.7;
+}
+
+/* The top padding centers the title's first line on its ring. */
+.pg-proc__title {
+  margin: 0;
+  padding-top: calc((var(--pg-node) - 1.1 * var(--pg-title)) / 2);
+  font-size: var(--pg-title);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.pg-proc__text {
+  max-width: 44ch;
+  margin: 1.2rem 0 0;
+  font-size: 1.6rem;
+  line-height: 1.65;
+  color: rgba(var(--color-foreground), 0.84);
+  text-wrap: pretty;
+}
+
+.pg-proc__media {
+  max-width: 48rem;
+  margin-top: 2.4rem;
+  aspect-ratio: 4 / 3;
+}
+
+.pg-proc__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 750px) {
+  .pg-proc {
+    --pg-node: 5.2rem;
+    --pg-lift: 9.6rem;
+  }
+
+  .pg-proc__lead {
+    font-size: 1.8rem;
+  }
+
+  .pg-proc__step {
+    padding-inline-start: calc(var(--pg-node) + 3.2rem);
+  }
+
+  .pg-proc__node {
+    font-size: 2.2rem;
+  }
+
+  .pg-proc__text {
+    font-size: 1.7rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pg-proc {
+    --pg-node: 5.6rem;
+    --pg-lift: 11.2rem;
+  }
+
+  .pg-proc__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 6.4rem;
+  }
+
+  /* The heading stays in view while the steps scroll past. */
+  .pg-proc__intro {
+    position: sticky;
+    top: calc(var(--header-height, 12rem) + 3.2rem);
+    align-self: start;
+  }
+
+  .pg-proc__step {
+    padding-inline-start: calc(var(--pg-node) + 4.8rem);
+  }
+
+  .pg-proc__pen {
+    width: 2.2rem;
+    margin-inline-start: -1rem;
+  }
+
+  .pg-proc__node {
+    font-size: 2.4rem;
+  }
+
+  .pg-proc__text {
+    font-size: 1.8rem;
+  }
+}
+
+/* Forced colors replace background colors, which would erase the line. */
+@media (forced-colors: active) {
+  .pg-proc__rail,
+  .pg-proc__ink {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+}
