@@ -79,6 +79,7 @@ Everything goes through Shopify CLI (5.0.0 installed). There is no `shopify.them
 - Lint: `shopify theme check --path .` (`--fail-level error`, `-a` to auto-correct, `-j` for JSON)
 - Preview / sync: `shopify theme dev --store <shop>.myshopify.com`, `shopify theme pull|push` (need store auth)
 - Deploy: pushes to `main` are meant to update the Shopify theme through Shopify's GitHub integration (connected once in the Shopify admin: Online Store > Themes > Add theme > Connect from GitHub). That integration is two-way: edits made in the theme editor are committed back to the branch, so `git pull` before you push, and expect `config/settings_data.json` and `templates/*.json` to change under you.
+- Commits carry **no `Co-Authored-By` trailer and no mention of Claude** (the owner asked for this; GitHub otherwise lists "claude" as a co-author). Do not add attribution lines to commit messages or PR bodies.
 - There is no test suite.
 
 Lint baseline is **not clean**: 2 errors and 9 warnings. Both errors are `UnknownFilter: applicable_disclosures` in `snippets/cart-disclosure-indicator.liquid` and `snippets/product-disclosures.liquid`. That is probably a Shopify filter newer than the bundled theme-check. Compare against this baseline instead of expecting zero.
