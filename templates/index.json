@@ -377,6 +377,45 @@
         "padding_bottom": 96
       }
     },
+    "gifts": {
+      "type": "pegasus-product-tabs",
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "title": "Gift pens",
+            "collection": "gifts"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "title": "Resin",
+            "collection": "resin"
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "title": "Hardwood",
+            "collection": "hardwood"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3"
+      ],
+      "settings": {
+        "heading": "Ready to give",
+        "description": "Add gift wrap and a card message on any pen's page.",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "image_ratio": "portrait"
+      }
+    },
     "anatomy": {
       "type": "pegasus-photo-cards",
       "blocks": {
@@ -674,6 +713,7 @@
     "collage",
     "drift",
     "engrave",
+    "gifts",
     "anatomy",
     "nibs",
     "quotes",
