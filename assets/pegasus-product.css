@@ -1,0 +1,23 @@
+/* Product page, Pegasus layer. Loaded by sections/main-product.liquid after Craft's section-main-product.css,
+   so rules of equal specificity here win. */
+
+.product {
+  /* The studio photos are shot on rgb(254, 254, 254); a mat of the same white hides their edges. */
+  --pg-mat: 254, 254, 254;
+}
+
+/* ---------- Gallery ---------- */
+
+@media screen and (min-width: 750px) {
+  /* "Fit the photo to the screen height" sizes the first photo to the width its height allows (548px in a 737px
+     column) while the photos under it run to the column edges. Give the tile the whole column and centre the photo
+     on a mat instead, so every edge lines up. */
+  .product-media-container.constrain-height.media-fit-contain {
+    width: 100%;
+    background: rgb(var(--pg-mat));
+  }
+
+  .product-media-container.constrain-height.media-fit-contain .media > img {
+    object-fit: contain;
+  }
+}
