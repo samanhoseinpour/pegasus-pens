@@ -1,0 +1,176 @@
+{{ 'pegasus-engrave.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pegasus-engrave.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign s = section.settings
+  assign target = s.product.url | default: routes.all_products_collection_url
+  assign limit = s.limit | default: 20
+-%}
+
+<div class="pg-engrave-sec color-{{ s.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <pg-engrave
+      class="pg-eng"
+      data-limit="{{ limit }}"
+      data-sample="{{ s.sample | escape }}"
+      data-counter="{{ s.counter_text | default: '{count} of {max}' | escape }}"
+    >
+      <div class="pg-eng__intro">
+        {%- if s.heading != blank -%}
+          <h2 class="pg-eng__heading h1" data-pg-rise>{{ s.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if s.text != blank -%}
+          <p class="pg-eng__text">{{ s.text | escape }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="pg-eng__plate" aria-hidden="true" data-plate data-empty data-size="xl">
+        <span class="pg-eng__line" data-line data-placeholder="{{ s.sample | escape }}"></span>
+      </div>
+
+      {%- if s.note != blank -%}
+        <p class="pg-eng__note">{{ s.note | escape }}</p>
+      {%- endif -%}
+
+      {%- comment -%} A plain GET form: it works without JavaScript, and the product page reads ?engrave= to pre-fill its field. {%- endcomment -%}
+      <form class="pg-eng__form" action="{{ target }}" method="get">
+        <div class="pg-eng__field">
+          <label class="pg-eng__label" for="PgEngraveHome-{{ section.id }}">{{ s.field_label | escape }}</label>
+          <input
+            class="pg-eng__input"
+            id="PgEngraveHome-{{ section.id }}"
+            type="text"
+            name="engrave"
+            maxlength="{{ limit }}"
+            autocomplete="off"
+            autocapitalize="characters"
+            spellcheck="false"
+            aria-describedby="PgEngraveHomeCount-{{ section.id }}"
+            data-input
+          >
+          <span class="pg-eng__count" id="PgEngraveHomeCount-{{ section.id }}" data-count></span>
+        </div>
+        <button type="submit" class="button">{{ s.button_label | escape }}</button>
+      </form>
+    </pg-engrave>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pegasus engraving",
+  "tag": "section",
+  "class": "pg-engrave-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Add your initials to any pen."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Type what you would like engraved and see it on the plate. Sending a pen as a gift? Wrap it and add a card message on the same page."
+    },
+    {
+      "type": "text",
+      "id": "sample",
+      "label": "Sample engraving",
+      "info": "Typed out on the plate once as it scrolls into view, and shown faintly while the field is empty.",
+      "default": "E. M. Hartley"
+    },
+    {
+      "type": "text",
+      "id": "field_label",
+      "label": "Field label",
+      "default": "Text to engrave"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Maximum characters",
+      "info": "Match the limit in the product page's engraving block.",
+      "min": 8,
+      "max": 40,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "text",
+      "id": "counter_text",
+      "label": "Character counter",
+      "info": "Use {count} and {max}.",
+      "default": "{count} of {max}"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Note under the plate",
+      "default": "Preview only."
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Pen to open",
+      "info": "The button opens this product with the engraving already filled in. Leave empty to open all products."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Start with a pen"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pegasus engraving"
+    }
+  ]
+}
+{% endschema %}

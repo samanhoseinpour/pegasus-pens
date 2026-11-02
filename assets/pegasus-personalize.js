@@ -26,6 +26,15 @@ if (!customElements.get('pg-personalize')) {
           this.update(field);
         });
 
+        // The home page engraving preview links here with ?engrave=<text>: open the panel with it filled in.
+        const wanted = new URLSearchParams(window.location.search).get('engrave');
+        if (wanted && this.input) {
+          this.engraving.querySelector('[data-toggle]').checked = true;
+          this.input.value = wanted.trim().slice(0, Number(this.input.dataset.limit));
+          this.sync(this.engraving);
+          this.update(this.input);
+        }
+
         // Listening on the document survives the product form being re-rendered, and the capture phase
         // runs before Craft's own submit handler, so an invalid form is stopped before it is sent.
         this.onDocumentEvent = this.onDocumentEvent.bind(this);

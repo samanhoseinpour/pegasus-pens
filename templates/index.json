@@ -241,6 +241,23 @@
         "padding_bottom": 96
       }
     },
+    "engrave": {
+      "type": "pegasus-engrave",
+      "settings": {
+        "heading": "Add your initials to any pen.",
+        "text": "Type what you would like engraved and see it on the plate. Sending a pen as a gift? Wrap it and add a card message on the same page.",
+        "sample": "E. M. Hartley",
+        "field_label": "Text to engrave",
+        "limit": 20,
+        "counter_text": "{count} of {max}",
+        "note": "Preview only.",
+        "product": "burl-hourglass-pen",
+        "button_label": "Start with a pen",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
     "nibs": {
       "type": "pegasus-marquee",
       "blocks": {
@@ -443,6 +460,7 @@
     "great_square",
     "story",
     "collage",
+    "engrave",
     "nibs",
     "quotes",
     "promises"

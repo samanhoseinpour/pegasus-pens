@@ -1,0 +1,199 @@
+/* Home page engraving preview: a dark plate that shows what the visitor types. Gold is safe here: the plate is dark. */
+
+.pg-eng {
+  display: block;
+}
+
+.pg-eng__intro {
+  display: grid;
+  gap: 1.6rem;
+  max-width: 62rem;
+  margin-bottom: 3.2rem;
+}
+
+.pg-eng__heading,
+.pg-eng__text {
+  margin: 0;
+}
+
+.pg-eng__text {
+  max-width: 54rem;
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+.pg-eng__plate {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(18rem, 32vw, 34rem);
+  padding: clamp(2.4rem, 5vw, 6rem) clamp(2.4rem, 6vw, 8rem);
+  background:
+    linear-gradient(115deg, transparent 38%, rgba(var(--pg-gold-rgb), 0.07) 50%, transparent 62%),
+    var(--pg-espresso);
+  box-shadow: inset 0 0 0 1px rgba(var(--pg-gold-rgb), 0.6), inset 0 0 0 0.8rem var(--pg-espresso),
+    inset 0 0 0 0.9rem rgba(var(--pg-gold-rgb), 0.32);
+  color: var(--pg-gold);
+  text-align: center;
+}
+
+/* Two small screw heads say "metal plate" without any drawing. */
+.pg-eng__plate::before,
+.pg-eng__plate::after {
+  content: '';
+  position: absolute;
+  top: 2.2rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: rgba(var(--pg-gold-rgb), 0.55);
+}
+
+.pg-eng__plate::before {
+  left: 2.2rem;
+}
+
+.pg-eng__plate::after {
+  right: 2.2rem;
+}
+
+.pg-eng__line {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  font-family: var(--pg-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.12;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  font-size: clamp(3.6rem, 9vw, 11rem);
+}
+
+.pg-eng__plate[data-size='l'] .pg-eng__line {
+  font-size: clamp(3.2rem, 7vw, 8.4rem);
+}
+
+.pg-eng__plate[data-size='m'] .pg-eng__line {
+  font-size: clamp(2.8rem, 5.4vw, 6.4rem);
+}
+
+.pg-eng__plate[data-size='s'] .pg-eng__line {
+  font-size: clamp(2.4rem, 4.2vw, 5rem);
+}
+
+.pg-eng__plate[data-empty] .pg-eng__line::before {
+  content: attr(data-placeholder);
+  opacity: 0.4;
+}
+
+/* Each new character is cut in: it lands out of focus and slightly large, flashes pale, then settles to gold. */
+.pg-eng__c.is-new {
+  display: inline-block;
+  animation: pg-eng-cut 0.7s var(--pg-ease) both;
+  white-space: pre;
+}
+
+@keyframes pg-eng-cut {
+  0% {
+    opacity: 0;
+    filter: blur(0.5rem);
+    color: var(--pg-parchment);
+    transform: scale(1.18);
+  }
+  45% {
+    opacity: 1;
+    filter: blur(0);
+    color: var(--pg-parchment);
+    transform: none;
+  }
+  100% {
+    color: var(--pg-gold);
+  }
+}
+
+.pg-eng__note {
+  margin: 1.2rem 0 0;
+  font-size: 1.3rem;
+  opacity: 0.85;
+  text-align: right;
+}
+
+.pg-eng__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.6rem;
+  max-width: 62rem;
+  margin-top: 2.4rem;
+}
+
+.pg-eng__field {
+  flex: 1 1 28rem;
+  min-width: 0;
+}
+
+.pg-eng__label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.pg-eng__input {
+  display: block;
+  width: 100%;
+  padding: 1.3rem 1.6rem;
+  border: 1px solid rgba(var(--color-foreground), 0.55);
+  border-radius: 0;
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font: inherit;
+  font-size: 1.8rem;
+  line-height: 1.3;
+}
+
+.pg-eng__input:focus-visible {
+  outline: 0.2rem solid rgb(var(--color-foreground));
+  outline-offset: 0.2rem;
+}
+
+.pg-eng__count {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 1.3rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.9;
+}
+
+.pg-eng__form .button {
+  flex: none;
+}
+
+@media screen and (max-width: 749px) {
+  .pg-eng__form .button {
+    width: 100%;
+  }
+
+  .pg-eng__plate::before,
+  .pg-eng__plate::after {
+    top: 1.6rem;
+  }
+
+  .pg-eng__plate::before {
+    left: 1.6rem;
+  }
+
+  .pg-eng__plate::after {
+    right: 1.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-eng__c.is-new {
+    animation: none;
+  }
+}
