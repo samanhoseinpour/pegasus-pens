@@ -597,47 +597,52 @@
       }
     },
     "promises": {
-      "type": "multicolumn",
+      "type": "pegasus-features",
       "blocks": {
-        "column_1": {
-          "type": "column",
+        "feature_1": {
+          "type": "feature",
           "settings": {
+            "icon": "engrave",
             "title": "Engraved to order",
-            "text": "<p>Add initials or a short line to any pen.</p>"
+            "text": "Add initials or a short line to any pen."
           }
         },
-        "column_2": {
-          "type": "column",
+        "feature_2": {
+          "type": "feature",
           "settings": {
+            "icon": "refill",
             "title": "Refillable",
-            "text": "<p>Swap the cartridge and keep the pen for good.</p>"
+            "text": "Swap the cartridge and keep the pen for good."
           }
         },
-        "column_3": {
-          "type": "column",
+        "feature_3": {
+          "type": "feature",
           "settings": {
-            "title": "Ready to give",
-            "text": "<p>Add gift wrap and a card message to any pen.</p>"
+            "icon": "gift",
+            "title": "Gift wrap",
+            "text": "Add gift wrap to any pen."
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "message",
+            "title": "A card with your words",
+            "text": "Write a short message for the recipient."
           }
         }
       },
       "block_order": [
-        "column_1",
-        "column_2",
-        "column_3"
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
       ],
       "settings": {
-        "title": "Little things, done properly.",
-        "heading_size": "h1",
-        "columns_desktop": 3,
-        "column_alignment": "left",
+        "heading": "Little things, done properly.",
         "color_scheme": "scheme-2",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
         "padding_top": 96,
-        "padding_bottom": 96,
-        "button_label": "",
-        "background_style": "none"
+        "padding_bottom": 96
       }
     },
     "collage": {

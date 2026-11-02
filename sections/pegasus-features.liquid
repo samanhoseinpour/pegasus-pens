@@ -1,0 +1,125 @@
+{{ 'pegasus-features.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="pg-feat color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pg-feat__heading h1" data-pg-rise>{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    <ul class="pg-feat__list" role="list" style="--pg-feat-cols: {{ section.blocks.size | at_most: 4 | at_least: 1 }};">
+      {%- for block in section.blocks -%}
+        <li class="pg-feat__item" {{ block.shopify_attributes }}>
+          {%- render 'pegasus-icon', name: block.settings.icon, class: 'pg-feat__icon' -%}
+          <h3 class="pg-feat__title h3">{{ block.settings.title | escape }}</h3>
+          {%- if block.settings.text != blank -%}
+            <p class="pg-feat__text">{{ block.settings.text | escape }}</p>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pegasus features",
+  "tag": "section",
+  "class": "pg-feat-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Little things, done properly."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "engrave", "label": "Engraving plate" },
+            { "value": "refill", "label": "Refill cartridge" },
+            { "value": "gift", "label": "Gift box" },
+            { "value": "message", "label": "Envelope" },
+            { "value": "none", "label": "No icon" }
+          ],
+          "default": "engrave"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Engraved to order"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Add initials or a short line to any pen."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pegasus features",
+      "blocks": [
+        { "type": "feature" },
+        { "type": "feature", "settings": { "icon": "refill", "title": "Refillable", "text": "Swap the cartridge and keep the pen for good." } },
+        { "type": "feature", "settings": { "icon": "gift", "title": "Gift wrap", "text": "Add gift wrap to any pen." } },
+        { "type": "feature", "settings": { "icon": "message", "title": "A card with your words", "text": "Write a short message for the recipient." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

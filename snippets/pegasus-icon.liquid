@@ -1,0 +1,56 @@
+{% doc %}
+  Renders one of the Pegasus line icons: a 48 px grid, 1.6 stroke, drawn in the current text color.
+  Every path has `pathLength="1"`, so a stroke-dash animation can draw it.
+
+  @param {string} name - `engrave`, `refill`, `gift` or `message`. Renders nothing for any other value.
+  @param {string} [class] - Extra CSS classes for the svg.
+
+  @example
+  {% render 'pegasus-icon', name: 'gift', class: 'pg-feature__icon' %}
+{% enddoc %}
+{%- if name == 'engrave' or name == 'refill' or name == 'gift' or name == 'message' -%}
+  <svg
+    class="pg-icon{% if class != blank %} {{ class }}{% endif %}"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 48 48"
+    width="48"
+    height="48"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    focusable="false"
+  >
+    {%- case name -%}
+      {%- when 'engrave' -%}
+        {%- comment -%} A plate with two screws and an engraved A. {%- endcomment -%}
+        <rect x="5" y="13" width="38" height="22" rx="2" pathLength="1" />
+        <circle cx="10.5" cy="18.5" r="1" pathLength="1" />
+        <circle cx="37.5" cy="18.5" r="1" pathLength="1" />
+        <path d="M19 30 L24 18 L29 30" pathLength="1" />
+        <path d="M21 25.5 H27" pathLength="1" />
+      {%- when 'refill' -%}
+        {%- comment -%} A cartridge, with a circular arrow. {%- endcomment -%}
+        <rect x="14" y="5" width="10" height="26" rx="2" pathLength="1" />
+        <path d="M14 31 L19 43 L24 31" pathLength="1" />
+        <path d="M14 13 H24" pathLength="1" />
+        <path d="M37 33 A8 8 0 1 1 38 22" pathLength="1" />
+        <path d="M38.5 16.5 V22.5 H32.5" pathLength="1" />
+      {%- when 'gift' -%}
+        {%- comment -%} A box with a ribbon and a bow. {%- endcomment -%}
+        <rect x="8" y="21" width="32" height="19" pathLength="1" />
+        <rect x="5" y="15" width="38" height="6" pathLength="1" />
+        <path d="M24 15 V40" pathLength="1" />
+        <path d="M24 15 C20 7 12 7 15 13 C16 15 21 15 24 15" pathLength="1" />
+        <path d="M24 15 C28 7 36 7 33 13 C32 15 27 15 24 15" pathLength="1" />
+      {%- when 'message' -%}
+        {%- comment -%} An envelope. {%- endcomment -%}
+        <rect x="5" y="11" width="38" height="26" rx="2" pathLength="1" />
+        <path d="M5 13 L24 28 L43 13" pathLength="1" />
+        <path d="M5 35 L18 23" pathLength="1" />
+        <path d="M43 35 L30 23" pathLength="1" />
+    {%- endcase -%}
+  </svg>
+{%- endif -%}

@@ -1,0 +1,73 @@
+/* Features: four line icons with a title and a line of text each. */
+
+.pg-feat__heading {
+  margin: 0 0 4.8rem;
+}
+
+.pg-feat__list {
+  display: grid;
+  grid-template-columns: repeat(var(--pg-feat-cols, 4), minmax(0, 1fr));
+  gap: 4.8rem 3.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pg-feat__item {
+  padding-top: 2.4rem;
+  border-top: 1px solid var(--pg-hair);
+}
+
+.pg-feat__icon {
+  display: block;
+  width: 5.6rem;
+  height: 5.6rem;
+  margin-bottom: 2rem;
+  color: rgb(var(--color-foreground));
+}
+
+.pg-feat__title {
+  margin: 0 0 0.8rem;
+}
+
+.pg-feat__text {
+  max-width: 30ch;
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+/* The icons draw themselves as the section scrolls into view, where the browser can tie an animation to scroll.
+   Everywhere else (and with reduced motion) they are simply drawn. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pg-feat__icon * {
+      stroke-dasharray: 1;
+      animation: pg-icon-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 95%;
+    }
+  }
+}
+
+@keyframes pg-icon-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .pg-feat__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .pg-feat__list {
+    grid-template-columns: 1fr;
+    gap: 3.2rem;
+  }
+}
