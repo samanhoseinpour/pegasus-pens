@@ -7,14 +7,18 @@
   if section.settings.image != blank
     assign has_image = true
   endif
+  assign use_medal = false
+  if section.settings.image_style == 'medallion'
+    assign use_medal = true
+  endif
 -%}
 
 <section
-  class="pg-hero pg-hero--{{ section.settings.height }} color-{{ section.settings.color_scheme }} gradient{% if has_image %} pg-hero--has-image{% endif %}"
+  class="pg-hero pg-hero--{{ section.settings.height }} color-{{ section.settings.color_scheme }} gradient{% if has_image and use_medal == false %} pg-hero--has-image{% endif %}{% if use_medal %} pg-hero--medal{% endif %}"
   style="--pg-hero-overlay: {{ section.settings.overlay | divided_by: 100.0 }};"
 >
   <div class="pg-hero__media">
-    {%- if has_image -%}
+    {%- if has_image and use_medal == false -%}
       {{
         section.settings.image
         | image_url: width: 2400
@@ -55,6 +59,32 @@
       </svg>
     {%- endif -%}
   </div>
+
+  {%- if use_medal -%}
+    <div class="pg-hero__medal">
+      <svg class="pg-hero__rim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <circle class="pg-hero__rim-outer" cx="50" cy="50" r="49" pathLength="1"/>
+        <circle class="pg-hero__rim-inner" cx="50" cy="50" r="45.6" pathLength="1"/>
+      </svg>
+      <div class="pg-hero__photo">
+        {%- if has_image -%}
+          {{
+            section.settings.image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'pg-hero__image',
+              widths: '600, 900, 1200',
+              sizes: '(min-width: 990px) 44vw, 80vw',
+              loading: 'eager',
+              fetchpriority: 'high',
+              alt: section.settings.image.alt
+          }}
+        {%- else -%}
+          {%- render 'pegasus-scene', name: section.settings.scene, class: 'pg-hero__image', loading: 'eager' -%}
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
 
   {%- if section.settings.show_constellation -%}
     {%- render 'pegasus-constellation', class: 'pg-hero__map' -%}
@@ -114,8 +144,32 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Background image",
-      "info": "Optional. Without an image the hero shows a night sky."
+      "label": "Photo",
+      "info": "Optional. Without a photo the hero shows one of the bundled scenes (medallion style) or a night sky (background style)."
+    },
+    {
+      "type": "select",
+      "id": "image_style",
+      "label": "Photo style",
+      "options": [
+        { "value": "medallion", "label": "Medallion, framed like the emblem" },
+        { "value": "background", "label": "Full-width background" }
+      ],
+      "default": "medallion"
+    },
+    {
+      "type": "select",
+      "id": "scene",
+      "label": "Default scene",
+      "info": "Shown in the medallion until you choose a photo.",
+      "options": [
+        { "value": "desk", "label": "Pen on a stand, desk at dusk" },
+        { "value": "burl", "label": "Burl wood pen on a leather desk" },
+        { "value": "leather", "label": "Pen on a leather notebook" },
+        { "value": "stone", "label": "Pen on dark stone" },
+        { "value": "skyline", "label": "Marbled pen, city skyline" }
+      ],
+      "default": "desk"
     },
     {
       "type": "range",
@@ -124,7 +178,7 @@
       "max": 80,
       "step": 5,
       "unit": "%",
-      "label": "Image overlay",
+      "label": "Overlay (background style)",
       "default": 25
     },
     {
@@ -152,13 +206,13 @@
       "type": "textarea",
       "id": "text",
       "label": "Text",
-      "default": "Fountain pens, rollerballs and inks from a small workshop, tested on real paper before they ship."
+      "default": "Hand-turned wood and resin pens with gold hardware, made in British Columbia."
     },
     {
       "type": "text",
       "id": "button_label",
       "label": "Button label",
-      "default": "Shop fountain pens"
+      "default": "Shop all pens"
     },
     {
       "type": "url",
@@ -169,7 +223,7 @@
       "type": "text",
       "id": "link_label",
       "label": "Text link label",
-      "default": "Browse every pen"
+      "default": "How they are made"
     },
     {
       "type": "url",
@@ -180,7 +234,7 @@
       "type": "checkbox",
       "id": "show_constellation",
       "label": "Draw the Great Square on load",
-      "default": true
+      "default": false
     },
     {
       "type": "color_scheme",

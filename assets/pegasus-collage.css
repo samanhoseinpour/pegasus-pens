@@ -26,16 +26,16 @@
 }
 
 .pg-collage__tile:focus-visible {
-  outline: 2px solid var(--pg-teal);
+  outline: 2px solid rgb(var(--color-foreground));
   outline-offset: 3px;
 }
 
 .pg-collage__tile--image {
-  color: #f2f3ef;
+  color: var(--pg-parchment);
 }
 
 .pg-collage__tile--dark-caption {
-  color: #111a32;
+  color: var(--pg-ink);
 }
 
 /* Phones: tall tile and wide tile full width, the two small tiles side by side. */
@@ -61,7 +61,7 @@
   z-index: -2;
 }
 
-.pg-collage__media.pg-in {
+.pg-collage__media.pg-in > * {
   transition-delay: calc(var(--i, 0) * 120ms);
 }
 
@@ -70,6 +70,31 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 78%;
+}
+
+/* A product shot is presented as a clean card: photo on white, caption beneath, nothing over the pen. */
+.pg-collage__tile--product {
+  background: #fff;
+  color: var(--pg-ink);
+}
+
+.pg-collage__tile--product::after {
+  display: none;
+}
+
+.pg-collage__tile--product .pg-collage__media {
+  bottom: 30%;
+}
+
+.pg-collage__tile--product .pg-collage__image {
+  object-fit: contain;
+  object-position: 50% 50%;
+}
+
+.pg-collage__tile--product .pg-collage__caption {
+  background: linear-gradient(to top, #fff 70%, rgba(255, 255, 255, 0));
+  padding-top: clamp(2.4rem, 3vw, 4rem);
 }
 
 .pg-collage__tile:hover .pg-collage__media img {
@@ -82,11 +107,11 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(to top, rgba(13, 19, 41, 0.78) 0%, rgba(13, 19, 41, 0.28) 42%, rgba(13, 19, 41, 0) 70%);
+  background: linear-gradient(to top, rgba(var(--pg-espresso-rgb), 0.9) 0%, rgba(var(--pg-espresso-rgb), 0.55) 30%, rgba(var(--pg-espresso-rgb), 0) 64%);
 }
 
 .pg-collage__tile--dark-caption::after {
-  background: linear-gradient(to top, rgba(242, 243, 239, 0.94) 0%, rgba(242, 243, 239, 0.6) 34%, rgba(242, 243, 239, 0) 66%);
+  background: linear-gradient(to top, rgba(var(--pg-parchment-rgb), 0.94) 0%, rgba(var(--pg-parchment-rgb), 0.6) 34%, rgba(var(--pg-parchment-rgb), 0) 66%);
 }
 
 /* Stars and the wash follow the tile's text color, so they read on dark and light schemes alike. */
@@ -95,7 +120,7 @@
   inset: 0;
   background-image: radial-gradient(circle at 18% 22%, rgba(var(--color-foreground), 0.9) 0 1px, transparent 1.6px),
     radial-gradient(circle at 72% 14%, rgba(var(--color-foreground), 0.7) 0 1px, transparent 1.6px),
-    radial-gradient(circle at 86% 46%, rgba(184, 151, 90, 0.95) 0 1.5px, transparent 2.3px),
+    radial-gradient(circle at 86% 46%, rgba(var(--pg-gold-rgb), 0.95) 0 1.5px, transparent 2.3px),
     radial-gradient(circle at 34% 58%, rgba(var(--color-foreground), 0.55) 0 1px, transparent 1.6px),
     radial-gradient(circle at 58% 36%, rgba(var(--color-foreground), 0.8) 0 1px, transparent 1.6px),
     radial-gradient(circle at 12% 78%, rgba(var(--color-foreground), 0.6) 0 1px, transparent 1.6px),

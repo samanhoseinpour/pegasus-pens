@@ -30,6 +30,13 @@
           assign tile_title = block.settings.title
           assign tile_text = block.settings.text
           assign tile_label = block.settings.link_label
+          assign tile_scene = block.settings.scene
+          assign tile_has_photo = false
+          if tile_image != blank
+            assign tile_has_photo = true
+          elsif tile_scene != blank and tile_scene != 'none'
+            assign tile_has_photo = true
+          endif
 
           if block.type == 'product'
             assign tile_product = block.settings.product
@@ -43,6 +50,10 @@
                 assign tile_image = tile_product.featured_image
               endif
             endif
+            assign tile_has_photo = false
+            if tile_image != blank
+              assign tile_has_photo = true
+            endif
           endif
 
           if forloop.index <= 2
@@ -52,7 +63,7 @@
           endif
         -%}
         <a
-          class="pg-collage__tile pg-collage__tile--{{ forloop.index }} color-{{ block.settings.color_scheme }} gradient{% if tile_image != blank %} pg-collage__tile--image{% if block.settings.caption_style == 'dark' %} pg-collage__tile--dark-caption{% endif %}{% endif %}"
+          class="pg-collage__tile pg-collage__tile--{{ forloop.index }} color-{{ block.settings.color_scheme }} gradient{% if tile_has_photo %} pg-collage__tile--image{% if block.settings.caption_style == 'dark' %} pg-collage__tile--dark-caption{% endif %}{% endif %}{% if block.type == 'product' and tile_has_photo %} pg-collage__tile--product{% endif %}"
           {% if tile_url == blank %}
             role="link" aria-disabled="true"
           {% else %}
@@ -72,6 +83,8 @@
                   loading: 'lazy',
                   alt: tile_image.alt
               }}
+            {%- elsif tile_has_photo -%}
+              {%- render 'pegasus-scene', name: tile_scene, class: 'pg-collage__image' -%}
             {%- else -%}
               <span class="pg-collage__sky" aria-hidden="true"></span>
             {%- endif -%}
@@ -148,10 +161,25 @@
           "info": "Without an image the tile uses its color scheme and a field of stars."
         },
         {
+          "type": "select",
+          "id": "scene",
+          "label": "Default photo",
+          "info": "Shown until you choose an image.",
+          "options": [
+            { "value": "none", "label": "None, use the color scheme" },
+            { "value": "leather", "label": "Pen on a leather notebook" },
+            { "value": "stone", "label": "Pen on dark stone" },
+            { "value": "burl", "label": "Burl wood pen on a leather desk" },
+            { "value": "desk", "label": "Pen on a stand, desk at dusk" },
+            { "value": "skyline", "label": "Marbled pen, city skyline" }
+          ],
+          "default": "none"
+        },
+        {
           "type": "text",
           "id": "title",
           "label": "Title",
-          "default": "Paper that lies flat"
+          "default": "From a single blank"
         },
         {
           "type": "text",
@@ -162,7 +190,7 @@
           "type": "text",
           "id": "link_label",
           "label": "Link label",
-          "default": "Shop notebooks"
+          "default": "How they are made"
         },
         {
           "type": "url",
@@ -232,8 +260,8 @@
       "name": "Pegasus collage",
       "blocks": [
         { "type": "product" },
-        { "type": "tile", "settings": { "title": "Inks that dry the way they look", "text": "Blue-black, teal and one with a quiet shimmer.", "link_label": "Shop inks", "color_scheme": "scheme-3" } },
-        { "type": "tile" },
+        { "type": "tile", "settings": { "title": "Hand-turned in British Columbia", "text": "Every barrel is shaped and polished on the lathe.", "link_label": "How they are made", "scene": "leather" } },
+        { "type": "tile", "settings": { "title": "Resin, one of a kind", "text": "Swirled and marbled, never repeated.", "link_label": "Shop resin", "scene": "stone" } },
         { "type": "tile", "settings": { "title": "Ready to give", "text": "Boxed, wrapped and engraved on request.", "link_label": "Shop gifts" } }
       ]
     }

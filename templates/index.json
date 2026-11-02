@@ -12,8 +12,11 @@
     "hero": {
       "type": "pegasus-hero",
       "settings": {
-        "button_link": "shopify://collections/fountain-pens",
-        "link_url": "shopify://collections/all"
+        "button_link": "shopify://collections/all",
+        "link_url": "shopify://pages/about",
+        "image_style": "medallion",
+        "scene": "desk",
+        "show_constellation": false
       }
     },
     "statement": {
@@ -29,7 +32,7 @@
         "text_2": {
           "type": "text",
           "settings": {
-            "text": "<p>We make a short list of pens and keep refining them until they feel right in the hand. Nothing here is built to be thrown away.</p>"
+            "text": "<p>We make a short list of pens, each turned from a single blank of wood or resin, and keep refining them until they feel right in the hand. Nothing here is built to be thrown away.</p>"
           }
         },
         "button_3": {
@@ -61,37 +64,25 @@
         "kind_1": {
           "type": "featured_collection",
           "settings": {
-            "collection": "fountain-pens"
+            "collection": "burl-wood"
           }
         },
         "kind_2": {
           "type": "featured_collection",
           "settings": {
-            "collection": "rollerballs"
+            "collection": "hardwood"
           }
         },
         "kind_3": {
           "type": "featured_collection",
           "settings": {
-            "collection": "ballpoints"
+            "collection": "laminated-wood"
           }
         },
         "kind_4": {
           "type": "featured_collection",
           "settings": {
-            "collection": "inks"
-          }
-        },
-        "kind_5": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "notebooks"
-          }
-        },
-        "kind_6": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "gifts"
+            "collection": "resin"
           }
         }
       },
@@ -99,15 +90,13 @@
         "kind_1",
         "kind_2",
         "kind_3",
-        "kind_4",
-        "kind_5",
-        "kind_6"
+        "kind_4"
       ],
       "settings": {
-        "title": "Shop by kind",
+        "title": "Shop by material",
         "heading_size": "h1",
         "image_ratio": "portrait",
-        "columns_desktop": 6,
+        "columns_desktop": 4,
         "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "show_view_all": false,
@@ -129,15 +118,15 @@
         "tab_2": {
           "type": "tab",
           "settings": {
-            "title": "Fountain pens",
-            "collection": "fountain-pens"
+            "title": "Burl wood",
+            "collection": "burl-wood"
           }
         },
         "tab_3": {
           "type": "tab",
           "settings": {
-            "title": "Inks",
-            "collection": "inks"
+            "title": "Resin",
+            "collection": "resin"
           }
         }
       },
@@ -150,7 +139,8 @@
         "heading": "Fresh from the workshop",
         "color_scheme": "scheme-2",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "image_ratio": "portrait"
       }
     },
     "great_square": {
@@ -160,40 +150,40 @@
           "type": "star",
           "settings": {
             "name": "Markab",
-            "title": "Fountain pens",
-            "text": "Steel and gold nibs, filled from a bottle. The slow, deliberate way to write.",
-            "link_label": "Shop fountain pens",
-            "link": "shopify://collections/fountain-pens"
+            "title": "Burl wood",
+            "text": "Figured maple burl, turned thin and sealed to a deep gloss.",
+            "link_label": "Shop burl wood",
+            "link": "shopify://collections/burl-wood"
           }
         },
         "star_2": {
           "type": "star",
           "settings": {
             "name": "Scheat",
-            "title": "Rollerballs",
-            "text": "Water-based ink on a rolling ball. Smooth, quiet, and no learning curve.",
-            "link_label": "Shop rollerballs",
-            "link": "shopify://collections/rollerballs"
+            "title": "Hardwood",
+            "text": "Solid blanks turned in rings and oiled by hand.",
+            "link_label": "Shop hardwood",
+            "link": "shopify://collections/hardwood"
           }
         },
         "star_3": {
           "type": "star",
           "settings": {
             "name": "Algenib",
-            "title": "Ballpoints",
-            "text": "Pocket-sized and ready to sign anything, anywhere.",
-            "link_label": "Shop ballpoints",
-            "link": "shopify://collections/ballpoints"
+            "title": "Laminated wood",
+            "text": "Layers of contrasting woods, cut so the grain stripes the barrel.",
+            "link_label": "Shop laminated wood",
+            "link": "shopify://collections/laminated-wood"
           }
         },
         "star_4": {
           "type": "star",
           "settings": {
             "name": "Alpheratz",
-            "title": "Inks and paper",
-            "text": "Bottled inks and notebooks that stand up to a wet nib.",
-            "link_label": "Shop inks and paper",
-            "link": "shopify://collections/inks"
+            "title": "Resin",
+            "text": "Swirled and marbled colour, cast and polished. No two alike.",
+            "link_label": "Shop resin",
+            "link": "shopify://collections/resin"
           }
         }
       },
@@ -204,7 +194,9 @@
         "star_4"
       ],
       "settings": {
-        "color_scheme": "scheme-4"
+        "color_scheme": "scheme-4",
+        "heading": "Four materials, one workshop.",
+        "intro": "Pegasus is a constellation of four bright stars. Ours are four materials."
       }
     },
     "story": {
@@ -213,14 +205,14 @@
         "heading_1": {
           "type": "heading",
           "settings": {
-            "heading": "Turned from solid resin, finished by hand.",
+            "heading": "Turned from a single blank, finished by hand.",
             "heading_size": "h1"
           }
         },
         "text_2": {
           "type": "text",
           "settings": {
-            "text": "<p>Each barrel is cut from a single rod, polished for a day, and fitted with a steel or gold nib. We write with every pen before it leaves the bench.</p>"
+            "text": "<p>Each barrel is cut from one piece of wood or resin, shaped on the lathe, polished and fitted with gold-plated hardware. We write with every pen before it leaves the bench.</p>"
           }
         },
         "button_3": {
@@ -238,7 +230,7 @@
       ],
       "settings": {
         "height": "adapt",
-        "desktop_image_width": "large",
+        "desktop_image_width": "medium",
         "layout": "image_first",
         "content_layout": "no-overlap",
         "desktop_content_alignment": "left",
@@ -255,37 +247,31 @@
         "item_1": {
           "type": "item",
           "settings": {
-            "text": "Extra fine"
+            "text": "Burl wood"
           }
         },
         "item_2": {
           "type": "item",
           "settings": {
-            "text": "Fine"
+            "text": "Hardwood"
           }
         },
         "item_3": {
           "type": "item",
           "settings": {
-            "text": "Medium"
+            "text": "Laminated wood"
           }
         },
         "item_4": {
           "type": "item",
           "settings": {
-            "text": "Broad"
+            "text": "Resin"
           }
         },
         "item_5": {
           "type": "item",
           "settings": {
-            "text": "Stub"
-          }
-        },
-        "item_6": {
-          "type": "item",
-          "settings": {
-            "text": "Italic"
+            "text": "Gold hardware"
           }
         }
       },
@@ -294,8 +280,7 @@
         "item_2",
         "item_3",
         "item_4",
-        "item_5",
-        "item_6"
+        "item_5"
       ],
       "settings": {
         "speed": 70,
@@ -310,15 +295,15 @@
         "quote_1": {
           "type": "quote",
           "settings": {
-            "text": "The nib is smoother than pens at three times the price.",
+            "text": "It feels made for my hand, and the gold catches the light every time I sign.",
             "name": "Maya R.",
-            "detail": "Brooklyn"
+            "detail": "Vancouver"
           }
         },
         "quote_2": {
           "type": "quote",
           "settings": {
-            "text": "It arrived inked, with a note about which paper to start on. That is the whole reason I came back.",
+            "text": "It arrived in a gift box with a note about the wood. That is the whole reason I came back.",
             "name": "Tomás A.",
             "detail": "Lisbon"
           }
@@ -326,7 +311,7 @@
         "quote_3": {
           "type": "quote",
           "settings": {
-            "text": "I bought one for a gift and kept it. Now I am waiting for the next run.",
+            "text": "I bought one as a gift and kept it. Now I am waiting for the next one.",
             "name": "Priya S.",
             "detail": "Leeds"
           }
@@ -357,8 +342,8 @@
         "column_2": {
           "type": "column",
           "settings": {
-            "title": "Swap the nib",
-            "text": "<p>Not the right width? Exchange it within 30 days.</p>"
+            "title": "Refillable",
+            "text": "<p>Swap the cartridge and keep the pen for good.</p>"
           }
         },
         "column_3": {
@@ -391,48 +376,54 @@
     "collage": {
       "type": "pegasus-collage",
       "blocks": {
-        "tile_1": {
+        "product_1": {
           "type": "product",
           "settings": {
-            "product": "nocturne-fountain-pen",
+            "product": "burl-hourglass-pen",
             "link_label": "View pen",
-            "color_scheme": "scheme-4",
-            "caption_style": "dark"
+            "caption_style": "dark",
+            "color_scheme": "scheme-4"
           }
         },
         "tile_2": {
           "type": "tile",
           "settings": {
-            "title": "Inks that dry the way they look",
-            "text": "Blue-black, teal and one with a quiet shimmer.",
-            "link_label": "Shop inks",
-            "link": "shopify://collections/inks",
-            "color_scheme": "scheme-3"
+            "scene": "leather",
+            "title": "Hand-turned in British Columbia",
+            "text": "Every barrel is shaped and polished on the lathe.",
+            "link_label": "How they are made",
+            "link": "shopify://pages/about",
+            "color_scheme": "scheme-4",
+            "caption_style": "light"
           }
         },
         "tile_3": {
           "type": "tile",
           "settings": {
-            "title": "Paper that lies flat",
-            "text": "Notebooks bound to take a wet nib.",
-            "link_label": "Shop notebooks",
-            "link": "shopify://collections/notebooks",
-            "color_scheme": "scheme-1"
+            "scene": "stone",
+            "title": "Resin, one of a kind",
+            "text": "Swirled and marbled, never repeated.",
+            "link_label": "Shop resin",
+            "link": "shopify://collections/resin",
+            "color_scheme": "scheme-4",
+            "caption_style": "light"
           }
         },
         "tile_4": {
           "type": "tile",
           "settings": {
+            "scene": "none",
             "title": "Ready to give",
             "text": "Boxed, wrapped and engraved on request.",
             "link_label": "Shop gifts",
             "link": "shopify://collections/gifts",
-            "color_scheme": "scheme-4"
+            "color_scheme": "scheme-3",
+            "caption_style": "light"
           }
         }
       },
       "block_order": [
-        "tile_1",
+        "product_1",
         "tile_2",
         "tile_3",
         "tile_4"

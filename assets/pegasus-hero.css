@@ -6,8 +6,8 @@
   align-items: flex-end;
   overflow: hidden;
   isolation: isolate;
-  min-height: clamp(54rem, calc(100vh - 17.6rem), 96rem);
-  min-height: clamp(54rem, calc(100svh - 17.6rem), 96rem);
+  min-height: clamp(54rem, calc(100vh - 20rem), 96rem);
+  min-height: clamp(54rem, calc(100svh - 20rem), 96rem);
 }
 
 .pg-hero--medium {
@@ -51,12 +51,75 @@
   height: 100%;
   fill: rgb(var(--color-foreground));
   fill-opacity: 0.62;
-  background: radial-gradient(120% 90% at 88% 100%, rgba(14, 124, 123, 0.38), transparent 62%),
-    radial-gradient(80% 60% at 8% 0%, rgba(184, 151, 90, 0.12), transparent 60%);
+  background: radial-gradient(120% 90% at 88% 100%, rgba(var(--pg-gold-rgb), 0.22), transparent 62%),
+    radial-gradient(80% 60% at 8% 0%, rgba(var(--pg-gold-rgb), 0.1), transparent 60%);
 }
 
 .pg-hero__twinkle {
   animation: pg-twinkle 5s ease-in-out infinite;
+}
+
+/* ---------- Medallion: the photo framed like the emblem, with a double rim that draws itself ---------- */
+
+.pg-hero__medal {
+  position: absolute;
+  top: 50%;
+  right: clamp(1.6rem, 5vw, 9rem);
+  z-index: -1;
+  width: min(40vw, 54rem);
+  aspect-ratio: 1;
+  transform: translateY(-48%);
+}
+
+.pg-hero__photo {
+  position: absolute;
+  inset: 7.5%;
+  overflow: hidden;
+  border-radius: 50%;
+  background: rgba(var(--color-foreground), 0.08);
+  animation: pg-medal-open 1.8s var(--pg-ease) 0.5s both;
+}
+
+.pg-hero__photo .pg-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  animation: pg-medal-settle 2.4s var(--pg-ease) 0.5s both;
+}
+
+.pg-hero__rim {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--pg-gold);
+  transform: rotate(-90deg);
+}
+
+.pg-hero__rim-outer,
+.pg-hero__rim-inner {
+  stroke-dasharray: 1.02 2;
+  animation: pg-rim-draw 2s var(--pg-ease-io) both;
+}
+
+.pg-hero__rim-outer { stroke-width: 0.55; animation-delay: 0.15s; }
+.pg-hero__rim-inner { stroke-width: 0.22; opacity: 0.75; animation-delay: 0.45s; }
+
+@keyframes pg-rim-draw {
+  from { stroke-dashoffset: 1.02; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes pg-medal-open {
+  from { clip-path: circle(0% at 50% 50%); }
+  to { clip-path: circle(50% at 50% 50%); }
+}
+
+@keyframes pg-medal-settle {
+  from { transform: scale(1.12); }
+  to { transform: none; }
 }
 
 /* The Great Square sits upper right so the headline keeps the lower left. */
@@ -84,7 +147,7 @@
   margin: 0;
   font-family: var(--font-heading-family);
   font-weight: var(--font-heading-weight);
-  font-size: clamp(4.8rem, 8.6vw, 12.8rem);
+  font-size: clamp(4.8rem, 7.6vw, 11.6rem);
   line-height: 0.98;
   letter-spacing: -0.03em;
   text-wrap: balance;
@@ -138,7 +201,7 @@
 }
 
 .pg-hero__map .pg-seg {
-  stroke: var(--pg-nib);
+  stroke: var(--pg-gold);
   stroke-width: 2;
   stroke-linecap: round;
   stroke-dasharray: 1;
@@ -160,7 +223,7 @@
 }
 
 .pg-hero__map .pg-star__core { fill: rgb(var(--color-foreground)); }
-.pg-hero__map .pg-star__halo { fill: var(--pg-nib); fill-opacity: 0.3; filter: blur(3px); }
+.pg-hero__map .pg-star__halo { fill: var(--pg-gold); fill-opacity: 0.3; filter: blur(3px); }
 
 .pg-hero__map .pg-star--1 > * { animation-delay: 0.3s; }
 .pg-hero__map .pg-star--2 > * { animation-delay: 0.75s; }
@@ -194,6 +257,17 @@
 }
 
 @media screen and (max-width: 749px) {
+  .pg-hero__medal {
+    top: 7rem;
+    right: 50%;
+    width: 78vw;
+    transform: translateX(50%);
+  }
+
+  .pg-hero--medal .pg-hero__inner {
+    padding-top: calc(78vw + 10.5rem);
+  }
+
   .pg-hero__map {
     top: 7rem;
     right: -8vw;
@@ -207,6 +281,17 @@
 }
 
 @media screen and (min-width: 750px) and (max-width: 989px) {
+  .pg-hero__medal {
+    top: 7rem;
+    right: 4vw;
+    width: 50vw;
+    transform: none;
+  }
+
+  .pg-hero--medal .pg-hero__inner {
+    padding-top: calc(50vw + 10rem);
+  }
+
   .pg-hero__map {
     top: 9rem;
     width: 62vw;
@@ -224,7 +309,11 @@
   .pg-hero__map .pg-seg,
   .pg-hero__map .pg-star__core,
   .pg-hero__map .pg-star__halo,
-  .pg-hero__twinkle {
+  .pg-hero__twinkle,
+  .pg-hero__photo,
+  .pg-hero__photo .pg-hero__image,
+  .pg-hero__rim-outer,
+  .pg-hero__rim-inner {
     animation: none;
   }
 }
