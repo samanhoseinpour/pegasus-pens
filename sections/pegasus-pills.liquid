@@ -21,8 +21,13 @@
     {%- endif -%}
     <ul class="pg-pills__list" {% if section.settings.heading != blank %}aria-labelledby="PgPills-{{ section.id }}"{% endif %}>
       {%- for block in section.blocks -%}
+        {%- assign pg_href = block.settings.link | default: routes.all_products_collection_url -%}
+        {%- comment -%}On a collection page, leave out the pill that points at the page you are on (the editor shows all).{%- endcomment -%}
+        {%- if pg_href == request.path and request.design_mode == false -%}
+          {%- continue -%}
+        {%- endif -%}
         <li {{ block.shopify_attributes }}>
-          <a class="pg-pills__link" href="{{ block.settings.link | default: routes.all_products_collection_url }}">
+          <a class="pg-pills__link" href="{{ pg_href }}"{% if pg_href == request.path %} aria-current="page"{% endif %}>
             {{- block.settings.label | escape -}}
           </a>
         </li>

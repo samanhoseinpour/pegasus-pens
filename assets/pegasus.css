@@ -419,6 +419,58 @@ volume-pricing li,
   padding: 0.5rem 1rem;
 }
 
+/* Card photo scrub. A card with several photos (`data-pg-frames`) shows one at a time: the pointer's position across the
+   photo picks the frame, a swipe changes it on touch, and assets/pegasus-card-gallery.js writes it to `data-pg-active`.
+   Without that attribute Craft's own hover swap to the second photo still applies. The frame rules carry seven classes
+   so they beat Craft's hover rules (component-card.css loads after this file). */
+.card__media[data-pg-frames] > .pg-card-seg {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  gap: 0.4rem;
+  padding: 0 1rem 1rem;
+  pointer-events: none;
+}
+
+.pg-card-seg > i {
+  flex: 1;
+  height: 0.2rem;
+  background: rgb(var(--color-foreground));
+  opacity: 0.22;
+  transition: opacity 0.2s ease;
+}
+
+.card__media[data-pg-frames]:not([data-pg-active]) .pg-card-seg > i:nth-child(1),
+.card__media[data-pg-active='0'] .pg-card-seg > i:nth-child(1),
+.card__media[data-pg-active='1'] .pg-card-seg > i:nth-child(2),
+.card__media[data-pg-active='2'] .pg-card-seg > i:nth-child(3) {
+  opacity: 1;
+}
+
+.card-wrapper .card__media[data-pg-frames][data-pg-active] .media.media--hover-effect > img {
+  opacity: 0;
+  transform: none;
+  transition: opacity 0.25s ease;
+}
+
+.card-wrapper .card__media[data-pg-frames][data-pg-active='0'] .media.media--hover-effect > img[data-pg-frame='0'],
+.card-wrapper .card__media[data-pg-frames][data-pg-active='1'] .media.media--hover-effect > img[data-pg-frame='1'],
+.card-wrapper .card__media[data-pg-frames][data-pg-active='2'] .media.media--hover-effect > img[data-pg-frame='2'] {
+  opacity: 1;
+}
+
+/* Horizontal swipes belong to the card (they change the photo); vertical ones still scroll the page. */
+.card-wrapper:has(.card__media[data-pg-frames]) {
+  touch-action: pan-y;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-card-seg > i,
+  .card-wrapper .card__media[data-pg-frames][data-pg-active] .media.media--hover-effect > img {
+    transition: none;
+  }
+}
+
 /* ---------- Reveal choreography (driven by pegasus.js) ---------- */
 
 .pg-wipe {

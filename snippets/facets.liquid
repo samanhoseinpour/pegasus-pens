@@ -6,6 +6,7 @@
   @param {boolean} enable_sorting - Whether to show sorting controls.
   @param {string} filter_type - The filter layout. Allowed values are `horizontal`, `vertical`, and `drawer`.
   @param {object} [section] - The current section context, supplied implicitly when rendered from a section and used to namespace filter controls.
+  @param {boolean} [pg_cols_toggle] - Whether to show the one/two-column switch next to "Filter and sort" on phones. The page must load `pegasus-collection.css` and `pegasus-collection.js`. Defaults to `false`.
 
   @example
   {% render 'facets', results: collection, enable_filtering: true, enable_sorting: true, filter_type: 'vertical' %}
@@ -785,6 +786,19 @@
       </facet-filters-form>
     </details>
   </menu-drawer>
+  {%- if pg_cols_toggle -%}
+    {%- comment -%}Hidden until assets/pegasus-collection.js runs; without it the button would do nothing. It sits beside the drawer, not in it: Craft's menu-drawer treats every button inside it as a submenu close button.{%- endcomment -%}
+    <button type="button" class="pg-cols-toggle" data-pg-cols-toggle aria-pressed="false" hidden>
+      <span class="visually-hidden">{{ 'products.facets.one_column' | t }}</span>
+      <svg class="pg-cols-toggle__two" aria-hidden="true" focusable="false" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="2.75" y="2.75" width="6" height="6"/><rect x="11.25" y="2.75" width="6" height="6"/>
+        <rect x="2.75" y="11.25" width="6" height="6"/><rect x="11.25" y="11.25" width="6" height="6"/>
+      </svg>
+      <svg class="pg-cols-toggle__one" aria-hidden="true" focusable="false" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+        <rect x="3.75" y="3.75" width="12.5" height="12.5"/>
+      </svg>
+    </button>
+  {%- endif -%}
 
   <div class="active-facets active-facets-mobile medium-hide large-up-hide">
     {%- for filter in results.filters -%}

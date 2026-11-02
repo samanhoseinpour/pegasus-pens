@@ -1,0 +1,33 @@
+{% doc %}
+  Renders the bundled lifestyle photo that belongs to a collection, so every collection has a face before the merchant
+  uploads an image. Each scene shows a pen from that collection (the burl scene the burl pen, `skyline` the marbled
+  resin pen, and so on); `gifts` takes the pen on the display stand, since it has no pen of its own. Renders nothing for
+  any other handle, so those fall back to their first pen's photo.
+
+  The handles are placeholders, like the ones in templates/index.json: they must match the store's collections.
+
+  @param {string} handle - The collection handle: `burl-wood`, `hardwood`, `laminated-wood`, `resin` or `gifts`.
+  @param {string} [class] - Extra CSS classes for the image.
+  @param {string} [loading] - `lazy` (default) or `eager`.
+
+  @example
+  {% render 'pegasus-collection-photo', handle: collection.handle, class: 'motion-reduce' %}
+{% enddoc %}
+{%- liquid
+  assign scene = null
+  case handle
+    when 'burl-wood'
+      assign scene = 'burl'
+    when 'hardwood'
+      assign scene = 'stone'
+    when 'laminated-wood'
+      assign scene = 'leather'
+    when 'resin'
+      assign scene = 'skyline'
+    when 'gifts'
+      assign scene = 'desk'
+  endcase
+-%}
+{%- if scene -%}
+  {% render 'pegasus-scene', name: scene, class: class, loading: loading %}
+{%- endif -%}

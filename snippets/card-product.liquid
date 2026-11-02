@@ -4,7 +4,7 @@
   @param {product} [card_product] - The product to display. When blank, a placeholder card is rendered.
   @param {string} [media_aspect_ratio] - The product image aspect ratio. Allowed values are `adapt`, `portrait`, and `square`. Defaults to `square`.
   @param {string} [image_shape] - The product image mask. Allowed values are `default`, `arch`, `blob`, `chevronleft`, `chevronright`, `diamond`, `parallelogram`, and `round`. Defaults to `default`.
-  @param {boolean} [show_secondary_image] - Whether to show the second product image on hover. Defaults to `false`.
+  @param {boolean} [show_secondary_image] - Whether the card holds up to three photos, which a pointer scrubs through on hover and a swipe changes on touch (see `assets/pegasus-card-gallery.js`). Defaults to `false`.
   @param {boolean} [show_vendor] - Whether to show the product vendor. Defaults to `false`.
   @param {boolean} [show_rating] - Whether to show the product rating. Defaults to `false`.
   @param {boolean} [extend_height] - Whether the card fills its available container space. Defaults to `false`.
@@ -62,7 +62,7 @@
           style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
         >
           {%- if card_product.featured_media -%}
-            <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
+            <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}" {% render 'pegasus-card-photo', part: 'attr', show: show_secondary_image, product_media: card_product.media %}>
               <div class="media media--transparent media--hover-effect">
                 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
                 <img
@@ -79,6 +79,7 @@
                   sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
                   alt="{{ card_product.featured_media.alt | escape }}"
                   class="motion-reduce"
+                  data-pg-frame="0"
                   {% unless lazy_load == false %}
                     loading="lazy"
                   {% endunless %}
@@ -100,14 +101,18 @@
                     "
                     src="{{ card_product.media[1] | image_url: width: 533 }}"
                     sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                    alt="{{ card_product.media[1].alt | escape }}"
+                    alt=""
                     class="motion-reduce"
+                    data-pg-frame="1"
                     loading="lazy"
                     width="{{ card_product.media[1].width }}"
                     height="{{ card_product.media[1].height }}"
                   >
                 {%- endif -%}
+
+                {%- render 'pegasus-card-photo', part: 'photo', show: show_secondary_image, product_media: card_product.media -%}
               </div>
+              {%- render 'pegasus-card-photo', part: 'line', show: show_secondary_image, product_media: card_product.media -%}
             </div>
           {%- endif -%}
           <div class="card__content">

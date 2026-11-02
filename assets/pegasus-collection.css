@@ -1,0 +1,141 @@
+/* Collection page layer. Loaded by main-collection-banner and main-collection-product-grid, after Craft's own CSS. */
+
+/* ---------- Banner medallion ----------
+   The collection's photo (its own image, or the bundled scene for its handle) sits in a circle with two thin bronze rims,
+   the same device as the featured pen and the home hero, at the right of the title. Bronze, not gold: the banner is light.
+   Craft's "with image" banner is a 50/50 split with 8 rem of padding; this keeps the banner as slim as the one without. */
+.collection-hero.collection-hero--with-image {
+  padding: 0;
+  overflow: visible;
+}
+
+.collection-hero.collection-hero--with-image .collection-hero__inner {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  padding-bottom: 0;
+}
+
+.collection-hero.collection-hero--with-image .collection-hero__text-wrapper {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 1.6rem 0;
+}
+
+.collection-hero__image-container.pg-medal {
+  position: relative;
+  flex: 0 0 auto;
+  align-self: center;
+  width: clamp(8.5rem, 11vw, 13rem);
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 1;
+  margin: 1.6rem 1.2rem 1.6rem 0; /* room for the rims, which sit outside the photo */
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: none;
+  background: transparent;
+  overflow: visible;
+}
+
+.pg-medal > img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.pg-medal::before,
+.pg-medal::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.pg-medal::before {
+  inset: -0.6rem;
+  border: 1px solid var(--pg-bronze);
+}
+
+.pg-medal::after {
+  inset: -1.2rem;
+  border: 1px solid color-mix(in srgb, var(--pg-bronze) 40%, transparent);
+}
+
+/* Craft adds bottom padding for its image shadow on phones; the medallion has none. */
+@media screen and (max-width: 749px) {
+  .collection-hero.collection-hero--with-image .collection-hero__inner {
+    padding-bottom: 0;
+  }
+}
+
+/* ---------- One or two columns on phones ----------
+   assets/pegasus-collection.js sets <html data-pg-cols="1|2"> from the switch in the facets toolbar. Without a choice the
+   section's own "columns on mobile" setting applies. */
+.pg-cols-toggle,
+.pg-cols-toggle[hidden] {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  /* Filter and sort, the switch, and the product count share one row. */
+  .facets-container:has(.pg-cols-toggle) {
+    grid-template-columns: auto auto minmax(0, 1fr);
+    column-gap: 0;
+  }
+
+  .facets-container:has(.pg-cols-toggle) > .mobile-facets__wrapper {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .facets-container:has(.pg-cols-toggle) > .product-count {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .pg-cols-toggle:not([hidden]) {
+    grid-column: 2;
+    grid-row: 1;
+    display: inline-flex;
+    align-items: center;
+    align-self: center;
+    gap: 0.4rem;
+    min-height: 4.4rem;
+    margin-left: 1.6rem;
+    padding: 0 1.2rem;
+    border: 1px solid rgba(var(--color-foreground), 0.35);
+    border-radius: 0;
+    background: none;
+    color: rgb(var(--color-foreground));
+    cursor: pointer;
+  }
+
+  .pg-cols-toggle svg {
+    width: 2rem;
+    height: 2rem;
+    opacity: 0.35;
+  }
+
+  .pg-cols-toggle[aria-pressed='false'] .pg-cols-toggle__two,
+  .pg-cols-toggle[aria-pressed='true'] .pg-cols-toggle__one {
+    opacity: 1;
+  }
+
+  .pg-cols-toggle:focus-visible {
+    outline: 0.2rem solid rgb(var(--color-foreground));
+    outline-offset: 0.3rem;
+  }
+
+  html[data-pg-cols='1'] #product-grid .grid__item {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  html[data-pg-cols='2'] #product-grid .grid__item {
+    width: calc(50% - var(--grid-mobile-horizontal-spacing) / 2);
+    max-width: calc(50% - var(--grid-mobile-horizontal-spacing) / 2);
+  }
+}

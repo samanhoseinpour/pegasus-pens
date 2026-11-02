@@ -7,17 +7,36 @@
   @param {boolean} [extend_height] - Whether the card fills its available container space. Defaults to `false`.
   @param {string} [wrapper_class] - A custom wrapper class. When blank or `none`, the collection-card wrapper and settings are used.
   @param {string} [placeholder_image] - The placeholder SVG name to render when the collection is blank.
+  @param {boolean} [pg_scenes] - Whether a collection with no image of its own shows the bundled photo for its handle (see `pegasus-collection-photo`) in place of its first product's photo. Defaults to `false`.
 
   @example
   {% render 'card-collection', card_collection: collection, media_aspect_ratio: 'adapt', columns: 3 %}
 {% enddoc %}
 
 {%- liquid
+  assign pg_photo = ''
+  if pg_scenes and card_collection.image == blank
+    capture pg_photo
+      render 'pegasus-collection-photo', handle: card_collection.handle, class: 'motion-reduce'
+    endcapture
+    assign pg_photo = pg_photo | strip
+  endif
+  assign tile_image = card_collection.featured_image
+  if pg_photo != blank
+    assign tile_image = null
+  endif
+  assign has_media = false
+  if tile_image or pg_photo != blank
+    assign has_media = true
+  endif
+
   assign ratio = 1
-  if card_collection.featured_image and media_aspect_ratio == 'portrait'
+  if has_media and media_aspect_ratio == 'portrait'
     assign ratio = 0.75
-  elsif card_collection.featured_image and media_aspect_ratio == 'adapt'
-    assign ratio = card_collection.featured_image.aspect_ratio
+  elsif tile_image and media_aspect_ratio == 'adapt'
+    assign ratio = tile_image.aspect_ratio
+  elsif pg_photo != blank and media_aspect_ratio == 'adapt'
+    assign ratio = 0.75
   endif
   if ratio == 0 or ratio == null
     assign ratio = 1
@@ -35,20 +54,23 @@
     class="
       card
       card--{{ card_style }}
-      {% if card_collection.featured_image %} card--media{% else %} card--text{% endif %}
+      {% if has_media %} card--media{% else %} card--text{% endif %}
       {% if card_style == 'card' %} color-{{ card_color_scheme }} gradient{% endif %}
       {% if extend_height %} card--extend-height{% endif %}
-      {% if card_collection.featured_image == nil and card_style == 'card' %} ratio{% endif %}
+      {% if has_media == false and card_style == 'card' %} ratio{% endif %}
     "
     style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
   >
     <div
-      class="card__inner {% if card_style == 'standard' %}color-{{ card_color_scheme }} gradient{% endif %}{% if card_collection.featured_image or card_style == 'standard' %} ratio{% endif %}"
+      class="card__inner {% if card_style == 'standard' %}color-{{ card_color_scheme }} gradient{% endif %}{% if has_media or card_style == 'standard' %} ratio{% endif %}"
       style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
     >
-      {%- if card_collection.featured_image -%}
+      {%- if has_media -%}
         <div class="card__media">
           <div class="media media--transparent media--hover-effect">
+            {%- if tile_image == null -%}
+              {{- pg_photo -}}
+            {%- else -%}
             <img
               srcset="
                 {%- if card_collection.featured_image.width >= 165 -%}{{ card_collection.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
@@ -72,6 +94,7 @@
               loading="lazy"
               class="motion-reduce"
             >
+            {%- endif -%}
           </div>
         </div>
       {%- endif -%}
@@ -115,7 +138,7 @@
         </div>
       {%- endif -%}
     </div>
-    {%- if card_collection != blank and card_style == 'card' or card_collection.featured_image -%}
+    {%- if card_collection != blank and card_style == 'card' or has_media -%}
       <div class="card__content">
         <div class="card__information">
           <h3 class="card__heading">
@@ -132,14 +155,14 @@
               {%- else -%}
                 {{ 'onboarding.collection_title' | t }}
               {%- endif -%}
-              {%- if card_collection.featured_image or card_collection.description == blank -%}
+              {%- if has_media or card_collection.description == blank -%}
                 <span class="icon-wrap">
                   {{- 'icon-arrow.svg' | inline_asset_content -}}
                 </span>
               {%- endif %}
             </a>
           </h3>
-          {%- if card_collection.featured_image == null and card_collection.description != blank -%}
+          {%- if has_media == false and card_collection.description != blank -%}
             <p class="card__caption">
               {{- card_collection.description | strip_html | truncatewords: 12 -}}
               <span class="icon-wrap">

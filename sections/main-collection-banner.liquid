@@ -1,5 +1,6 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+{{ 'pegasus-collection.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   @media screen and (max-width: 749px) {
@@ -9,7 +10,23 @@
   }
 {%- endstyle -%}
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
+{%- liquid
+  assign pg_photo = ''
+  if section.settings.show_collection_image and collection.image == blank
+    capture pg_photo
+      render 'pegasus-collection-photo', handle: collection.handle, loading: 'eager'
+    endcapture
+    assign pg_photo = pg_photo | strip
+  endif
+  assign show_face = false
+  if section.settings.show_collection_image
+    if collection.image or pg_photo != blank
+      assign show_face = true
+    endif
+  endif
+-%}
+
+<div class="collection-hero{% if show_face %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="collection-hero__text-wrapper">
       <h1 class="collection-hero__title">
@@ -22,8 +39,11 @@
       {%- endif -%}
     </div>
 
-    {%- if section.settings.show_collection_image and collection.image -%}
-      <div class="collection-hero__image-container media gradient">
+    {%- if show_face -%}
+      <div class="collection-hero__image-container media gradient pg-medal">
+        {%- if collection.image == blank -%}
+          {{- pg_photo -}}
+        {%- else -%}
         <img
           srcset="
             {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
@@ -35,11 +55,12 @@
             {{ collection.image | image_url }} {{ collection.image.width }}w
           "
           src="{{ collection.image | image_url: width: 750 }}"
-          sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
+          sizes="(min-width: 750px) 160px, 110px"
           alt="{{ collection.image.alt | escape }}"
           width="{{ collection.image.width }}"
           height="{{ collection.image.height }}"
         >
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>

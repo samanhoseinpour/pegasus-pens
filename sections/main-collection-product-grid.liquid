@@ -1,6 +1,8 @@
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'pegasus-collection.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pegasus-collection.js' | asset_url }}" defer="defer"></script>
 
 {% if section.settings.image_shape == 'blob' %}
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
@@ -115,7 +117,8 @@
               results: collection,
               enable_filtering: section.settings.enable_filtering,
               enable_sorting: section.settings.enable_sorting,
-              filter_type: section.settings.filter_type
+              filter_type: section.settings.filter_type,
+              pg_cols_toggle: true
             %}
           </aside>
         {%- endif -%}
