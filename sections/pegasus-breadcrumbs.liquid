@@ -1,0 +1,124 @@
+{{ 'pegasus-breadcrumbs.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign home_label = section.settings.home_label | default: 'Home'
+  assign current_title = page_title
+
+  if template.name == 'product'
+    assign current_title = product.title
+
+    comment
+      The middle step is the collection the visitor came through. Without one (a link straight to the pen),
+      it is the collection named after the pen's type, so a "Resin" pen sits under /collections/resin.
+    endcomment
+    assign middle = collection
+    if middle == blank and product.type != blank
+      assign type_handle = product.type | handleize
+      assign middle = collections[type_handle]
+    endif
+  elsif template.name == 'collection'
+    assign current_title = collection.title
+  endif
+-%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <nav class="pg-crumbs page-width" aria-label="{{ section.settings.label | default: 'Breadcrumb' | escape }}">
+    <ol class="pg-crumbs__list" role="list">
+      <li class="pg-crumbs__item">
+        <a class="pg-crumbs__link" href="{{ routes.root_url }}">{{ home_label | escape }}</a>
+      </li>
+      {%- if middle != blank -%}
+        <li class="pg-crumbs__item">
+          <a class="pg-crumbs__link" href="{{ middle.url }}">{{ middle.title | escape }}</a>
+        </li>
+      {%- endif -%}
+      <li class="pg-crumbs__item pg-crumbs__item--current" aria-current="page">
+        <span class="pg-crumbs__current">{{ current_title | escape }}</span>
+      </li>
+    </ol>
+  </nav>
+</div>
+
+{%- comment -%} Structured data: the last step is the page itself, which Google lets us leave without a URL. {%- endcomment -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": {{ home_label | json }}, "item": {{ request.origin | append: routes.root_url | json }} },
+      {%- if middle != blank -%}
+        { "@type": "ListItem", "position": 2, "name": {{ middle.title | json }}, "item": {{ request.origin | append: middle.url | json }} },
+        { "@type": "ListItem", "position": 3, "name": {{ current_title | json }} }
+      {%- else -%}
+        { "@type": "ListItem", "position": 2, "name": {{ current_title | json }} }
+      {%- endif -%}
+    ]
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Breadcrumbs",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "home_label",
+      "label": "First step",
+      "default": "Home"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Name for screen readers",
+      "default": "Breadcrumb"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Breadcrumbs"
+    }
+  ]
+}
+{% endschema %}

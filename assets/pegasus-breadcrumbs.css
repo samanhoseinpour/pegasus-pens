@@ -1,0 +1,53 @@
+/* Breadcrumbs: one quiet line above the product. */
+
+.pg-crumbs {
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: rgba(var(--color-foreground), 0.78);
+}
+
+.pg-crumbs__list {
+  display: flex;
+  align-items: baseline;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pg-crumbs__item {
+  display: flex;
+  flex: none;
+  min-width: 0;
+}
+
+/* The pen's own name gives way first on a narrow screen. */
+.pg-crumbs__item--current {
+  flex: 0 1 auto;
+  overflow: hidden;
+  color: rgb(var(--color-foreground));
+}
+
+.pg-crumbs__item + .pg-crumbs__item::before {
+  content: '/' / '';
+  margin: 0 0.8rem;
+  opacity: 0.45;
+}
+
+.pg-crumbs__current {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pg-crumbs__link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color 0.3s var(--pg-ease);
+}
+
+.pg-crumbs__link:hover {
+  text-decoration-color: currentcolor;
+}
