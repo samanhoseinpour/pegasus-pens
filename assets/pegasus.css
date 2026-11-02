@@ -488,3 +488,26 @@ volume-pricing li,
   line-height: 1;
   opacity: 0.8;
 }
+
+/* ---------- Lenis smooth scroll (see assets/pegasus-smooth.js) ---------- */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}

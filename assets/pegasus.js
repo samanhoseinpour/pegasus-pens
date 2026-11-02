@@ -113,7 +113,10 @@
   var topButton = document.querySelector('[data-pg-top]');
   if (topButton) {
     topButton.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: reduced.matches ? 'auto' : 'smooth' });
+      // With Lenis running, let it do the scrolling: a native smooth scroll would fight its easing.
+      var lenis = window.Pegasus && window.Pegasus.lenis;
+      if (lenis) lenis.scrollTo(0, { duration: 1.4 });
+      else window.scrollTo({ top: 0, behavior: reduced.matches ? 'auto' : 'smooth' });
       var logo = document.querySelector('.header__heading-link');
       if (logo) logo.focus({ preventScroll: true });
     });

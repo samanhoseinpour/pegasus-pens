@@ -19,6 +19,10 @@
         "pegasus_motion": {
           "label": "Enable motion",
           "info": "Headline and image reveals, and scroll-driven sections. Always off for visitors who prefer reduced motion."
+        },
+        "pegasus_smooth_scroll": {
+          "label": "Smooth scrolling",
+          "info": "Eases mouse-wheel scrolling (Lenis). Off for visitors who prefer reduced motion, and whenever motion is off."
         }
       }
     },

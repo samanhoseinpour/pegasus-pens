@@ -200,7 +200,8 @@
         }
       },
       "pegasus_fonts": true,
-      "pegasus_motion": true
+      "pegasus_motion": true,
+      "pegasus_smooth_scroll": true
     }
   }
 }

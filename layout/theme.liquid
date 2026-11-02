@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="js" lang="{{ request.locale.iso_code }}" data-pg-motion="{% if settings.pegasus_motion %}on{% else %}off{% endif %}">
+<html class="js" lang="{{ request.locale.iso_code }}" data-pg-motion="{% if settings.pegasus_motion %}on{% else %}off{% endif %}" data-pg-smooth="{% if settings.pegasus_smooth_scroll and settings.pegasus_motion %}on{% else %}off{% endif %}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -61,6 +61,10 @@
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'standard-actions-override.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pegasus.js' | asset_url }}" defer="defer"></script>
+    {%- if settings.pegasus_smooth_scroll and settings.pegasus_motion -%}
+      <script src="{{ 'lenis.min.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'pegasus-smooth.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
 
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>

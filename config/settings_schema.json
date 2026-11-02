@@ -23,6 +23,13 @@
         "label": "t:settings_schema.pegasus.settings.pegasus_motion.label",
         "info": "t:settings_schema.pegasus.settings.pegasus_motion.info",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "pegasus_smooth_scroll",
+        "label": "t:settings_schema.pegasus.settings.pegasus_smooth_scroll.label",
+        "info": "t:settings_schema.pegasus.settings.pegasus_smooth_scroll.info",
+        "default": true
       }
     ]
   },

@@ -73,6 +73,16 @@ All in `assets/pegasus-chrome.css` plus a few lines in `sections/footer.liquid`,
 - **Announcement bar** has optional side links (`left_label`/`left_link`, `right_label`/`right_link`), shown from 990 px, in the grid areas Craft already defines (`social-icons`, `language-currency`); the left one is hidden while social icons are on and the right one while a country/language selector is on. In Liquid, `and`/`or` have no precedence (right to left), so the grid-class condition starts with `left_link or right_link or ...` to keep Craft's own condition intact.
 - **Back to top** (`[data-pg-top]` in `layout/theme.liquid`, behaviour in `pegasus.js`): shows after 1.2 screens of scrolling, scrolls to the top (instantly under reduced motion) and moves focus to the logo, and sits above the sticky add-to-cart bar when that is showing. Its focus ring is ink with a parchment halo so it reads on both the light page and the dark footer.
 
+## Smooth scrolling (Lenis)
+
+`assets/lenis.min.js` (self-hosted, MIT, notice in `docs/third-party.md`) plus `assets/pegasus-smooth.js`, loaded after `pegasus.js` only when the theme settings `pegasus_smooth_scroll` and `pegasus_motion` are both on (`<html data-pg-smooth>` mirrors it). It eases the **mouse wheel** only: touch scrolling stays native (`syncTouch` off), keyboard scrolling and anchors are untouched (`anchors: false`, because Lenis would `preventDefault` the skip link and lose its focus move). It never starts for visitors who prefer reduced motion or in the theme editor, and it is destroyed if reduced motion is turned on later.
+
+- Lenis scrolls the real window (`scrollTo` each frame), so scroll listeners, `position: sticky`, IntersectionObserver and CSS scroll-driven animations all keep working; nothing else in the theme knows about it.
+- **Page locks:** Craft locks the page by styling `<body>` overflow (`overflow-hidden`, `-mobile`, ...) while a drawer, modal or menu is open. A MutationObserver reads the *computed* body overflow (so Craft's media queries apply) and calls `lenis.stop()`/`start()`. Without it the page would scroll behind an open drawer.
+- **Inner scrollers:** the `prevent` option returns true for any element in the wheel's path that scrolls vertically by itself (`overflow-y: auto|scroll` and taller than its box), so drawers, the search results and long lists scroll natively. Horizontal rails are unaffected (no vertical overflow).
+- **Programmatic scrolling:** call `window.Pegasus.lenis.scrollTo(...)` when it exists. The back-to-top button does; a native `behavior: 'smooth'` would fight Lenis's easing. Tests that count native wheel steps (`ixheader`) destroy it first with `window.Pegasus.lenis.destroy()`.
+- CSS for it ("Lenis smooth scroll") is at the end of `pegasus.css`.
+
 ## Compact header
 
 Once the header has been scrolled past and comes back (scroll up, with `sticky_header_type: on-scroll-up`), Craft adds `scrolled-past-header` to `.section-header`. `assets/pegasus-chrome.css` ("Compact header") then collapses the header to one row at every width: the `header-drawer` menu button (the nav row is hidden and stays reachable through that drawer), the smaller wordmark, the search (a 40rem field from 990 px, an icon below) and the icons. With sticky type "None" Craft never adds the class, so nothing changes.
