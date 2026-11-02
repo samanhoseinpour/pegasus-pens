@@ -1,0 +1,168 @@
+{% doc %}
+  Renders the engraving and gift options for the main product section.
+  Every field is attached to the product form with the `form` attribute, so the choices are submitted as
+  line item properties (`properties[...]`) and show up in the cart, at checkout and on the order.
+  The fields start disabled and collapsed, so nothing is submitted until the shopper turns a switch on;
+  pegasus-personalize.js enables them then. Without JavaScript the whole block stays hidden.
+
+  @param {object} block - The `personalize` block, whose settings supply all wording and limits.
+  @param {string} product_form_id - The ID of the product form the fields belong to.
+  @param {string} section_id - The ID of the main product section, used to make element IDs unique.
+
+  @example
+  {% render 'pegasus-personalize', block: block, product_form_id: product_form_id, section_id: section.id %}
+{% enddoc %}
+{{ 'pegasus-personalize.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pegasus-personalize.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign s = block.settings
+  assign engraving_limit = s.engraving_limit | default: 20
+  assign message_limit = s.gift_message_limit | default: 160
+-%}
+
+<pg-personalize
+  class="pg-personalize"
+  data-form="{{ product_form_id }}"
+  data-error="{{ s.engraving_error | escape }}"
+  data-counter="{{ s.counter_text | default: '{count} of {max}' | escape }}"
+  {{ block.shopify_attributes }}
+>
+  {%- if s.show_engraving -%}
+    <fieldset class="pg-personalize__group" data-group="engraving">
+      <legend class="pg-personalize__legend">{{ s.engraving_heading | escape }}</legend>
+      <label class="pg-personalize__toggle">
+        <input
+          type="checkbox"
+          class="pg-personalize__check"
+          data-toggle
+          aria-controls="PgEngrave-{{ section_id }}"
+        >
+        <span class="pg-personalize__box" aria-hidden="true"></span>
+        <span>{{ s.engraving_toggle | escape }}</span>
+      </label>
+      <div class="pg-personalize__panel" id="PgEngrave-{{ section_id }}" data-panel>
+        <div class="pg-personalize__panel-inner">
+          <div class="pg-personalize__fields">
+            {%- if s.engraving_help != blank -%}
+              <p class="pg-personalize__help" id="PgEngraveHelp-{{ section_id }}">{{ s.engraving_help | escape }}</p>
+            {%- endif -%}
+            <label class="pg-personalize__label" for="PgEngraveText-{{ section_id }}">{{ s.engraving_field | escape }}</label>
+            <input
+              type="text"
+              class="pg-personalize__input"
+              id="PgEngraveText-{{ section_id }}"
+              name="properties[{{ s.engraving_name | escape }}]"
+              form="{{ product_form_id }}"
+              maxlength="{{ engraving_limit }}"
+              autocomplete="off"
+              autocapitalize="characters"
+              spellcheck="false"
+              aria-describedby="{% if s.engraving_help != blank %}PgEngraveHelp-{{ section_id }} {% endif %}PgEngraveMeta-{{ section_id }}"
+              disabled
+              data-field
+              data-engraving-input
+              data-limit="{{ engraving_limit }}"
+            >
+            <div class="pg-personalize__meta" id="PgEngraveMeta-{{ section_id }}">
+              <span class="pg-personalize__error" role="alert" data-error-slot></span>
+              <span class="pg-personalize__counter" data-counter-slot></span>
+            </div>
+            <div class="pg-engrave" aria-hidden="true" data-preview-box data-empty>
+              <span class="pg-engrave__text" data-preview data-placeholder="{{ s.engraving_field | escape }}"></span>
+            </div>
+            {%- if s.quantity_note != blank -%}
+              <p class="pg-personalize__note" data-quantity-note hidden>{{ s.quantity_note | escape }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  {%- endif -%}
+
+  {%- if s.show_gift -%}
+    <fieldset class="pg-personalize__group" data-group="gift">
+      <legend class="pg-personalize__legend">{{ s.gift_heading | escape }}</legend>
+      <label class="pg-personalize__toggle">
+        <input
+          type="checkbox"
+          class="pg-personalize__check"
+          name="properties[{{ s.gift_name | escape }}]"
+          value="{{ s.gift_value | escape }}"
+          form="{{ product_form_id }}"
+          data-toggle
+          aria-controls="PgGift-{{ section_id }}"
+        >
+        <span class="pg-personalize__box" aria-hidden="true"></span>
+        <span>{{ s.gift_toggle | escape }}</span>
+      </label>
+      <div class="pg-personalize__panel" id="PgGift-{{ section_id }}" data-panel>
+        <div class="pg-personalize__panel-inner">
+          <div class="pg-personalize__fields">
+            {%- if s.gift_help != blank -%}
+              <p class="pg-personalize__help">{{ s.gift_help | escape }}</p>
+            {%- endif -%}
+
+            {%- if s.show_gift_wrap -%}
+              <label class="pg-personalize__toggle pg-personalize__toggle--sub">
+                <input
+                  type="checkbox"
+                  class="pg-personalize__check"
+                  name="properties[{{ s.wrap_name | escape }}]"
+                  value="{{ s.wrap_value | escape }}"
+                  form="{{ product_form_id }}"
+                  checked
+                  disabled
+                  data-field
+                >
+                <span class="pg-personalize__box" aria-hidden="true"></span>
+                <span>{{ s.gift_wrap_label | escape }}</span>
+              </label>
+            {%- endif -%}
+
+            {%- if s.show_gift_message -%}
+              <label class="pg-personalize__label" for="PgGiftMessage-{{ section_id }}">{{ s.gift_message_label | escape }}</label>
+              <textarea
+                class="pg-personalize__textarea"
+                id="PgGiftMessage-{{ section_id }}"
+                name="properties[{{ s.message_name | escape }}]"
+                form="{{ product_form_id }}"
+                rows="3"
+                maxlength="{{ message_limit }}"
+                aria-describedby="PgGiftMeta-{{ section_id }}"
+                disabled
+                data-field
+                data-message-input
+                data-limit="{{ message_limit }}"
+              ></textarea>
+              <div class="pg-personalize__meta" id="PgGiftMeta-{{ section_id }}">
+                <span class="pg-personalize__counter" data-counter-slot></span>
+              </div>
+            {%- endif -%}
+
+            {%- if s.show_packing -%}
+              <label class="pg-personalize__toggle pg-personalize__toggle--sub">
+                <input
+                  type="checkbox"
+                  class="pg-personalize__check"
+                  name="properties[{{ s.packing_name | escape }}]"
+                  value="{{ s.packing_value | escape }}"
+                  form="{{ product_form_id }}"
+                  disabled
+                  data-field
+                >
+                <span class="pg-personalize__box" aria-hidden="true"></span>
+                <span>{{ s.packing_label | escape }}</span>
+              </label>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  {%- endif -%}
+
+  {%- if s.fine_print != blank -%}
+    <p class="pg-personalize__fine">{{ s.fine_print | escape }}</p>
+  {%- endif -%}
+</pg-personalize>
+

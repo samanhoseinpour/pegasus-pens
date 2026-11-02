@@ -38,6 +38,10 @@
           "type": "quantity_selector",
           "settings": {}
         },
+        "personalize": {
+          "type": "personalize",
+          "settings": {}
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -62,6 +66,7 @@
         "price",
         "variant_picker",
         "quantity_selector",
+        "personalize",
         "buy_buttons",
         "description",
         "share"

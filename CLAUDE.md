@@ -52,6 +52,16 @@ New sections (all with presets, so merchants can add them anywhere; schema label
 - Craft's price markup contains block `<div>`s, so the price must not sit inside a `<p>`: the parser closes the paragraph and the price drops out of the layout.
 - Craft hides empty elements globally (`div:empty { display: none }`); remember this when inserting spacer divs in tests.
 
+## Product page: engraving and gift options
+
+The `personalize` block of `sections/main-product.liquid` (limit 1, placed before `buy_buttons` in `templates/product.json`) renders `snippets/pegasus-personalize.liquid`. `<pg-personalize>` (assets/pegasus-personalize.js) drives two switches, **Engraving** and **Gift options**, each opening a panel of fields. It adds no add-to-cart code: every field carries `form="<product_form_id>"` and a `properties[Name]` name, so Craft's own add-to-cart request sends them as line item properties, and the cart, cart drawer, notification and order already print `item.properties`.
+
+- Fields are `disabled` until their switch is on, so nothing is sent by accident (a disabled field is left out of the form data). The gift switch itself is a named checkbox, so `Gift: Yes` is sent only when it is on. The wrap box is pre-checked, which is why it must stay disabled while the switch is off. `pg-personalize:not(:defined)` is hidden: without JavaScript the block does not appear.
+- Validation lives in a **capture-phase `submit` listener on `document`**, so it runs before Craft's handler, survives the form being re-rendered, and also covers the sticky bar (its button clicks the real submit button). It blocks an empty engraving, shows the error in a `role="alert"` slot, and trims every text field so a whitespace-only value is never saved. Dynamic checkout buttons (Shop Pay, etc.) skip this check.
+- Compare the form with `getAttribute('id')`, not `.id`: the product form has a field named `id` (the variant), and `form.id` returns that field instead of the string.
+- Every label, limit and **property name** is a block setting (plain English, defaults in the schema), so the merchant can reword or translate. Changing a property name does not rename it on existing orders. The engraving preview plate uses the espresso/gold tokens, so gold stays on a dark surface.
+- Quantity above 1 shows a note, because one engraving applies to the whole line. Copy must stay free of prices and conditions (the merchant decides those).
+
 ## Commands
 
 Everything goes through Shopify CLI (5.0.0 installed). There is no `shopify.theme.toml`, so pass `--store` yourself.

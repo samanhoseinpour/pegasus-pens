@@ -488,6 +488,12 @@
                     block: block,
                     product_form_id: product_form_id
                   %}
+                {%- when 'personalize' -%}
+                  {%- render 'pegasus-personalize',
+                    block: block,
+                    product_form_id: product_form_id,
+                    section_id: section.id
+                  -%}
                 {%- when 'buy_buttons' -%}
                   {%- render 'buy-buttons',
                     block: block,
@@ -920,6 +926,208 @@
             }
           ],
           "default": "circle"
+        }
+      ]
+    },
+    {
+      "type": "personalize",
+      "name": "Engraving and gift options",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Engraving"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_engraving",
+          "label": "Show engraving",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "engraving_heading",
+          "label": "Heading",
+          "default": "Engraving"
+        },
+        {
+          "type": "text",
+          "id": "engraving_toggle",
+          "label": "Switch label",
+          "default": "Engrave this pen"
+        },
+        {
+          "type": "text",
+          "id": "engraving_help",
+          "label": "Help text",
+          "default": "Add initials or a short line."
+        },
+        {
+          "type": "text",
+          "id": "engraving_field",
+          "label": "Field label",
+          "default": "Text to engrave"
+        },
+        {
+          "type": "text",
+          "id": "engraving_name",
+          "label": "Property name",
+          "default": "Engraving",
+          "info": "Shown in the cart and on the order. Changing it does not affect orders already placed."
+        },
+        {
+          "type": "range",
+          "id": "engraving_limit",
+          "label": "Maximum characters",
+          "min": 8,
+          "max": 40,
+          "step": 1,
+          "default": 20
+        },
+        {
+          "type": "text",
+          "id": "engraving_error",
+          "label": "Error when the field is empty",
+          "default": "Add the text to engrave, or turn engraving off."
+        },
+        {
+          "type": "text",
+          "id": "quantity_note",
+          "label": "Note shown when quantity is more than 1",
+          "default": "The same engraving is applied to every pen in this order line.",
+          "info": "Leave empty to hide the note."
+        },
+        {
+          "type": "text",
+          "id": "counter_text",
+          "label": "Character counter",
+          "default": "{count} of {max}",
+          "info": "Use {count} and {max}."
+        },
+        {
+          "type": "header",
+          "content": "Gift options"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_gift",
+          "label": "Show gift options",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "gift_heading",
+          "label": "Heading",
+          "default": "Gift options"
+        },
+        {
+          "type": "text",
+          "id": "gift_toggle",
+          "label": "Switch label",
+          "default": "This is a gift"
+        },
+        {
+          "type": "text",
+          "id": "gift_help",
+          "label": "Help text",
+          "default": "Choose how it is packed and add a note for the recipient."
+        },
+        {
+          "type": "text",
+          "id": "gift_name",
+          "label": "Property name",
+          "default": "Gift"
+        },
+        {
+          "type": "text",
+          "id": "gift_value",
+          "label": "Property value",
+          "default": "Yes"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_gift_wrap",
+          "label": "Show gift wrap option",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "gift_wrap_label",
+          "label": "Gift wrap label",
+          "default": "Wrap it in a gift box"
+        },
+        {
+          "type": "text",
+          "id": "wrap_name",
+          "label": "Gift wrap property name",
+          "default": "Gift wrap"
+        },
+        {
+          "type": "text",
+          "id": "wrap_value",
+          "label": "Gift wrap property value",
+          "default": "Yes"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_gift_message",
+          "label": "Show gift message",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "gift_message_label",
+          "label": "Gift message label",
+          "default": "Message for the card"
+        },
+        {
+          "type": "text",
+          "id": "message_name",
+          "label": "Gift message property name",
+          "default": "Gift message"
+        },
+        {
+          "type": "range",
+          "id": "gift_message_limit",
+          "label": "Maximum message characters",
+          "min": 40,
+          "max": 300,
+          "step": 10,
+          "default": 160
+        },
+        {
+          "type": "checkbox",
+          "id": "show_packing",
+          "label": "Show packing slip option",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "packing_label",
+          "label": "Packing slip label",
+          "default": "Leave prices off the packing slip"
+        },
+        {
+          "type": "text",
+          "id": "packing_name",
+          "label": "Packing slip property name",
+          "default": "Packing slip"
+        },
+        {
+          "type": "text",
+          "id": "packing_value",
+          "label": "Packing slip property value",
+          "default": "No prices"
+        },
+        {
+          "type": "header",
+          "content": "Footnote"
+        },
+        {
+          "type": "text",
+          "id": "fine_print",
+          "label": "Footnote",
+          "info": "Shown under both options, for example a lead-time note. Leave empty to hide."
         }
       ]
     },
