@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A Shopify Online Store 2.0 theme: **Craft v16.1.0** (see `config/settings_schema.json`), a Dawn-derived theme. `AGENTS.md` is titled "Dawn theme instructions" and the JS comments still say "Dawn", but the theme is Craft. There is no build step, no `package.json`, no README, and this directory is not a git repository.
+A Shopify Online Store 2.0 theme: **Craft v16.1.0** (see `config/settings_schema.json`), a Dawn-derived theme. `AGENTS.md` is titled "Dawn theme instructions" and the JS comments still say "Dawn", but the theme is Craft. There is no build step, no `package.json` and no README. The code lives in the private GitHub repo `samanhoseinpour/pegasus-pens` (remote `origin`, default branch `main`).
 
 Rules from `AGENTS.md`: follow OS 2.0 conventions; preserve existing section setting IDs and merchant configuration; prefer small reusable snippets over duplicated Liquid; keep changes theme-editor compatible.
 
@@ -30,6 +30,7 @@ Everything goes through Shopify CLI (5.0.0 installed). There is no `shopify.them
 
 - Lint: `shopify theme check --path .` (`--fail-level error`, `-a` to auto-correct, `-j` for JSON)
 - Preview / sync: `shopify theme dev --store <shop>.myshopify.com`, `shopify theme pull|push` (need store auth)
+- Deploy: pushes to `main` are meant to update the Shopify theme through Shopify's GitHub integration (connected once in the Shopify admin: Online Store > Themes > Add theme > Connect from GitHub). That integration is two-way: edits made in the theme editor are committed back to the branch, so `git pull` before you push, and expect `config/settings_data.json` and `templates/*.json` to change under you.
 - There is no test suite.
 
 Lint baseline is **not clean**: 2 errors and 9 warnings. Both errors are `UnknownFilter: applicable_disclosures` in `snippets/cart-disclosure-indicator.liquid` and `snippets/product-disclosures.liquid`. That is probably a Shopify filter newer than the bundled theme-check. Compare against this baseline instead of expecting zero.
