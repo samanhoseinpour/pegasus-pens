@@ -1,0 +1,21 @@
+{% doc %}
+  Renders the progress line and previous/next buttons for a `<pg-rail>` carousel.
+  Must be placed inside the `<pg-rail>` element; pegasus-rail.js wires it up.
+
+  @example
+  <pg-rail>
+    <ul data-rail-track>...</ul>
+    {% render 'pegasus-rail-controls' %}
+  </pg-rail>
+{% enddoc %}
+<div class="pg-rail__controls">
+  <div class="pg-rail__bar" aria-hidden="true"><span class="pg-rail__thumb"></span></div>
+  <div class="pg-rail__buttons">
+    <button type="button" class="pg-rail__button pg-rail__button--prev" data-rail-prev aria-label="{{ 'general.slider.previous_slide' | t }}" disabled>
+      <span class="svg-wrapper">{{ 'icon-arrow.svg' | inline_asset_content }}</span>
+    </button>
+    <button type="button" class="pg-rail__button pg-rail__button--next" data-rail-next aria-label="{{ 'general.slider.next_slide' | t }}">
+      <span class="svg-wrapper">{{ 'icon-arrow.svg' | inline_asset_content }}</span>
+    </button>
+  </div>
+</div>

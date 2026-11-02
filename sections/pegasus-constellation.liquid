@@ -1,0 +1,155 @@
+{{ 'pegasus-constellation.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pegasus-constellation.js' | asset_url }}" defer="defer"></script>
+
+{%- assign heading_text = section.settings.heading | strip_html | strip -%}
+
+<pg-constellation class="pg-const color-{{ section.settings.color_scheme }} gradient">
+  <div class="pg-const__stage">
+    <div class="page-width pg-const__grid">
+      <div class="pg-const__intro">
+        {%- if heading_text != blank -%}
+          <h2 class="h1 pg-const__heading" data-pg-rise>{{ heading_text | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.intro != blank -%}
+          <p class="pg-const__lede">{{ section.settings.intro | escape }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="pg-const__map">
+        {%- render 'pegasus-constellation', class: 'pg-const__svg' -%}
+      </div>
+
+      <div class="pg-const__detail">
+        <div class="pg-const__panels">
+          {%- for block in section.blocks -%}
+            <article class="pg-const__panel" data-star="{{ forloop.index }}" {{ block.shopify_attributes }}>
+              {%- if block.settings.name != blank -%}
+                <p class="pg-const__name">{{ block.settings.name | escape }}</p>
+              {%- endif -%}
+              {%- if block.settings.title != blank -%}
+                <h3 class="pg-const__title">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="pg-const__text">{{ block.settings.text | escape }}</p>
+              {%- endif -%}
+              {%- if block.settings.link_label != blank and block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}" class="pg-const__link link">{{ block.settings.link_label | escape }}</a>
+              {%- endif -%}
+            </article>
+          {%- endfor -%}
+        </div>
+
+        {%- if section.blocks.size > 1 -%}
+          <div class="pg-const__nav" role="group" aria-label="{{ heading_text | default: 'Stars' | escape }}">
+            {%- for block in section.blocks -%}
+              <button type="button" class="pg-const__nav-item" data-star-button="{{ forloop.index }}" aria-pressed="false">
+                {{- block.settings.name | default: block.settings.title | escape -}}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</pg-constellation>
+
+{% schema %}
+{
+  "name": "Pegasus Great Square",
+  "tag": "section",
+  "class": "pg-const-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Four ways to write, one workshop."
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Text",
+      "default": "Pegasus is a constellation of four bright stars. Ours are four kinds of pen."
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "star",
+      "name": "Star",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Star name",
+          "default": "Markab"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Fountain pens"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Steel and gold nibs, filled from a bottle. The slow, deliberate way to write."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "Shop fountain pens"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pegasus Great Square",
+      "blocks": [
+        { "type": "star" },
+        {
+          "type": "star",
+          "settings": {
+            "name": "Scheat",
+            "title": "Rollerballs",
+            "text": "Water-based ink on a rolling ball. Smooth, quiet, and no learning curve.",
+            "link_label": "Shop rollerballs"
+          }
+        },
+        {
+          "type": "star",
+          "settings": {
+            "name": "Algenib",
+            "title": "Ballpoints",
+            "text": "Pocket-sized and ready to sign anything, anywhere.",
+            "link_label": "Shop ballpoints"
+          }
+        },
+        {
+          "type": "star",
+          "settings": {
+            "name": "Alpheratz",
+            "title": "Inks and paper",
+            "text": "Bottled inks and notebooks that stand up to a wet nib.",
+            "link_label": "Shop inks and paper"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

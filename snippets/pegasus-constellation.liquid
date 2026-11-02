@@ -1,0 +1,30 @@
+{% doc %}
+  Renders the Great Square of Pegasus as an inline SVG. Four stars form the square, two more trail off it.
+  Section CSS animates the `.pg-seg` lines and `.pg-star` groups; without CSS the whole map is drawn.
+
+  @param {string} [class] - Extra CSS classes for the SVG.
+
+  @example
+  {% render 'pegasus-constellation', class: 'pg-hero__map' %}
+{% enddoc %}
+<svg
+  class="pg-sky-map{% if class != blank %} {{ class }}{% endif %}"
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1000 700"
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path class="pg-seg pg-seg--1" pathLength="1" d="M300 190 640 120"/>
+  <path class="pg-seg pg-seg--2" pathLength="1" d="M640 120 700 470"/>
+  <path class="pg-seg pg-seg--3" pathLength="1" d="M700 470 360 540"/>
+  <path class="pg-seg pg-seg--4" pathLength="1" d="M360 540 300 190"/>
+  <path class="pg-seg pg-seg--5" pathLength="1" d="M640 120 900 250"/>
+  <path class="pg-seg pg-seg--6" pathLength="1" d="M360 540 200 630"/>
+  <g transform="translate(300 190)" class="pg-star pg-star--1"><circle class="pg-star__halo" r="26"/><circle class="pg-star__core" r="6"/></g>
+  <g transform="translate(640 120)" class="pg-star pg-star--2"><circle class="pg-star__halo" r="26"/><circle class="pg-star__core" r="6"/></g>
+  <g transform="translate(700 470)" class="pg-star pg-star--3"><circle class="pg-star__halo" r="26"/><circle class="pg-star__core" r="6"/></g>
+  <g transform="translate(360 540)" class="pg-star pg-star--4"><circle class="pg-star__halo" r="26"/><circle class="pg-star__core" r="6"/></g>
+  <g transform="translate(900 250)" class="pg-star pg-star--5"><circle class="pg-star__core" r="3.5"/></g>
+  <g transform="translate(200 630)" class="pg-star pg-star--6"><circle class="pg-star__core" r="3.5"/></g>
+</svg>

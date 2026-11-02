@@ -1,0 +1,198 @@
+{{ 'pegasus-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading_text = section.settings.heading | strip_html | strip
+  assign words = heading_text | split: ' '
+  assign has_image = false
+  if section.settings.image != blank
+    assign has_image = true
+  endif
+-%}
+
+<section
+  class="pg-hero pg-hero--{{ section.settings.height }} color-{{ section.settings.color_scheme }} gradient{% if has_image %} pg-hero--has-image{% endif %}"
+  style="--pg-hero-overlay: {{ section.settings.overlay | divided_by: 100.0 }};"
+>
+  <div class="pg-hero__media">
+    {%- if has_image -%}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'pg-hero__image',
+          widths: '800, 1200, 1600, 2000, 2400',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: section.settings.image.alt
+      }}
+    {%- else -%}
+      <svg
+        class="pg-hero__sky"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+        focusable="false"
+      >
+        {%- for i in (1..46) -%}
+          {%- liquid
+            assign star_x = i | times: 37 | modulo: 100
+            assign star_y = i | times: 53 | modulo: 97
+            assign star_r = i | modulo: 5 | times: 0.025 | plus: 0.04
+            assign twinkles = i | modulo: 7
+          -%}
+          <circle
+            cx="{{ star_x }}"
+            cy="{{ star_y }}"
+            r="{{ star_r }}"
+            {% if twinkles == 0 %}
+              class="pg-hero__twinkle"
+              style="animation-delay: {{ i | modulo: 5 }}s"
+            {% endif %}
+          />
+        {%- endfor -%}
+      </svg>
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.show_constellation -%}
+    {%- render 'pegasus-constellation', class: 'pg-hero__map' -%}
+  {%- endif -%}
+
+  <div class="pg-hero__inner page-width">
+    {%- if heading_text != blank -%}
+      <h2 class="pg-hero__heading" aria-label="{{ heading_text | escape }}">
+        {%- for word in words -%}
+          <span class="pg-w" aria-hidden="true"><span class="pg-wi" style="--i: {{ forloop.index0 }}">{{ word | escape }}</span></span>
+          {%- unless forloop.last %} {% endunless -%}
+        {%- endfor -%}
+      </h2>
+    {%- endif -%}
+
+    {%- if section.settings.text != blank -%}
+      <p class="pg-hero__text">{{ section.settings.text | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank or section.settings.link_label != blank -%}
+      <div class="pg-hero__actions">
+        {%- if section.settings.button_label != blank -%}
+          <a
+            class="button"
+            {% if section.settings.button_link == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ section.settings.button_link }}"
+            {% endif %}
+          >
+            {{- section.settings.button_label | escape -}}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.link_label != blank -%}
+          <a
+            class="pg-hero__link"
+            {% if section.settings.link_url == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ section.settings.link_url }}"
+            {% endif %}
+          >
+            {{- section.settings.link_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pegasus hero",
+  "tag": "div",
+  "class": "pg-hero-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image",
+      "info": "Optional. Without an image the hero shows a night sky."
+    },
+    {
+      "type": "range",
+      "id": "overlay",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Image overlay",
+      "default": 25
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "options": [
+        { "value": "tall", "label": "Tall" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "compact", "label": "Compact" }
+      ],
+      "default": "tall"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Pens made to be written with."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Fountain pens, rollerballs and inks from a small workshop, tested on real paper before they ship."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop fountain pens"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Text link label",
+      "default": "Browse every pen"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Text link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_constellation",
+      "label": "Draw the Great Square on load",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pegasus hero"
+    }
+  ]
+}
+{% endschema %}

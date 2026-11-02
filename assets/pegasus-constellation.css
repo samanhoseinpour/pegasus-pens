@@ -1,0 +1,284 @@
+/* The Great Square: a pinned scroll section. Without JS (or with reduced motion, or in the theme editor)
+   it is a static map with all four pen families listed, so nothing depends on scrolling. */
+
+.pg-const {
+  display: block;
+  position: relative;
+}
+
+.pg-const__stage {
+  display: flex;
+  align-items: center;
+  padding-block: clamp(6.4rem, 10vw, 12rem);
+}
+
+.pg-const__grid {
+  display: grid;
+  gap: 4rem;
+  width: 100%;
+  grid-template-areas: 'intro' 'map' 'detail';
+}
+
+.pg-const__intro { grid-area: intro; display: grid; gap: 1.6rem; align-content: start; }
+.pg-const__map { grid-area: map; }
+.pg-const__detail { grid-area: detail; display: grid; gap: 3.2rem; align-content: start; }
+
+@media screen and (min-width: 990px) {
+  .pg-const__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 6rem;
+    row-gap: 4.8rem;
+    grid-template-areas: 'intro map' 'detail map';
+  }
+
+  .pg-const__map {
+    align-self: center;
+  }
+}
+
+.pg-const__heading {
+  margin: 0;
+  max-width: 14ch;
+}
+
+.pg-const__lede {
+  max-width: 36ch;
+  margin: 0;
+  font-size: 1.7rem;
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.78);
+}
+
+/* ---------- Map ---------- */
+
+.pg-const__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 72vh;
+  overflow: visible;
+}
+
+.pg-const__svg .pg-seg {
+  stroke: var(--pg-nib);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+
+.pg-const__svg .pg-seg--1 { stroke-dashoffset: calc(1 - var(--seg-1, 1)); }
+.pg-const__svg .pg-seg--2 { stroke-dashoffset: calc(1 - var(--seg-2, 1)); }
+.pg-const__svg .pg-seg--3 { stroke-dashoffset: calc(1 - var(--seg-3, 1)); }
+.pg-const__svg .pg-seg--4 { stroke-dashoffset: calc(1 - var(--seg-4, 1)); }
+.pg-const__svg .pg-seg--5 { stroke-dashoffset: calc(1 - var(--seg-5, 1)); opacity: 0.5; }
+.pg-const__svg .pg-seg--6 { stroke-dashoffset: calc(1 - var(--seg-6, 1)); opacity: 0.5; }
+
+.pg-const__svg .pg-star__core,
+.pg-const__svg .pg-star__halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.7s var(--pg-ease), transform 0.9s var(--pg-ease), fill 0.5s ease;
+}
+
+.pg-const__svg .pg-star__core { fill: rgb(var(--color-foreground)); }
+.pg-const__svg .pg-star__halo { fill: var(--pg-nib); fill-opacity: 0.3; filter: blur(3px); }
+.pg-const__svg .pg-star--5 .pg-star__core,
+.pg-const__svg .pg-star--6 .pg-star__core { opacity: 0.7; }
+
+/* Pinned, unlit stars are faint; lit stars glow; the active star pulses. */
+.pg-const.is-pinned .pg-star:not(.is-lit) .pg-star__core { opacity: 0.22; transform: scale(0.7); }
+.pg-const.is-pinned .pg-star:not(.is-lit) .pg-star__halo { opacity: 0; transform: scale(0.3); }
+.pg-const.is-pinned .pg-star.is-active .pg-star__halo { transform: scale(1.7); animation: pg-pulse 3.2s ease-in-out infinite; }
+.pg-const.is-pinned .pg-star.is-active .pg-star__core { fill: var(--pg-nib); transform: scale(1.35); }
+
+@keyframes pg-pulse {
+  0%, 100% { fill-opacity: 0.22; }
+  50% { fill-opacity: 0.5; }
+}
+
+/* ---------- Copy ---------- */
+
+.pg-const__panels {
+  display: grid;
+  gap: 3.2rem;
+}
+
+.pg-const__panel {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(var(--color-foreground), 0.18);
+}
+
+.pg-const__name {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-style: italic;
+  font-size: 1.9rem;
+  color: var(--pg-nib);
+}
+
+.pg-const__title {
+  margin: 0;
+  font-size: clamp(3.2rem, 4.2vw, 6rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.pg-const__text {
+  max-width: 38ch;
+  margin: 0;
+  font-size: 1.7rem;
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.82);
+}
+
+.pg-const__link {
+  justify-self: start;
+  margin-top: 0.8rem;
+}
+
+.pg-const__nav {
+  display: none;
+  flex-wrap: wrap;
+  gap: 0.4rem 2.8rem;
+}
+
+.pg-const__nav-item {
+  padding: 0.8rem 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  font: inherit;
+  font-size: 1.5rem;
+  color: rgba(var(--color-foreground), 0.5);
+  cursor: pointer;
+  transition: color 0.3s var(--pg-ease), border-color 0.3s var(--pg-ease);
+}
+
+.pg-const__nav-item:hover,
+.pg-const__nav-item[aria-pressed='true'] {
+  color: rgb(var(--color-foreground));
+}
+
+.pg-const__nav-item[aria-pressed='true'] {
+  border-bottom-color: var(--pg-nib);
+}
+
+.pg-const__nav-item:focus-visible {
+  outline: 2px solid var(--pg-teal);
+  outline-offset: 3px;
+}
+
+/* Static mode: four panels as a grid. */
+@media screen and (min-width: 750px) {
+  .pg-const:not(.is-pinned) .pg-const__panels {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4rem 3.2rem;
+  }
+}
+
+/* ---------- Pinned mode ---------- */
+
+.pg-const.is-pinned {
+  height: 480vh;
+  height: 480svh;
+}
+
+.pg-const.is-pinned .pg-const__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  min-height: 52rem;
+  padding-block: 11rem 4rem;
+  overflow: hidden;
+}
+
+.pg-const.is-pinned .pg-const__nav {
+  display: flex;
+}
+
+.pg-const.is-pinned .pg-const__panels {
+  display: grid;
+  grid-template-areas: 'stack';
+}
+
+.pg-const.is-pinned .pg-const__panel {
+  grid-area: stack;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(1.6rem);
+  transition: opacity 0.6s var(--pg-ease), transform 0.8s var(--pg-ease), visibility 0s linear 0.6s;
+}
+
+.pg-const.is-pinned .pg-const__panel.is-active {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s;
+}
+
+@media screen and (max-width: 989px) {
+  .pg-const.is-pinned .pg-const__stage {
+    padding-block: 9rem 2.4rem;
+  }
+
+  .pg-const.is-pinned .pg-const__grid {
+    gap: 2rem;
+  }
+
+  .pg-const.is-pinned .pg-const__heading {
+    font-size: 2.8rem;
+  }
+
+  .pg-const.is-pinned .pg-const__lede {
+    display: none;
+  }
+
+  .pg-const.is-pinned .pg-const__svg {
+    max-height: 34vh;
+    max-height: 34svh;
+  }
+
+  .pg-const.is-pinned .pg-const__title {
+    font-size: 3.2rem;
+  }
+
+  .pg-const.is-pinned .pg-const__panel {
+    padding-top: 1.4rem;
+  }
+
+  .pg-const.is-pinned .pg-const__text {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .pg-const.is-pinned .pg-const__heading {
+    font-size: 4rem;
+  }
+
+  .pg-const.is-pinned .pg-const__lede {
+    display: block;
+  }
+
+  .pg-const.is-pinned .pg-const__svg {
+    max-height: 38vh;
+    max-height: 38svh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-const__svg .pg-star__core,
+  .pg-const__svg .pg-star__halo,
+  .pg-const__panel {
+    transition: none;
+  }
+
+  .pg-const.is-pinned .pg-star.is-active .pg-star__halo {
+    animation: none;
+  }
+}

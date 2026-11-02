@@ -1,0 +1,76 @@
+/* Slow, looping text. The only continuous motion on the page; it pauses on hover and stops for reduced motion. */
+
+.pg-marquee {
+  overflow: hidden;
+}
+
+.pg-marquee__viewport {
+  overflow: hidden;
+}
+
+.pg-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: pg-marquee var(--pg-marquee-duration, 60s) linear infinite;
+}
+
+.pg-marquee:hover .pg-marquee__track {
+  animation-play-state: paused;
+}
+
+.pg-marquee__list {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 100vw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pg-marquee__item {
+  display: flex;
+  align-items: center;
+  gap: clamp(2.4rem, 4vw, 6rem);
+  padding-right: clamp(2.4rem, 4vw, 6rem);
+  font-family: var(--font-heading-family);
+  font-weight: 320;
+  font-size: clamp(4.8rem, 9vw, 13rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  color: rgb(var(--color-foreground));
+}
+
+.pg-marquee__item::after {
+  content: '';
+  flex: none;
+  width: 0.34em;
+  height: 0.34em;
+  background: var(--pg-nib);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+}
+
+@keyframes pg-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-marquee__track {
+    width: auto;
+    animation: none;
+  }
+
+  .pg-marquee__list {
+    flex-wrap: wrap;
+    min-width: 0;
+    row-gap: 1.6rem;
+  }
+
+  .pg-marquee__list + .pg-marquee__list {
+    display: none;
+  }
+}

@@ -1,0 +1,230 @@
+/* Pegasus hero: night sky (or image), a left-aligned headline, and one load-in sequence. */
+
+.pg-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: clamp(54rem, calc(100vh - 17.6rem), 96rem);
+  min-height: clamp(54rem, calc(100svh - 17.6rem), 96rem);
+}
+
+.pg-hero--medium {
+  min-height: clamp(46rem, 72vh, 80rem);
+  min-height: clamp(46rem, 72svh, 80rem);
+}
+
+.pg-hero--compact {
+  min-height: clamp(38rem, 54vh, 60rem);
+  min-height: clamp(38rem, 54svh, 60rem);
+}
+
+.pg-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.pg-hero__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pg-hero--has-image .pg-hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(var(--color-background), calc(var(--pg-hero-overlay) + 0.45)),
+    rgba(var(--color-background), var(--pg-hero-overlay)) 60%,
+    rgba(var(--color-background), calc(var(--pg-hero-overlay) * 0.5))
+  );
+}
+
+.pg-hero__sky {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: rgb(var(--color-foreground));
+  fill-opacity: 0.62;
+  background: radial-gradient(120% 90% at 88% 100%, rgba(14, 124, 123, 0.38), transparent 62%),
+    radial-gradient(80% 60% at 8% 0%, rgba(184, 151, 90, 0.12), transparent 60%);
+}
+
+.pg-hero__twinkle {
+  animation: pg-twinkle 5s ease-in-out infinite;
+}
+
+/* The Great Square sits upper right so the headline keeps the lower left. */
+.pg-hero__map {
+  position: absolute;
+  top: clamp(5rem, 7vh, 10rem);
+  right: clamp(1.6rem, 3vw, 8rem);
+  z-index: -1;
+  width: min(47vw, 66rem);
+  pointer-events: none;
+}
+
+.pg-hero__inner {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 2.8rem;
+  width: 100%;
+  padding-top: 14rem;
+  padding-bottom: clamp(4.8rem, 9vh, 8.8rem);
+}
+
+.pg-hero__heading {
+  max-width: 14ch;
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-weight: var(--font-heading-weight);
+  font-size: clamp(4.8rem, 8.6vw, 12.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  color: rgb(var(--color-foreground));
+}
+
+.pg-hero__text {
+  max-width: 44ch;
+  margin: 0;
+  font-size: clamp(1.6rem, 1.3vw + 0.6rem, 2rem);
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.84);
+}
+
+.pg-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem 3.2rem;
+}
+
+.pg-hero__link {
+  padding-block: 0.4rem;
+  font-weight: 500;
+  color: inherit;
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat;
+  transition: background-size 0.5s var(--pg-ease), background-position 0.5s var(--pg-ease);
+}
+
+.pg-hero__link:hover {
+  background-size: 0 1px;
+  background-position: right bottom;
+}
+
+/* ---------- The one load-in sequence ---------- */
+
+.pg-hero .pg-wi {
+  animation: pg-rise 1.1s var(--pg-ease) both;
+  animation-delay: calc(0.35s + var(--i, 0) * 70ms);
+}
+
+.pg-hero__text,
+.pg-hero__actions {
+  animation: pg-hero-fade 0.9s var(--pg-ease) both;
+  animation-delay: 1.25s;
+}
+
+.pg-hero__actions {
+  animation-delay: 1.4s;
+}
+
+.pg-hero__map .pg-seg {
+  stroke: var(--pg-nib);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  animation: pg-draw 1.5s var(--pg-ease-io) both;
+}
+
+.pg-hero__map .pg-seg--1 { animation-delay: 0.5s; }
+.pg-hero__map .pg-seg--2 { animation-delay: 0.95s; }
+.pg-hero__map .pg-seg--3 { animation-delay: 1.4s; }
+.pg-hero__map .pg-seg--4 { animation-delay: 1.85s; }
+.pg-hero__map .pg-seg--5 { animation-delay: 2.5s; opacity: 0.5; }
+.pg-hero__map .pg-seg--6 { animation-delay: 2.7s; opacity: 0.5; }
+
+.pg-hero__map .pg-star__core,
+.pg-hero__map .pg-star__halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pg-star-in 0.9s var(--pg-ease) both;
+}
+
+.pg-hero__map .pg-star__core { fill: rgb(var(--color-foreground)); }
+.pg-hero__map .pg-star__halo { fill: var(--pg-nib); fill-opacity: 0.3; filter: blur(3px); }
+
+.pg-hero__map .pg-star--1 > * { animation-delay: 0.3s; }
+.pg-hero__map .pg-star--2 > * { animation-delay: 0.75s; }
+.pg-hero__map .pg-star--3 > * { animation-delay: 1.2s; }
+.pg-hero__map .pg-star--4 > * { animation-delay: 1.65s; }
+.pg-hero__map .pg-star--5 > * { animation-delay: 2.7s; opacity: 0.7; }
+.pg-hero__map .pg-star--6 > * { animation-delay: 2.9s; opacity: 0.7; }
+
+@keyframes pg-rise {
+  from { transform: translateY(108%); }
+  to { transform: none; }
+}
+
+@keyframes pg-hero-fade {
+  from { opacity: 0; transform: translateY(1.4rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes pg-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes pg-star-in {
+  from { opacity: 0; transform: scale(0.2); }
+}
+
+@keyframes pg-twinkle {
+  0%, 100% { fill-opacity: 0.2; }
+  50% { fill-opacity: 1; }
+}
+
+@media screen and (max-width: 749px) {
+  .pg-hero__map {
+    top: 7rem;
+    right: -8vw;
+    width: 98vw;
+    opacity: 0.8;
+  }
+
+  .pg-hero__inner {
+    padding-top: 30rem;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .pg-hero__map {
+    top: 9rem;
+    width: 62vw;
+  }
+
+  .pg-hero__inner {
+    padding-top: 22rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-hero .pg-wi,
+  .pg-hero__text,
+  .pg-hero__actions,
+  .pg-hero__map .pg-seg,
+  .pg-hero__map .pg-star__core,
+  .pg-hero__map .pg-star__halo,
+  .pg-hero__twinkle {
+    animation: none;
+  }
+}

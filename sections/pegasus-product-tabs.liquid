@@ -1,0 +1,206 @@
+{{ 'pegasus-rail.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pegasus-rail.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'pegasus-tabs.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- assign heading_text = section.settings.heading | strip_html | strip -%}
+
+<pg-tabs class="pg-tabs color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="pg-tabs__head">
+      <div class="pg-tabs__title">
+        {%- if heading_text != blank -%}
+          <h2 class="h1" data-pg-rise>{{ heading_text | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <p class="pg-tabs__lede">{{ section.settings.description | escape }}</p>
+        {%- endif -%}
+      </div>
+
+      {%- if section.blocks.size > 1 -%}
+        <div class="pg-tabs__list" role="tablist" aria-label="{{ heading_text | default: 'Products' | escape }}">
+          {%- for block in section.blocks -%}
+            <button
+              type="button"
+              role="tab"
+              class="pg-tabs__tab"
+              id="PgTab-{{ block.id }}"
+              aria-controls="PgPanel-{{ block.id }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              {% unless forloop.first %}tabindex="-1"{% endunless %}
+              {{ block.shopify_attributes }}
+            >
+              {{- block.settings.title | default: block.settings.collection.title | escape -}}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- for block in section.blocks -%}
+      {%- assign tab_collection = block.settings.collection -%}
+      <div
+        class="pg-tabs__panel"
+        role="{% if section.blocks.size > 1 %}tabpanel{% else %}group{% endif %}"
+        id="PgPanel-{{ block.id }}"
+        {% if section.blocks.size > 1 %}aria-labelledby="PgTab-{{ block.id }}"{% endif %}
+        {% unless forloop.first %}hidden{% endunless %}
+        {% if section.blocks.size < 2 %}{{ block.shopify_attributes }}{% endif %}
+      >
+        <pg-rail class="pg-rail pg-rail--products">
+          <ul class="pg-rail__track" data-rail-track>
+            {%- if tab_collection != blank and tab_collection.products.size > 0 -%}
+              {%- for product in tab_collection.products limit: section.settings.products_to_show -%}
+                <li class="pg-rail__item" data-rail-item>
+                  {%- render 'card-product',
+                    card_product: product,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: false,
+                    section_id: section.id,
+                    lazy_load: true,
+                    product_view_context: 'recommendation'
+                  -%}
+                </li>
+              {%- endfor -%}
+            {%- else -%}
+              {%- for i in (1..4) -%}
+                <li class="pg-rail__item" data-rail-item>
+                  {%- render 'card-product', media_aspect_ratio: section.settings.image_ratio, section_id: section.id -%}
+                </li>
+              {%- endfor -%}
+            {%- endif -%}
+          </ul>
+          {%- render 'pegasus-rail-controls' -%}
+        </pg-rail>
+
+        {%- if tab_collection != blank -%}
+          <a href="{{ tab_collection.url }}" class="pg-tabs__all link">
+            {{- 'sections.featured_collection.view_all' | t }}
+            <span class="visually-hidden">{{ tab_collection.title | escape }}</span>
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</pg-tabs>
+
+{% schema %}
+{
+  "name": "Pegasus product tabs",
+  "tag": "section",
+  "class": "pg-tabs-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Fresh from the workshop"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Text"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 1,
+      "default": 8,
+      "label": "Products per tab"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "square", "label": "Square" }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Show second image on hover",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab title",
+          "info": "Defaults to the collection title."
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pegasus product tabs",
+      "blocks": [
+        { "type": "tab" },
+        { "type": "tab" },
+        { "type": "tab" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,282 @@
+/* Shared by Pegasus product tabs and quotes: tabs, a snap-scrolling rail, and its hairline progress bar. */
+
+/* ---------- Tabs ---------- */
+
+.pg-tabs {
+  display: block;
+}
+
+.pg-tabs__head {
+  display: grid;
+  gap: 2.4rem;
+  margin-bottom: clamp(2.4rem, 4vw, 4.8rem);
+}
+
+.pg-tabs__title {
+  display: grid;
+  gap: 1.2rem;
+  max-width: 62rem;
+}
+
+.pg-tabs__title h2 {
+  margin: 0;
+}
+
+.pg-tabs__lede {
+  margin: 0;
+  color: rgba(var(--color-foreground), 0.76);
+}
+
+.pg-tabs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 3.2rem;
+}
+
+.pg-tabs__tab {
+  position: relative;
+  padding: 0.8rem 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 1.6rem;
+  color: rgba(var(--color-foreground), 0.74);
+  cursor: pointer;
+  transition: color 0.3s var(--pg-ease);
+}
+
+.pg-tabs__tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--pg-ease);
+}
+
+.pg-tabs__tab:hover,
+.pg-tabs__tab[aria-selected='true'] {
+  color: rgb(var(--color-foreground));
+}
+
+.pg-tabs__tab[aria-selected='true']::after {
+  transform: scaleX(1);
+}
+
+.pg-tabs__tab:focus-visible {
+  outline: 2px solid var(--pg-teal);
+  outline-offset: 4px;
+}
+
+.pg-tabs__panel:not([hidden]) {
+  animation: pg-panel-in 0.7s var(--pg-ease) both;
+}
+
+.pg-tabs__all {
+  display: inline-block;
+  margin-top: 3.2rem;
+}
+
+@keyframes pg-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(1.2rem);
+  }
+}
+
+/* ---------- Rail ---------- */
+
+.pg-rail {
+  --rail-gap: 1.6rem;
+  --rail-cols: 1.3;
+  display: block;
+}
+
+@media screen and (min-width: 750px) {
+  .pg-rail {
+    --rail-gap: 2rem;
+    --rail-cols: 2.4;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .pg-rail {
+    --rail-cols: 4;
+    --rail-gap: 2.4rem;
+  }
+}
+
+.pg-rail__track {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - var(--rail-gap) * (var(--rail-cols) - 1)) / var(--rail-cols));
+  gap: var(--rail-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.pg-rail__track:focus-visible {
+  outline: 2px solid var(--pg-teal);
+  outline-offset: 4px;
+}
+
+.pg-rail__track::-webkit-scrollbar {
+  display: none;
+}
+
+.pg-rail__track.is-dragging {
+  scroll-snap-type: none;
+  cursor: grabbing;
+  user-select: none;
+}
+
+.pg-rail__item {
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.pg-rail__track img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.pg-rail__controls {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  margin-top: 3.2rem;
+}
+
+.pg-rail__bar {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  background: rgba(var(--color-foreground), 0.2);
+}
+
+.pg-rail__thumb {
+  position: absolute;
+  top: -1px;
+  height: 3px;
+  left: calc(var(--rail-start, 0) * 100%);
+  width: calc(var(--rail-size, 1) * 100%);
+  background: rgb(var(--color-foreground));
+  transition: left 0.15s linear;
+}
+
+.pg-rail__buttons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.pg-rail__button {
+  display: grid;
+  place-items: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  padding: 0;
+  border: 1px solid rgba(var(--color-foreground), 0.35);
+  background: transparent;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  transition: background-color 0.3s var(--pg-ease), color 0.3s var(--pg-ease), border-color 0.3s var(--pg-ease);
+}
+
+.pg-rail__button .svg-wrapper {
+  display: grid;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.pg-rail__button--prev .svg-wrapper {
+  transform: rotate(180deg);
+}
+
+.pg-rail__button:hover:not(:disabled) {
+  background: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
+.pg-rail__button:focus-visible {
+  outline: 2px solid var(--pg-teal);
+  outline-offset: 3px;
+}
+
+.pg-rail__button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+pg-rail[data-static] .pg-rail__controls {
+  display: none;
+}
+
+/* ---------- Quotes ---------- */
+
+.pg-quotes {
+  display: block;
+}
+
+.pg-quotes__rail {
+  --rail-cols: 1;
+  --rail-gap: 4rem;
+}
+
+.pg-quote {
+  display: grid;
+  align-content: space-between;
+  gap: 4rem;
+  margin: 0;
+  padding-right: clamp(0rem, 6vw, 12rem);
+}
+
+.pg-quote__text {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-width: 30ch;
+  font-family: var(--font-heading-family);
+  font-style: italic;
+  font-weight: 340;
+  color: rgb(var(--color-foreground));
+  font-size: clamp(3rem, 4.6vw, 6.8rem);
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.pg-quote__by {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.pg-quote__by strong {
+  font-weight: 500;
+}
+
+.pg-quote__by span {
+  color: rgba(var(--color-foreground), 0.68);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-tabs__panel:not([hidden]) {
+    animation: none;
+  }
+
+  .pg-tabs__tab::after,
+  .pg-rail__thumb {
+    transition: none;
+  }
+}

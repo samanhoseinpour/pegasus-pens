@@ -1,0 +1,140 @@
+{{ 'pegasus-rail.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pegasus-rail.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="pg-quotes color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    <pg-rail class="pg-rail pg-quotes__rail">
+      <ul class="pg-rail__track" data-rail-track tabindex="0" aria-label="{{ section.settings.label | escape }}">
+        {%- for block in section.blocks -%}
+          <li class="pg-rail__item" data-rail-item {{ block.shopify_attributes }}>
+            <figure class="pg-quote">
+              <blockquote class="pg-quote__text">{{ block.settings.text | escape }}</blockquote>
+              {%- if block.settings.name != blank -%}
+                <figcaption class="pg-quote__by">
+                  <strong>{{ block.settings.name | escape }}</strong>
+                  {%- if block.settings.detail != blank -%}
+                    <span>{{ block.settings.detail | escape }}</span>
+                  {%- endif -%}
+                </figcaption>
+              {%- endif -%}
+            </figure>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- if section.blocks.size > 1 -%}
+        {%- render 'pegasus-rail-controls' -%}
+      {%- endif -%}
+    </pg-rail>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pegasus quotes",
+  "tag": "section",
+  "class": "pg-quotes-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Accessible name",
+      "info": "Read aloud by screen readers when the quotes receive keyboard focus.",
+      "default": "Customer quotes"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Quote",
+          "default": "The nib is smoother than pens at three times the price."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Maya R."
+        },
+        {
+          "type": "text",
+          "id": "detail",
+          "label": "Detail",
+          "default": "Brooklyn"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pegasus quotes",
+      "blocks": [
+        { "type": "quote" },
+        {
+          "type": "quote",
+          "settings": {
+            "text": "It arrived inked, with a note about which paper to start on. That is the whole reason I came back.",
+            "name": "Tomás A.",
+            "detail": "Lisbon"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "text": "I bought one for a gift and kept it. Now I am waiting for the next run.",
+            "name": "Priya S.",
+            "detail": "Leeds"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
