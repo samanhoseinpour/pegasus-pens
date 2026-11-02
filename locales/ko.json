@@ -75,6 +75,7 @@
     "button_label": "가입하기"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "콘텐츠로 건너뛰기",
     "close": "닫기",
     "unit_price_separator": "단위",

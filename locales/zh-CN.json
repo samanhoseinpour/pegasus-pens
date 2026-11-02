@@ -75,6 +75,7 @@
     "button_label": "订阅"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "跳到内容",
     "close": "关闭",
     "unit_price_separator": "单价",

@@ -369,6 +369,10 @@
 
     {% sections 'footer-group' %}
 
+    <button type="button" class="pg-top" aria-label="{{ 'accessibility.back_to_top' | t }}" data-pg-top>
+      <span class="svg-wrapper">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+    </button>
+
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
       <li id="a11y-new-window-message">{{ 'accessibility.link_messages.new_window' | t }}</li>

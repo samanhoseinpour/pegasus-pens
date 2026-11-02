@@ -75,6 +75,7 @@
     "button_label": "Subskrybuj"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Przejdź do treści",
     "close": "Zamknij",
     "unit_price_separator": "na",

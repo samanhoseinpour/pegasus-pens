@@ -75,6 +75,7 @@
     "button_label": "登録"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "コンテンツに進む",
     "close": "閉じる",
     "unit_price_separator": "あたり",

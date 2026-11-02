@@ -75,6 +75,7 @@
     "button_label": "Abonneren"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Meteen naar de content",
     "close": "Sluiten",
     "unit_price_separator": "per",

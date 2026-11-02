@@ -75,6 +75,7 @@
     "button_label": "Subscribe"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Skip to content",
     "skip_to_product_info": "Skip to product information",
     "close": "Close",

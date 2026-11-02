@@ -109,12 +109,23 @@
     if (wide.matches) header.style.minHeight = header.offsetHeight + 'px';
   }
 
+  // Back-to-top button (snippet in layout/theme.liquid): appears after a screen and a bit of scrolling.
+  var topButton = document.querySelector('[data-pg-top]');
+  if (topButton) {
+    topButton.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduced.matches ? 'auto' : 'smooth' });
+      var logo = document.querySelector('.header__heading-link');
+      if (logo) logo.focus({ preventScroll: true });
+    });
+  }
+
   var ticking = false;
   function onScroll() {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(function () {
       root.toggleAttribute('data-scrolled', window.scrollY > 8);
+      if (topButton) topButton.classList.toggle('is-visible', window.scrollY > window.innerHeight * 1.2);
       ticking = false;
     });
   }

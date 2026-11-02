@@ -75,6 +75,7 @@
     "button_label": "Εγγραφή"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Απευθείας μετάβαση στο περιεχόμενο",
     "close": "Κλείσιμο",
     "unit_price_separator": "ανά",

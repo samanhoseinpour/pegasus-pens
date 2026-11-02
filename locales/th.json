@@ -75,6 +75,7 @@
     "button_label": "สมัครรับข้อมูล"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "ข้ามไปยังเนื้อหา",
     "close": "ปิด",
     "unit_price_separator": "ต่อ",

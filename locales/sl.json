@@ -75,6 +75,7 @@
     "button_label": "Naroči"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Preskoči na vsebino",
     "close": "Zapri",
     "unit_price_separator": "na",

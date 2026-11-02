@@ -29,7 +29,7 @@ There is no Shopify store linked to this project (the Shopify CLI config on this
 
 ## Home page
 
-`templates/index.json` order: `pegasus-hero` → `rich-text` (statement) → `collection-list` (six kinds) → `pegasus-product-tabs` → `pegasus-constellation` → `image-with-text` (story) → `pegasus-collage` → `pegasus-engrave` → `pegasus-photo-cards` → `pegasus-marquee` (dark) → `pegasus-quotes` → `pegasus-pills` → `multicolumn` (promises). Header, newsletter and footer come from the section groups.
+`templates/index.json` order: `pegasus-hero` → `rich-text` (statement) → `collection-list` (six kinds) → `pegasus-product-tabs` → `pegasus-constellation` → `image-with-text` (story) → `pegasus-collage` → `pegasus-engrave` → `pegasus-photo-cards` → `pegasus-marquee` (dark) → `pegasus-quotes` → `pegasus-pills` → `multicolumn` (promises). The announcement bar, header and footer come from the section groups (the newsletter lives inside the footer).
 
 New sections (all with presets, so merchants can add them anywhere; schema labels are plain English, not `t:` keys, so no locale files are needed for them):
 
@@ -54,6 +54,15 @@ New sections (all with presets, so merchants can add them anywhere; schema label
 - Opening it shows a wide parchment panel (dimmed, blurred page behind). Before there are results it shows `.pg-search-start`: four pens from the `search_collection` setting, "Try searching for" lines from `search_terms` (one per line) and the main menu as "Browse". It sits inside `<predictive-search>`, so `predictive-search[open]`/`[loading]` hide it when results arrive. Results reuse Craft's markup (`sections/predictive-search.liquid`), re-laid-out with CSS only: products left, suggestions right.
 - axe reports `aria-required-children` and `nested-interactive` on Craft's own results markup (a listbox holding groups); they are not from this layer, and the test disables those two rules.
 - Strings are `general.search.popular_pens`, `try_searching` and `browse`; new keys go in every `locales/*.json`.
+
+## Footer, announcement bar, back to top
+
+All in `assets/pegasus-chrome.css` plus a few lines in `sections/footer.liquid`, `sections/announcement-bar.liquid`, `layout/theme.liquid` and `assets/pegasus.js`.
+
+- **Footer** is Craft's footer section, configured and restyled, not replaced: a `brand_information` block (the emblem when no brand image is set, plus the theme setting `brand_description`, plus social icons), two `link_list` blocks ("Shop" = `main-menu`, "Help" = the `footer` menu) and the footer's own newsletter (`newsletter_heading`, new `newsletter_text`). Four columns from 990 px, three plus the newsletter below on tablets, brand row then two link columns then newsletter on phones. The old separate newsletter band is gone from `sections/footer-group.json`. The bottom row has copyright on the left and localization/payment icons on the right; the giant wordmark stays (decorative, `aria-hidden`). The social icons only appear once links are set in the theme settings, and payment icons come from the store's enabled payment types.
+- **Specificity trap:** `section-footer.css` is loaded by the footer section itself, after `pegasus-chrome.css`, so equal-specificity rules lose. Every footer rule in `pegasus-chrome.css` starts with `.footer`. Header-section CSS that is loaded the same way (search, menu drawer) has the same trap, which is why the search rules are descendant selectors.
+- **Announcement bar** has optional side links (`left_label`/`left_link`, `right_label`/`right_link`), shown from 990 px, in the grid areas Craft already defines (`social-icons`, `language-currency`); the left one is hidden while social icons are on and the right one while a country/language selector is on. In Liquid, `and`/`or` have no precedence (right to left), so the grid-class condition starts with `left_link or right_link or ...` to keep Craft's own condition intact.
+- **Back to top** (`[data-pg-top]` in `layout/theme.liquid`, behaviour in `pegasus.js`): shows after 1.2 screens of scrolling, scrolls to the top (instantly under reduced motion) and moves focus to the logo, and sits above the sticky add-to-cart bar when that is showing. Its focus ring is ink with a parchment halo so it reads on both the light page and the dark footer.
 
 ## Compact header
 

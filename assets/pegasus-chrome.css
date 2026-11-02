@@ -399,3 +399,278 @@ predictive-search[loading] .pg-search-start {
     animation: none;
   }
 }
+
+/* ---------- Announcement bar: side links ---------- */
+
+.utility-bar__link {
+  display: none;
+  align-self: center;
+  color: rgb(var(--color-foreground));
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+@media screen and (min-width: 990px) {
+  .utility-bar__link {
+    display: inline-block;
+  }
+
+  .utility-bar__link--left {
+    grid-area: social-icons;
+    justify-self: start;
+  }
+
+  .utility-bar__link--right {
+    grid-area: language-currency;
+    justify-self: end;
+  }
+}
+
+/* ---------- Footer ---------- */
+
+/* Every selector starts with `.footer` because section-footer.css is loaded by the section itself, after this
+   file, so equal specificity would lose. */
+
+.footer .footer__content-top {
+  padding-bottom: 4.8rem;
+}
+
+.footer .footer__blocks-wrapper.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3.2rem 2.4rem;
+  margin: 0;
+  padding: 0;
+}
+
+.footer .footer__blocks-wrapper.grid > .footer-block.grid__item {
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* On phones the brand takes the full row and the link columns sit side by side. */
+.footer .footer-block:has(.footer-block__brand-info) {
+  grid-column: 1 / -1;
+}
+
+.footer .footer-block__emblem {
+  display: block;
+  width: 7.2rem;
+  height: 7.2rem;
+  margin-bottom: 1.6rem;
+  border-radius: 50%;
+}
+
+.footer .footer-block__brand-info .rte {
+  max-width: 34ch;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  opacity: 0.88;
+}
+
+.footer .footer-block__brand-info .footer__list-social {
+  margin-top: 1.6rem;
+  margin-left: -1.2rem;
+}
+
+.footer .footer-block__heading {
+  margin-bottom: 1.4rem;
+  font-family: var(--pg-display);
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+.footer .footer-block__details-content .list-menu__item--link {
+  display: inline-block;
+  padding: 0.5rem 0;
+  font-size: 1.5rem;
+  opacity: 0.88;
+}
+
+.footer .footer-block__details-content .list-menu__item--link:hover {
+  opacity: 1;
+}
+
+/* The newsletter is the loudest thing in the footer: it is the one place the shop asks for something. */
+.footer .footer-block--newsletter {
+  display: block;
+  margin: 3.2rem 0 0;
+}
+
+.footer .footer-block__newsletter,
+.footer .footer-block__newsletter:not(:only-child) {
+  display: block;
+  margin: 0;
+  text-align: left;
+}
+
+.footer .footer-block__newsletter .footer-block__heading {
+  margin-bottom: 1rem;
+  font-size: clamp(2.8rem, 3vw, 3.6rem);
+  line-height: 1.1;
+}
+
+.footer .footer-block__newsletter-text {
+  max-width: 40ch;
+  margin: 0 0 2rem;
+  font-size: 1.5rem;
+  line-height: 1.55;
+  opacity: 0.88;
+}
+
+.footer .footer-block__newsletter .newsletter-form__field-wrapper {
+  max-width: 40rem;
+}
+
+.footer .footer-block--newsletter .footer__list-social,
+.footer .footer-block--newsletter .footer__follow-on-shop {
+  justify-content: flex-start;
+  margin-top: 2.4rem;
+  margin-left: -1.2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .footer .footer__blocks-wrapper.grid {
+    grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
+    gap: 4rem;
+  }
+
+  .footer .footer-block:has(.footer-block__brand-info) {
+    grid-column: auto;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .footer .footer__content-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 8rem;
+    align-items: start;
+    padding-top: 0.8rem;
+    padding-bottom: 6.4rem;
+  }
+
+  .footer .footer-block--newsletter {
+    margin: 0;
+  }
+}
+
+.footer .footer__wordmark .pg-wordmark {
+  color: rgba(var(--color-foreground), 0.15);
+}
+
+.footer .footer__newsletter,
+.footer .footer-block__newsletter .newsletter-form__field-wrapper {
+  justify-content: flex-start;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Payment icons: small and quiet, on the right of the bottom row. */
+.footer .footer__payment .list-payment {
+  gap: 0.2rem;
+}
+
+.footer .footer__payment .icon {
+  width: 3.4rem;
+  height: auto;
+}
+
+/* Bottom row: copyright on the left, localization and payment icons on the right. */
+@media screen and (min-width: 750px) {
+  .footer .footer__content-bottom {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 2.4rem;
+  }
+
+  .footer .footer__content-bottom > .footer__content-bottom-wrapper {
+    flex: 0 1 auto;
+    width: auto;
+    max-width: none;
+    margin: 0;
+  }
+
+  .footer .footer__content-bottom > .footer__content-bottom-wrapper:first-child {
+    justify-content: flex-end;
+  }
+
+  .footer .footer__content-bottom-wrapper--center {
+    justify-content: flex-start;
+  }
+}
+
+/* ---------- Back to top ---------- */
+
+.pg-top {
+  position: fixed;
+  right: 2.4rem;
+  bottom: calc(2.4rem + env(safe-area-inset-bottom, 0px));
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  padding: 0;
+  border: 1px solid rgba(var(--pg-espresso-rgb), 0.35);
+  border-radius: 50%;
+  background: var(--pg-parchment);
+  color: var(--pg-ink);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(1.2rem);
+  transition: opacity 0.3s var(--pg-ease), transform 0.4s var(--pg-ease), visibility 0s linear 0.4s;
+}
+
+.pg-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.pg-top .svg-wrapper {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  transform: rotate(-90deg);
+}
+
+.pg-top:hover {
+  background: var(--pg-ink);
+  color: var(--pg-parchment);
+}
+
+/* Ink ring with a parchment halo, so it shows on both the light page and the dark footer. */
+.pg-top:focus-visible {
+  outline: 0.2rem solid var(--pg-ink);
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.5rem var(--pg-parchment);
+}
+
+/* Sit above the sticky add-to-cart bar when it is showing. */
+body:has(pg-sticky-atc.is-visible) .pg-top {
+  bottom: calc(9.6rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media screen and (max-width: 749px) {
+  .pg-top {
+    right: 1.6rem;
+    bottom: calc(1.6rem + env(safe-area-inset-bottom, 0px));
+    width: 4.4rem;
+    height: 4.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-top {
+    transition: none;
+  }
+}

@@ -17,7 +17,7 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Free shipping on orders over $75",
+            "text": "Hand-turned in British Columbia",
             "link": ""
           }
         }
@@ -32,7 +32,11 @@
         "show_line_separator": true,
         "show_social": false,
         "enable_country_selector": false,
-        "enable_language_selector": false
+        "enable_language_selector": false,
+        "left_label": "",
+        "left_link": "",
+        "right_label": "Contact us",
+        "right_link": "shopify://pages/contact"
       }
     },
     "header": {

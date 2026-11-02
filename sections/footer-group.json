@@ -11,45 +11,40 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "newsletter": {
-      "type": "newsletter",
+    "footer": {
+      "type": "footer",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "brand": {
+          "type": "brand_information",
           "settings": {
-            "heading": "New runs, first",
-            "heading_size": "h1"
+            "show_social": true
           }
         },
-        "paragraph": {
-          "type": "paragraph",
+        "shop": {
+          "type": "link_list",
           "settings": {
-            "text": "<p>Limited editions sell out. Join the list and hear about each run before it opens.</p>"
+            "heading": "Shop",
+            "menu": "main-menu"
           }
         },
-        "email_form": {
-          "type": "email_form",
-          "settings": {}
+        "help": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Help",
+            "menu": "footer"
+          }
         }
       },
       "block_order": [
-        "heading",
-        "paragraph",
-        "email_form"
+        "brand",
+        "shop",
+        "help"
       ],
       "settings": {
         "color_scheme": "scheme-4",
-        "full_width": true,
-        "padding_top": 36,
-        "padding_bottom": 44
-      }
-    },
-    "footer": {
-      "type": "footer",
-      "settings": {
-        "color_scheme": "scheme-4",
-        "newsletter_enable": false,
+        "newsletter_enable": true,
         "newsletter_heading": "New runs, first",
+        "newsletter_text": "Limited editions sell out. Join the list and hear about each run before it opens.",
         "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": true,
@@ -57,13 +52,12 @@
         "payment_enable": true,
         "show_policy": true,
         "margin_top": 0,
-        "padding_top": 0,
+        "padding_top": 64,
         "padding_bottom": 36
       }
     }
   },
   "order": [
-    "newsletter",
     "footer"
   ]
 }

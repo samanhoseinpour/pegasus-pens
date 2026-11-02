@@ -121,6 +121,15 @@
                               width: settings.brand_image_width
                           }}
                         </div>
+                      {%- else -%}
+                        <img
+                          class="footer-block__emblem"
+                          src="{{ 'pegasus-emblem.png' | asset_url }}"
+                          alt=""
+                          width="72"
+                          height="72"
+                          loading="lazy"
+                        >
                       {%- endif -%}
                       {%- if settings.brand_headline != blank -%}
                         <h2 class="footer-block__heading rte">{{ settings.brand_headline }}</h2>
@@ -169,6 +178,9 @@
             <div class="footer-block__newsletter">
               {%- if section.settings.newsletter_heading != blank -%}
                 <h2 class="footer-block__heading inline-richtext">{{ section.settings.newsletter_heading }}</h2>
+              {%- endif -%}
+              {%- if section.settings.newsletter_text != blank -%}
+                <p class="footer-block__newsletter-text">{{ section.settings.newsletter_text | escape }}</p>
               {%- endif -%}
               {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
                 <input type="hidden" name="contact[tags]" value="newsletter">
@@ -451,6 +463,12 @@
       "id": "newsletter_heading",
       "default": "t:sections.footer.settings.newsletter_heading.default",
       "label": "t:sections.footer.settings.newsletter_heading.label"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter text",
+      "info": "A line under the newsletter heading. Leave empty to hide it."
     },
     {
       "type": "header",

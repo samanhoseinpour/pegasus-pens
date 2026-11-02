@@ -75,6 +75,7 @@
     "button_label": "Berlangganan"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Langsung ke konten",
     "close": "Tutup",
     "unit_price_separator": "per",

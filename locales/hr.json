@@ -75,6 +75,7 @@
     "button_label": "Pretplatite se"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Preskoči na sadržaj",
     "close": "Zatvori",
     "unit_price_separator": "po",

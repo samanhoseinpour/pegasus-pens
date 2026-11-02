@@ -75,6 +75,7 @@
     "button_label": "Assinar"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Pular para o conteúdo",
     "close": "Fechar",
     "unit_price_separator": "por",

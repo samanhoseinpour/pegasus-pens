@@ -75,6 +75,7 @@
     "button_label": "訂閱"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "跳至內容",
     "close": "關閉",
     "unit_price_separator": "每",

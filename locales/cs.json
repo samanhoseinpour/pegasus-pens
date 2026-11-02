@@ -75,6 +75,7 @@
     "button_label": "Přihlásit k odběru"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Přejít k obsahu",
     "close": "Zavřít",
     "unit_price_separator": "za",

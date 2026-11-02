@@ -12,6 +12,14 @@
   if section.blocks.size > 0
     assign announcement_bar = true
   endif
+  assign left_link = false
+  if section.settings.left_label != blank and section.settings.left_link != blank and section.settings.show_social == false
+    assign left_link = true
+  endif
+  assign right_link = false
+  if section.settings.right_label != blank and section.settings.right_link != blank and language_country_selector != true
+    assign right_link = true
+  endif
 -%}
 
 {% if social_icons %}
@@ -21,9 +29,14 @@
 <div
   class="utility-bar color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator and section.blocks.size > 0 %} utility-bar--bottom-border{% elsif section.settings.show_line_separator and section.settings.show_social and social_icons%} utility-bar--bottom-border-social-only{% endif %}{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header-localization{% endif %}"
 >
-  <div class="page-width utility-bar__grid{% if announcement_bar and language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--3-col{% elsif language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--2-col{% endif %}">
+  <div class="page-width utility-bar__grid{% if left_link or right_link or announcement_bar and language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--3-col{% elsif language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--2-col{% endif %}">
     {%- if section.settings.show_social and social_icons -%}
       {%- render 'social-icons' -%}
+    {%- endif -%}
+    {%- if left_link -%}
+      <a href="{{ section.settings.left_link }}" class="utility-bar__link utility-bar__link--left link link--text focus-inset">
+        {{- section.settings.left_label | escape -}}
+      </a>
     {%- endif -%}
     {%- if section.blocks.size == 1 -%}
       <div
@@ -159,6 +172,11 @@
         </localization-form>
       {%- endif -%}
     </div>
+    {%- if right_link -%}
+      <a href="{{ section.settings.right_link }}" class="utility-bar__link utility-bar__link--right link link--text focus-inset">
+        {{- section.settings.right_label | escape -}}
+      </a>
+    {%- endif -%}
   </div>
 </div>
 
@@ -227,6 +245,34 @@
       "default": false,
       "label": "t:sections.announcement-bar.settings.enable_language_selector.label",
       "info": "t:sections.announcement-bar.settings.enable_language_selector.info"
+    },
+    {
+      "type": "header",
+      "content": "Side links"
+    },
+    {
+      "type": "paragraph",
+      "content": "Small links at the left and right edge of the bar, on wide screens. The left one is hidden while social icons are shown, and the right one while a country or language selector is shown."
+    },
+    {
+      "type": "text",
+      "id": "left_label",
+      "label": "Left link text"
+    },
+    {
+      "type": "url",
+      "id": "left_link",
+      "label": "Left link"
+    },
+    {
+      "type": "text",
+      "id": "right_label",
+      "label": "Right link text"
+    },
+    {
+      "type": "url",
+      "id": "right_link",
+      "label": "Right link"
     }
   ],
   "blocks": [

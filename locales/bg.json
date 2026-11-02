@@ -75,6 +75,7 @@
     "button_label": "Абониране"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Преминаване към съдържанието",
     "close": "Затваряне",
     "unit_price_separator": "за",

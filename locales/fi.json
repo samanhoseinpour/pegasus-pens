@@ -75,6 +75,7 @@
     "button_label": "Tilaa"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Ohita ja siirry sisältöön",
     "close": "Sulje",
     "unit_price_separator": "kohti",

@@ -75,6 +75,7 @@
     "button_label": "Abonați-vă"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Salt la conținut",
     "close": "Închideți",
     "unit_price_separator": "pe",

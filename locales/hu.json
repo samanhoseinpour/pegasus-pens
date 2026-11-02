@@ -75,6 +75,7 @@
     "button_label": "Feliratkozás"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Ugrás a tartalomhoz",
     "close": "Bezárás",
     "unit_price_separator": "/",

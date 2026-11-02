@@ -75,6 +75,7 @@
     "button_label": "Prihlásiť sa na odber"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Prejsť na obsah",
     "close": "Zavrieť",
     "unit_price_separator": "za",

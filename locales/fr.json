@@ -75,6 +75,7 @@
     "button_label": "S'inscrire"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Ignorer et passer au contenu",
     "close": "Fermer",
     "unit_price_separator": "par",

@@ -75,6 +75,7 @@
     "button_label": "Suscribirse"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "Ir directamente al contenido",
     "close": "Cerrar",
     "unit_price_separator": "por",

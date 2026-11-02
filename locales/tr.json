@@ -75,6 +75,7 @@
     "button_label": "Abone ol"
   },
   "accessibility": {
+    "back_to_top": "Back to top",
     "skip_to_text": "İçeriğe atla",
     "close": "Kapat",
     "unit_price_separator": "/",
