@@ -9,92 +9,395 @@
  */
 {
   "sections": {
-    "rich_text": {
+    "hero": {
+      "type": "pegasus-hero",
+      "settings": {
+        "button_link": "shopify://collections/fountain-pens",
+        "link_url": "shopify://collections/all"
+      }
+    },
+    "statement": {
       "type": "rich-text",
       "blocks": {
-        "heading": {
+        "heading_1": {
           "type": "heading",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h1"
-          }
-        }
-      },
-      "block_order": [
-        "heading"
-      ],
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 28,
-        "padding_bottom": 12
-      }
-    },
-    "collage-0": {
-      "type": "collage",
-      "blocks": {
-        "collection-0": {
-          "type": "collection",
-          "settings": {
-            "collection": ""
+            "heading": "A good pen makes you want to finish the sentence.",
+            "heading_size": "h0"
           }
         },
-        "collection-1": {
-          "type": "collection",
+        "text_2": {
+          "type": "text",
           "settings": {
-            "collection": ""
+            "text": "<p>We make a short list of pens and keep refining them until they feel right in the hand. Nothing here is built to be thrown away.</p>"
+          }
+        },
+        "button_3": {
+          "type": "button",
+          "settings": {
+            "button_label": "How we make them",
+            "button_link": "shopify://pages/about",
+            "button_style_secondary": true
           }
         }
       },
       "block_order": [
-        "collection-0",
-        "collection-1"
+        "heading_1",
+        "text_2",
+        "button_3"
       ],
       "settings": {
-        "heading": "",
-        "heading_size": "h2",
-        "desktop_layout": "right",
-        "mobile_layout": "collage",
-        "card_styles": "product-card-wrapper",
+        "desktop_content_position": "left",
+        "content_alignment": "left",
         "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 0
+        "full_width": true,
+        "padding_top": 96,
+        "padding_bottom": 100
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
+    "kinds": {
+      "type": "collection-list",
+      "blocks": {
+        "kind_1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "fountain-pens"
+          }
+        },
+        "kind_2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "rollerballs"
+          }
+        },
+        "kind_3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "ballpoints"
+          }
+        },
+        "kind_4": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "inks"
+          }
+        },
+        "kind_5": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "notebooks"
+          }
+        },
+        "kind_6": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "gifts"
+          }
+        }
+      },
+      "block_order": [
+        "kind_1",
+        "kind_2",
+        "kind_3",
+        "kind_4",
+        "kind_5",
+        "kind_6"
+      ],
       "settings": {
-        "title": "",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "color_scheme": "scheme-1",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
+        "title": "Shop by kind",
+        "heading_size": "h1",
+        "image_ratio": "portrait",
+        "columns_desktop": 6,
         "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "show_view_all": false,
         "swipe_on_mobile": false,
         "padding_top": 0,
-        "padding_bottom": 68
+        "padding_bottom": 96
+      }
+    },
+    "fresh": {
+      "type": "pegasus-product-tabs",
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "title": "New and notable",
+            "collection": "all"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "title": "Fountain pens",
+            "collection": "fountain-pens"
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "title": "Inks",
+            "collection": "inks"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3"
+      ],
+      "settings": {
+        "heading": "Fresh from the workshop",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "great_square": {
+      "type": "pegasus-constellation",
+      "blocks": {
+        "star_1": {
+          "type": "star",
+          "settings": {
+            "name": "Markab",
+            "title": "Fountain pens",
+            "text": "Steel and gold nibs, filled from a bottle. The slow, deliberate way to write.",
+            "link_label": "Shop fountain pens",
+            "link": "shopify://collections/fountain-pens"
+          }
+        },
+        "star_2": {
+          "type": "star",
+          "settings": {
+            "name": "Scheat",
+            "title": "Rollerballs",
+            "text": "Water-based ink on a rolling ball. Smooth, quiet, and no learning curve.",
+            "link_label": "Shop rollerballs",
+            "link": "shopify://collections/rollerballs"
+          }
+        },
+        "star_3": {
+          "type": "star",
+          "settings": {
+            "name": "Algenib",
+            "title": "Ballpoints",
+            "text": "Pocket-sized and ready to sign anything, anywhere.",
+            "link_label": "Shop ballpoints",
+            "link": "shopify://collections/ballpoints"
+          }
+        },
+        "star_4": {
+          "type": "star",
+          "settings": {
+            "name": "Alpheratz",
+            "title": "Inks and paper",
+            "text": "Bottled inks and notebooks that stand up to a wet nib.",
+            "link_label": "Shop inks and paper",
+            "link": "shopify://collections/inks"
+          }
+        }
+      },
+      "block_order": [
+        "star_1",
+        "star_2",
+        "star_3",
+        "star_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4"
+      }
+    },
+    "story": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Turned from solid resin, finished by hand.",
+            "heading_size": "h1"
+          }
+        },
+        "text_2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Each barrel is cut from a single rod, polished for a day, and fitted with a steel or gold nib. We write with every pen before it leaves the bench.</p>"
+          }
+        },
+        "button_3": {
+          "type": "button",
+          "settings": {
+            "button_label": "Visit the workshop",
+            "button_link": "shopify://pages/about"
+          }
+        }
+      },
+      "block_order": [
+        "heading_1",
+        "text_2",
+        "button_3"
+      ],
+      "settings": {
+        "height": "adapt",
+        "desktop_image_width": "large",
+        "layout": "image_first",
+        "content_layout": "no-overlap",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "nibs": {
+      "type": "pegasus-marquee",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "text": "Extra fine"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "text": "Fine"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "text": "Medium"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "text": "Broad"
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "text": "Stub"
+          }
+        },
+        "item_6": {
+          "type": "item",
+          "settings": {
+            "text": "Italic"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5",
+        "item_6"
+      ],
+      "settings": {
+        "speed": 70,
+        "color_scheme": "scheme-2",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "quotes": {
+      "type": "pegasus-quotes",
+      "blocks": {
+        "quote_1": {
+          "type": "quote",
+          "settings": {
+            "text": "The nib is smoother than pens at three times the price.",
+            "name": "Maya R.",
+            "detail": "Brooklyn"
+          }
+        },
+        "quote_2": {
+          "type": "quote",
+          "settings": {
+            "text": "It arrived inked, with a note about which paper to start on. That is the whole reason I came back.",
+            "name": "Tomás A.",
+            "detail": "Lisbon"
+          }
+        },
+        "quote_3": {
+          "type": "quote",
+          "settings": {
+            "text": "I bought one for a gift and kept it. Now I am waiting for the next run.",
+            "name": "Priya S.",
+            "detail": "Leeds"
+          }
+        }
+      },
+      "block_order": [
+        "quote_1",
+        "quote_2",
+        "quote_3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 112,
+        "padding_bottom": 112,
+        "label": "Customer quotes"
+      }
+    },
+    "promises": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_1": {
+          "type": "column",
+          "settings": {
+            "title": "Engraved for free",
+            "text": "<p>Initials or a short line, on any pen over $100.</p>"
+          }
+        },
+        "column_2": {
+          "type": "column",
+          "settings": {
+            "title": "Swap the nib",
+            "text": "<p>Not the right width? Exchange it within 30 days.</p>"
+          }
+        },
+        "column_3": {
+          "type": "column",
+          "settings": {
+            "title": "Ready to give",
+            "text": "<p>Every order ships wrapped in a gift box.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "column_1",
+        "column_2",
+        "column_3"
+      ],
+      "settings": {
+        "title": "Little things, done properly.",
+        "heading_size": "h1",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "button_label": "",
+        "background_style": "none"
       }
     }
   },
   "order": [
-    "rich_text",
-    "collage-0",
-    "featured-collection"
+    "hero",
+    "statement",
+    "kinds",
+    "fresh",
+    "great_square",
+    "story",
+    "nibs",
+    "quotes",
+    "promises"
   ]
 }

@@ -17,14 +17,14 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Subscribe to our emails",
+            "heading": "New runs, first",
             "heading_size": "h1"
           }
         },
         "paragraph": {
           "type": "paragraph",
           "settings": {
-            "text": "<p>Subscribe to our mailing list for insider news, product launches, and more.</p>"
+            "text": "<p>Limited editions sell out. Join the list and hear about each run before it opens.</p>"
           }
         },
         "email_form": {
@@ -49,7 +49,7 @@
       "settings": {
         "color_scheme": "scheme-4",
         "newsletter_enable": false,
-        "newsletter_heading": "Subscribe to our emails",
+        "newsletter_heading": "New runs, first",
         "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": true,

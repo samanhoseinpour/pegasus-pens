@@ -291,6 +291,22 @@ volume-pricing li,
   white-space: nowrap;
 }
 
+/* ---------- Editorial text ---------- */
+
+.rich-text__text,
+.rich-text__text p {
+  max-width: 54ch;
+  font-size: clamp(1.6rem, 0.6vw + 1.2rem, 1.9rem);
+  line-height: 1.6;
+}
+
+/* Collection list: three across on tablet instead of two giant columns. */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .collection-list.grid--2-col-tablet-down > .grid__item {
+    width: calc(33.333% - var(--grid-desktop-horizontal-spacing) * 2 / 3);
+  }
+}
+
 /* ---------- Product page ---------- */
 
 .product__title h1,

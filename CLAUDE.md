@@ -24,6 +24,21 @@ Craft stays the engine. The identity comes from settings plus three files loaded
 
 There is no Shopify store linked to this project (the Shopify CLI config on this machine belongs to other projects), so `shopify theme dev` is not available yet. Visual checks were done with a throwaway local Liquid renderer (LiquidJS + mock pen catalog) driven by Playwright at 1440, 1024, 768 and 390 px. It is not in the repo.
 
+## Home page
+
+`templates/index.json` order: `pegasus-hero` → `rich-text` (statement) → `collection-list` (six kinds) → `pegasus-product-tabs` → `pegasus-constellation` → `image-with-text` → `pegasus-marquee` → `pegasus-quotes` → `multicolumn` (promises). Header, newsletter and footer come from the section groups.
+
+New sections (all with presets, so merchants can add them anywhere; schema labels are plain English, not `t:` keys, so no locale files are needed for them):
+
+- `pegasus-hero`: night-sky (or image) hero. The headline is split into `.pg-w/.pg-wi` word spans in Liquid and animated with CSS keyframes only, so there is no flash and no JS dependency. The one load-in sequence also draws the Great Square.
+- `pegasus-product-tabs`: `<pg-tabs>` (assets/pegasus-tabs.js) over `<pg-rail>` carousels (assets/pegasus-rail.js). Tab blocks pick a collection; empty collections show placeholder cards.
+- `pegasus-constellation`: the signature pinned section, `<pg-constellation>` (assets/pegasus-constellation.js). Scroll progress drives `--seg-1..6` (line drawing), `.is-lit` / `.is-active` on stars and `.is-active` on panels. It pins **only** when motion is allowed (not reduced-motion, not theme editor, not `pegasus_motion` off); otherwise it renders statically with all four panels visible. Inactive panels use `visibility: hidden`, and the nav buttons jump to a star by scrolling.
+- `pegasus-marquee`: slow looping text (the only continuous motion); two copies of the list, the second `aria-hidden`; stops under reduced motion.
+- `pegasus-quotes`: one big quote at a time in a `<pg-rail>`; the track is focusable and named via a setting.
+- Shared snippets: `pegasus-constellation` (the Great Square SVG, stars 1-4 are the square, 5-6 trail off) and `pegasus-rail-controls` (progress line + prev/next).
+
+`<pg-rail>` cancels native `dragstart` (links and images otherwise swallow the pointer events and break drag-to-scroll) and snaps explicitly after a drag.
+
 ## Commands
 
 Everything goes through Shopify CLI (5.0.0 installed). There is no `shopify.theme.toml`, so pass `--store` yourself.
