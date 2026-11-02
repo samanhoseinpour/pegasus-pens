@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "To trgovino bo omogočala platforma {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Delite v Facebooku",
         "share_on_twitter": "Delite na omrežju X",

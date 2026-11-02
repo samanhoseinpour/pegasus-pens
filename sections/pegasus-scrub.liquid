@@ -23,10 +23,13 @@
   <div class="page-width">
     {%- if words.size > 0 -%}
       <pg-scrub class="pg-scrub" style="--n: {{ words.size }};">
-        {%- comment -%} The words are split here, not in JavaScript, so there is no flash and screen readers read plain text. {%- endcomment -%}
-        <p class="pg-scrub__text pg-scrub__text--{{ section.settings.size }}" aria-label="{{ section.settings.text | strip_html | strip | escape }}">
+        {%- comment -%}
+          The words are split here, not in JavaScript, so there is no flash. They stay in the accessibility tree as
+          ordinary text: aria-label is not allowed on a paragraph, and hiding every word would leave nothing to read.
+        {%- endcomment -%}
+        <p class="pg-scrub__text pg-scrub__text--{{ section.settings.size }}">
           {%- for word in words -%}
-            <span class="pg-scrub__w" style="--i: {{ forloop.index0 }};" aria-hidden="true">{{ word | escape }}</span>
+            <span class="pg-scrub__w" style="--i: {{ forloop.index0 }};">{{ word | escape }}</span>
             {%- unless forloop.last %} {% endunless -%}
           {%- endfor -%}
         </p>

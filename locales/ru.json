@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Этот магазин работает на платформе {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Поделиться в Facebook",
         "share_on_twitter": "Поделиться в X",

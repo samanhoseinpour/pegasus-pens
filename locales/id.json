@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Toko ini didukung oleh {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Bagikan di Facebook",
         "share_on_twitter": "Bagikan di X",

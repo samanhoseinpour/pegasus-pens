@@ -470,6 +470,10 @@ predictive-search[loading] .pg-search-start {
 
 /* ---------- Announcement bar: side links ---------- */
 
+.utility-bar__links {
+  display: none;
+}
+
 .utility-bar__link {
   display: none;
   align-self: center;
@@ -479,18 +483,24 @@ predictive-search[loading] .pg-search-start {
 }
 
 @media screen and (min-width: 990px) {
+  .utility-bar__links {
+    display: block;
+  }
+
   .utility-bar__link {
     display: inline-block;
   }
 
-  .utility-bar__link--left {
+  .utility-bar__links--left {
     grid-area: social-icons;
     justify-self: start;
+    align-self: center;
   }
 
-  .utility-bar__link--right {
+  .utility-bar__links--right {
     grid-area: language-currency;
     justify-self: end;
+    align-self: center;
   }
 }
 
@@ -751,4 +761,25 @@ body:has(pg-sticky-atc.is-visible) .pg-top {
 .footer .list-social__item .icon {
   width: 2rem;
   height: 2rem;
+}
+
+/* The menu drawer is Craft's tablet-and-down drawer: it adds `overflow-hidden-tablet` to <body>, which Craft turns off from
+   990 px. The compact header shows that drawer on wide screens too, so keep the page locked behind it there as well. */
+@media screen and (min-width: 990px) {
+  body.overflow-hidden-tablet {
+    overflow: hidden;
+  }
+}
+
+/* The social icons in the announcement bar sit in a labelled navigation landmark. */
+.utility-bar__social {
+  display: none;
+}
+
+@media screen and (min-width: 990px) {
+  .utility-bar__social {
+    display: block;
+    grid-area: social-icons;
+    align-self: center;
+  }
 }

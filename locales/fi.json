@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Tämän kaupan alustana on {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Jaa Facebookissa",
         "share_on_twitter": "Jaa X:ssä",

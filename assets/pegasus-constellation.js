@@ -18,13 +18,12 @@ if (!customElements.get('pg-constellation')) {
       this.count = this.panels.length;
       if (!this.count) return;
 
-      this.classList.add('is-pinned');
       this.state = '';
       this.ticking = false;
       this.visible = true;
 
       this.onScroll = () => {
-        if (this.ticking || !this.visible) return;
+        if (this.ticking || !this.visible || !this.pinned) return;
         this.ticking = true;
         requestAnimationFrame(() => {
           this.render();
@@ -41,11 +40,34 @@ if (!customElements.get('pg-constellation')) {
       window.addEventListener('scroll', this.onScroll, { passive: true });
       window.addEventListener('resize', this.onScroll);
       this.buttons.forEach((button) => button.addEventListener('click', () => this.jump(Number(button.dataset.starButton))));
-      this.render();
+
+      // The pinned stage is at least 52rem tall. On a shorter screen (a phone on its side, a small window) its lower part,
+      // with the star buttons, would sit below the fold with no way to scroll to it while it is pinned, so there the
+      // static layout is used instead, and it switches back if the window grows.
+      this.short = window.matchMedia('(max-height: 619px)');
+      this.onShort = () => this.setPinned(!this.short.matches);
+      this.short.addEventListener('change', this.onShort);
+      this.setPinned(!this.short.matches);
+    }
+
+    setPinned(on) {
+      this.pinned = on;
+      this.classList.toggle('is-pinned', on);
+      this.state = '';
+      if (on) {
+        this.render();
+        return;
+      }
+      // Leave the static layout complete: no leftover progress, lit stars or active panel from the pinned state.
+      for (let k = 1; k <= 6; k++) this.style.removeProperty(`--seg-${k}`);
+      this.stars.forEach((star) => star && star.classList.remove('is-lit', 'is-active'));
+      this.panels.forEach((panel) => panel.classList.remove('is-active'));
+      this.buttons.forEach((button) => button.removeAttribute('aria-pressed'));
     }
 
     disconnectedCallback() {
       this.observer?.disconnect();
+      this.short?.removeEventListener('change', this.onShort);
       window.removeEventListener('scroll', this.onScroll);
       window.removeEventListener('resize', this.onScroll);
     }
@@ -57,6 +79,8 @@ if (!customElements.get('pg-constellation')) {
     }
 
     render() {
+      // A frame queued by the resize that switched the pinned state off may still arrive; it must not redo the state.
+      if (!this.pinned) return;
       const p = this.progress();
       let step = 1;
       for (let i = 1; i <= this.count; i++) if (p >= WINDOWS[i - 1]) step = i;

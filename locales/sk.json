@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Tento obchod bude používať technológiu {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Zdielať na Facebooku",
         "share_on_twitter": "Zdieľať na X",

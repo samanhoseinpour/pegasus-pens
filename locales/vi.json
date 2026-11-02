@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Cửa hàng này sẽ do {{ shopify }} cung cấp"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Chia sẻ trên Facebook",
         "share_on_twitter": "Chia sẻ trên X",

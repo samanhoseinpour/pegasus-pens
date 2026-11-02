@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Bu mağaza {{ shopify }} tarafından desteklenir"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Facebook'ta paylaş",
         "share_on_twitter": "X'te paylaş",

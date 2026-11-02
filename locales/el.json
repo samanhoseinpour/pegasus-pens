@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Αυτό το κατάστημα θα υποστηρίζεται από το {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Κοινοποίηση στο Facebook",
         "share_on_twitter": "Κοινοποίηση στο X",

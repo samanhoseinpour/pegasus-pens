@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "A bolt szolgáltatója a {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Megosztás a Facebookon",
         "share_on_twitter": "Megosztás az X-en",

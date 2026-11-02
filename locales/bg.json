@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Този магазин ще се поддържа от {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Споделяне чрез Facebook",
         "share_on_twitter": "Споделяне в X",

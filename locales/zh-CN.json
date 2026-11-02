@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "此商店由 {{ shopify }} 提供支持"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "在 Facebook 上共享",
         "share_on_twitter": "在 X 上分享",

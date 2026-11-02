@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Ši parduotuvė priklausys platformai „{{ shopify }}“"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Bendrinti „Facebook“",
         "share_on_twitter": "Bendrinti X",

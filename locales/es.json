@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Esta tienda contará con tecnología Shopify {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Compartir en Facebook",
         "share_on_twitter": "Compartir en X",

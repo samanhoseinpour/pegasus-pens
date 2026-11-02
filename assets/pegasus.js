@@ -98,15 +98,17 @@
     });
   }
 
-  // The header shrinks to one row after it has been scrolled past (see "Compact header" in pegasus.css). Keeping
+  // The header shrinks to one row after it has been scrolled past (see "Compact header" in pegasus-chrome.css). Keeping
   // its full height reserved in the layout means the page never moves when that happens: browsers without scroll
-  // anchoring (Safari) would otherwise jump by the difference.
-  var wide = window.matchMedia('(min-width: 990px)');
+  // anchoring (Safari, so every iPhone and iPad) would otherwise jump by the difference. This holds at every width, because
+  // the header compacts at every width. The height changes with the width, so it is measured again after a resize.
+  var heldWidth = 0;
   function holdHeader() {
     var header = document.querySelector('.section-header');
     if (!header || header.classList.contains('scrolled-past-header')) return;
     header.style.minHeight = '';
-    if (wide.matches) header.style.minHeight = header.offsetHeight + 'px';
+    header.style.minHeight = header.offsetHeight + 'px';
+    heldWidth = window.innerWidth;
   }
 
   // Back-to-top button (snippet in layout/theme.liquid): appears after a screen and a bit of scrolling.
@@ -128,6 +130,8 @@
     ticking = true;
     requestAnimationFrame(function () {
       root.toggleAttribute('data-scrolled', window.scrollY > 8);
+      // A resize while the header was compact could not be measured; do it as soon as the full header is back.
+      if (window.scrollY < 8 && heldWidth !== window.innerWidth) holdHeader();
       if (topButton) topButton.classList.toggle('is-visible', window.scrollY > window.innerHeight * 1.2);
       ticking = false;
     });
@@ -135,7 +139,6 @@
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', holdHeader);
-  wide.addEventListener('change', holdHeader);
   onScroll();
   holdHeader();
   window.addEventListener('load', holdHeader);

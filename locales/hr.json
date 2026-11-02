@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Ovu trgovinu pokreće {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Podijeli na Facebooku",
         "share_on_twitter": "Podijeli na mreži X",

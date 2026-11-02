@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Denne butikken vil bli drevet av {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Del på Facebook",
         "share_on_twitter": "Del på X",

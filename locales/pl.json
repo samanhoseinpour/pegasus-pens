@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Ten sklep będzie obsługiwany przez {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Udostępnij na Facebooku",
         "share_on_twitter": "Udostępnij na platformie X",

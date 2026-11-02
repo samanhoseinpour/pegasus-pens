@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Obchod bude využívat platformu {{ shopify }}"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Sdílet na Facebooku",
         "share_on_twitter": "Sdílení přes X",

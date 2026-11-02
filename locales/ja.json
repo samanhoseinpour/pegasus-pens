@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "このショップでは{{ shopify }}を使用する予定です"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Facebookでシェアする",
         "share_on_twitter": "Xで共有する",

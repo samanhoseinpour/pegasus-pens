@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "Deze winkel wordt door {{ shopify }} aangedreven"
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Delen op Facebook",
         "share_on_twitter": "Delen op X",

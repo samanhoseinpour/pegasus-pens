@@ -20,6 +20,7 @@
       "powered_by_shopify_html": "이 상점은 {{ shopify }}에서 제공합니다."
     },
     "social": {
+      "nav_label": "Social media",
       "alt_text": {
         "share_on_facebook": "Facebook에서 공유",
         "share_on_twitter": "X에 공유",
