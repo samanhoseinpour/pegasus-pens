@@ -6,6 +6,7 @@
   @param {string} product_form_id - The product form's unique ID.
   @param {string} section_id - The section ID used to namespace the form and submit button.
   @param {boolean} [show_pickup_availability] - Whether to render pickup availability. Defaults to `false`.
+  @param {string} [quantity_html] - The quantity selector markup. It is placed beside the add-to-cart button when the block's `inline_quantity` setting is on, and ignored otherwise.
   @param {object} [section] - The current section context, supplied implicitly when rendered from a section and used for IDs and pickup-availability colors.
 
   @example
@@ -22,6 +23,11 @@
       assign show_dynamic_checkout = false
       if block.settings.show_dynamic_checkout and gift_card_recipient_feature_active == false
         assign show_dynamic_checkout = true
+      endif
+
+      assign quantity_slot = blank
+      if block.settings.inline_quantity
+        assign quantity_slot = quantity_html
       endif
     -%}
 
@@ -63,7 +69,8 @@
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
 
-        <div class="product-form__buttons">
+        <div class="product-form__buttons{% if quantity_slot != blank %} product-form__buttons--with-quantity{% endif %}">
+          {{- quantity_slot -}}
           {%- liquid
             assign check_against_inventory = true
             if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
@@ -77,7 +84,7 @@
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
-            class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
+            class="product-form__submit button button--full-width button--primary"
             {% if product.selected_or_first_available_variant.available == false
               or quantity_rule_soldout
               or product.selected_or_first_available_variant == null

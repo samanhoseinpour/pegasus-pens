@@ -2,13 +2,13 @@
   Renders one of the Pegasus line icons: a 48 px grid, 1.6 stroke, drawn in the current text color.
   Every path has `pathLength="1"`, so a stroke-dash animation can draw it.
 
-  @param {string} name - `engrave`, `refill`, `gift` or `message`. Renders nothing for any other value.
+  @param {string} name - `engrave`, `refill`, `gift`, `message` or `mountain`. Renders nothing for any other value.
   @param {string} [class] - Extra CSS classes for the svg.
 
   @example
   {% render 'pegasus-icon', name: 'gift', class: 'pg-feature__icon' %}
 {% enddoc %}
-{%- if name == 'engrave' or name == 'refill' or name == 'gift' or name == 'message' -%}
+{%- if name == 'engrave' or name == 'refill' or name == 'gift' or name == 'message' or name == 'mountain' -%}
   <svg
     class="pg-icon{% if class != blank %} {{ class }}{% endif %}"
     xmlns="http://www.w3.org/2000/svg"
@@ -51,6 +51,11 @@
         <path d="M5 13 L24 28 L43 13" pathLength="1" />
         <path d="M5 35 L18 23" pathLength="1" />
         <path d="M43 35 L30 23" pathLength="1" />
+      {%- when 'mountain' -%}
+        {%- comment -%} Two peaks with a snow line, and a sun. {%- endcomment -%}
+        <path d="M4 38 L19 12 L26 24 L30 18 L44 38 Z" pathLength="1" />
+        <path d="M13 22.5 L16 26 L19 22 L22 26" pathLength="1" />
+        <circle cx="37" cy="11" r="3" pathLength="1" />
     {%- endcase -%}
   </svg>
 {%- endif -%}

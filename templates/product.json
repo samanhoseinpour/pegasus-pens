@@ -15,7 +15,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "{{ product.vendor }}",
+            "text": "{{ product.type }}",
             "text_style": "body"
           }
         },
@@ -46,12 +46,43 @@
           "type": "buy_buttons",
           "settings": {
             "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
+            "show_gift_card_recipient": true,
+            "inline_quantity": true
+          }
+        },
+        "facts": {
+          "type": "facts",
+          "settings": {
+            "icon_1": "mountain",
+            "text_1": "Hand-turned in British Columbia",
+            "icon_2": "refill",
+            "text_2": "Refillable cartridge",
+            "icon_3": "gift",
+            "text_3": "Engraving and gift box"
           }
         },
         "description": {
           "type": "description",
-          "settings": {}
+          "settings": {
+            "accordion": true,
+            "heading": "About this pen"
+          }
+        },
+        "care": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Care",
+            "icon": "none",
+            "content": "<p>Wipe your pen with a soft, dry cloth. Keep it away from heat and long direct sun, which can mark wood and resin.</p>"
+          }
+        },
+        "shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping and returns",
+            "icon": "none",
+            "page": "shipping-returns"
+          }
         },
         "share": {
           "type": "share",
@@ -65,10 +96,13 @@
         "title",
         "price",
         "variant_picker",
-        "quantity_selector",
         "personalize",
+        "quantity_selector",
         "buy_buttons",
+        "facts",
         "description",
+        "care",
+        "shipping",
         "share"
       ],
       "settings": {

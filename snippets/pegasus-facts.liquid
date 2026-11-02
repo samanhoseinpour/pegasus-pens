@@ -1,0 +1,39 @@
+{% doc %}
+  Renders the facts row of the product page: up to three short facts, each with a Pegasus line icon.
+  A fact whose text is empty is left out, and nothing is rendered when all three are empty.
+
+  @param {block} block - The `facts` block. Its settings `icon_1` to `icon_3` and `text_1` to `text_3` supply the facts.
+
+  @example
+  {% render 'pegasus-facts', block: block %}
+{% enddoc %}
+{%- liquid
+  assign has_facts = false
+  for i in (1..3)
+    assign text_key = 'text_' | append: i
+    if block.settings[text_key] != blank
+      assign has_facts = true
+    endif
+  endfor
+-%}
+
+{%- if has_facts -%}
+  <div class="pg-facts" {{ block.shopify_attributes }}>
+    <ul class="pg-facts__list" role="list">
+      {%- for i in (1..3) -%}
+        {%- liquid
+          assign text_key = 'text_' | append: i
+          assign icon_key = 'icon_' | append: i
+          assign fact_text = block.settings[text_key]
+          assign fact_icon = block.settings[icon_key]
+        -%}
+        {%- if fact_text != blank -%}
+          <li class="pg-facts__item">
+            {%- render 'pegasus-icon', name: fact_icon, class: 'pg-facts__icon' -%}
+            <span class="pg-facts__text">{{ fact_text | escape }}</span>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}

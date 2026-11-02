@@ -21,3 +21,182 @@
     object-fit: contain;
   }
 }
+
+/* ---------- Buy row: quantity beside the button ---------- */
+
+/* Craft caps the buttons at 44rem, which leaves the button short of the fields above it. */
+.product-form__buttons {
+  max-width: none;
+}
+
+.product-form__buttons--with-quantity {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.2rem;
+}
+
+.product-form__buttons--with-quantity .product-form__quantity,
+.product-form__buttons--with-quantity .price-per-item__container {
+  display: flex;
+}
+
+.product-form__buttons--with-quantity .product-form__quantity {
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+}
+
+.product-form__buttons--with-quantity .quantity {
+  min-height: 4.8rem;
+}
+
+/* The label keeps its words for screen readers; beside the button it needs no visible one. */
+.product-form__buttons--with-quantity .quantity__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.product-form__buttons--with-quantity .product-form__submit {
+  min-width: 0;
+  margin: 0;
+  padding-inline: 1.6rem;
+  white-space: nowrap;
+}
+
+.product-form__buttons--with-quantity .shopify-payment-button {
+  grid-column: 1 / -1;
+}
+
+/* ---------- Facts row ---------- */
+
+.pg-facts {
+  container-type: inline-size;
+  margin: 2.4rem 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--pg-hair);
+}
+
+.pg-facts__list {
+  display: grid;
+  gap: 1.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pg-facts__item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.pg-facts__icon {
+  flex: none;
+  width: 2.8rem;
+  height: 2.8rem;
+  stroke-width: 2.2;
+}
+
+.pg-facts__text {
+  font-size: 1.4rem;
+  line-height: 1.4;
+}
+
+/* Wide enough for three across: the icon sits above its words. Narrower, they stack as a list. */
+@container (min-width: 480px) {
+  .pg-facts__list {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 2.4rem;
+  }
+
+  .pg-facts__item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* ---------- Accordions: Craft's collapsible tabs and the description ---------- */
+
+.product__info-container .product__accordion {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--pg-hair);
+}
+
+.product__info-container .product__accordion:not(:has(~ .product__accordion)) {
+  border-bottom: 1px solid var(--pg-hair);
+}
+
+.product__accordion summary {
+  align-items: center;
+  gap: 1.6rem;
+  padding: 1.9rem 0;
+  cursor: pointer;
+}
+
+.product__accordion .accordion__title {
+  max-width: none;
+  font-size: 1.9rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+/* A plus that turns into a minus when the tab opens, in place of Craft's caret. */
+.product__accordion summary .icon-caret {
+  display: none;
+}
+
+.product__accordion summary::after {
+  content: '';
+  flex: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  background: linear-gradient(currentcolor, currentcolor) center / 100% 1px no-repeat,
+    linear-gradient(currentcolor, currentcolor) center / 1px 100% no-repeat;
+  transition: background-size 0.35s var(--pg-ease);
+}
+
+.product__accordion details[open] > summary::after {
+  background-size: 100% 1px, 1px 0;
+}
+
+.product__accordion .accordion__content {
+  padding: 0 0 2.2rem;
+  font-size: 1.5rem;
+  line-height: 1.7;
+}
+
+.product__accordion .accordion__content > :first-child {
+  margin-top: 0;
+}
+
+.product__accordion .accordion__content > :last-child {
+  margin-bottom: 0;
+}
+
+/* Where the browser can style the tab's content box, it opens and closes smoothly. */
+@supports selector(::details-content) {
+  @media (prefers-reduced-motion: no-preference) {
+    .product__accordion details {
+      interpolate-size: allow-keywords;
+    }
+
+    .product__accordion details::details-content {
+      block-size: 0;
+      overflow: clip;
+      transition: block-size 0.4s var(--pg-ease), content-visibility 0.4s allow-discrete;
+    }
+
+    .product__accordion details[open]::details-content {
+      block-size: auto;
+    }
+  }
+}
