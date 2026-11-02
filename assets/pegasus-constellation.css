@@ -172,11 +172,18 @@
   outline-offset: 3px;
 }
 
-/* Static mode: four panels as a grid. */
+/* Static mode: four panels as a grid. The columns are narrower than in pinned mode, so the titles are smaller
+   and never break inside a word. */
 @media screen and (min-width: 750px) {
   .pg-const:not(.is-pinned) .pg-const__panels {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 4rem 3.2rem;
+  }
+
+  .pg-const:not(.is-pinned) .pg-const__title {
+    font-size: clamp(2.8rem, 3vw, 4.2rem);
+    overflow-wrap: normal;
+    word-break: normal;
   }
 }
 
