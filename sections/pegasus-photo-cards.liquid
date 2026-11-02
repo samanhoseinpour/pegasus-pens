@@ -1,0 +1,174 @@
+{{ 'pegasus-photo-cards.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  #pg-photo-{{ section.id }} .pg-photo__media img {
+    object-position: 50% {{ section.settings.focus }}%;
+  }
+{%- endstyle -%}
+
+<div
+  id="pg-photo-{{ section.id }}"
+  class="pg-photo color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding"
+>
+  <div class="pg-photo__media" data-pg-wipe>
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag: widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', loading: 'lazy', alt: section.settings.image.alt
+      }}
+    {%- elsif section.settings.scene != 'none' -%}
+      {%- render 'pegasus-scene', name: section.settings.scene -%}
+    {%- endif -%}
+  </div>
+
+  <div class="page-width pg-photo__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pg-photo__heading h1" data-pg-rise>{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    <ul class="pg-photo__cards">
+      {%- for block in section.blocks -%}
+        <li class="pg-photo__card" {{ block.shopify_attributes }}>
+          <h3 class="pg-photo__card-title h4">{{ block.settings.title | escape }}</h3>
+          {%- if block.settings.text != blank -%}
+            <p class="pg-photo__card-text">{{ block.settings.text | escape }}</p>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pegasus photo with cards",
+  "tag": "section",
+  "class": "pg-photo-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Inside a Pegasus pen."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "A wide crop works best. Leave empty to use a bundled photo."
+    },
+    {
+      "type": "select",
+      "id": "scene",
+      "label": "Bundled photo",
+      "info": "Used while no image is chosen.",
+      "options": [
+        { "value": "stone", "label": "Pen on slate" },
+        { "value": "leather", "label": "Pen on a leather journal" },
+        { "value": "burl", "label": "Burl pen on a desk" },
+        { "value": "desk", "label": "Pen on a marble desk" },
+        { "value": "skyline", "label": "Pen with a skyline" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "stone"
+    },
+    {
+      "type": "range",
+      "id": "focus",
+      "label": "Photo focus",
+      "info": "Which part of a tall photo stays in view: top to bottom.",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "info": "Sets the heading color and the dim layer over the photo.",
+      "default": "scheme-4"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 120
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "The barrel"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Turned from a single blank of wood or resin, then polished by hand."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Pegasus photo with cards",
+      "blocks": [
+        { "type": "card" },
+        {
+          "type": "card",
+          "settings": {
+            "title": "The twist",
+            "text": "Twist the barrel to bring the tip out, and twist it back to put it away."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "The refill",
+            "text": "A refillable cartridge, so you swap the ink and keep the pen."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
