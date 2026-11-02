@@ -1,0 +1,165 @@
+{% doc %}
+  Renders one Pegasus hero: a night sky or photo, an optional medallion, a headline split into rising words,
+  and up to two actions. The hero section renders one; the slider section renders one per slide.
+
+  @param {object} s - Settings holding `image`, `image_style`, `scene`, `background_scene` (optional, bundled photo for the background style), `overlay`, `heading`, `text`, `button_label`, `button_link`, `link_label`, `link_url`, `show_constellation`, and optionally `height` and `color_scheme`.
+  @param {string} [height] - `tall`, `medium` or `compact`. Defaults to `s.height`, then `tall`.
+  @param {string} [scheme] - A color scheme ID such as `scheme-4`. Defaults to `s.color_scheme`.
+  @param {boolean} [lazy] - Whether the images load lazily (slides after the first). Defaults to `false`.
+
+  @example
+  {% render 'pegasus-hero-slide', s: section.settings %}
+{% enddoc %}
+{%- liquid
+  assign pg_height = height | default: s.height | default: 'tall'
+  assign pg_scheme = scheme | default: s.color_scheme | default: 'scheme-4'
+  assign load_mode = 'eager'
+  assign fetch_priority = 'high'
+  if lazy
+    assign load_mode = 'lazy'
+    assign fetch_priority = 'auto'
+  endif
+  assign heading_text = s.heading | strip_html | strip
+  assign words = heading_text | split: ' '
+  assign has_image = false
+  if s.image != blank
+    assign has_image = true
+  endif
+  assign use_medal = false
+  if s.image_style == 'medallion'
+    assign use_medal = true
+  endif
+  assign bg_scene = ''
+  if use_medal == false and has_image == false and s.background_scene != blank and s.background_scene != 'none'
+    assign bg_scene = s.background_scene
+  endif
+  assign has_photo = false
+  if use_medal == false and has_image or bg_scene != blank
+    assign has_photo = true
+  endif
+-%}
+
+<div
+  class="pg-hero pg-hero--{{ pg_height }} color-{{ pg_scheme }} gradient{% if has_photo %} pg-hero--has-image{% endif %}{% if use_medal %} pg-hero--medal{% endif %}"
+  style="--pg-hero-overlay: {{ s.overlay | divided_by: 100.0 }};"
+>
+  <div class="pg-hero__media">
+    {%- if has_image and use_medal == false -%}
+      {{
+        s.image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'pg-hero__image',
+          widths: '800, 1200, 1600, 2000, 2400',
+          sizes: '100vw',
+          loading: load_mode,
+          fetchpriority: fetch_priority,
+          alt: s.image.alt
+      }}
+    {%- elsif bg_scene != blank -%}
+      {%- render 'pegasus-scene', name: bg_scene, class: 'pg-hero__image', loading: load_mode -%}
+    {%- else -%}
+      <svg
+        class="pg-hero__sky"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+        focusable="false"
+      >
+        {%- for i in (1..46) -%}
+          {%- liquid
+            assign star_x = i | times: 37 | modulo: 100
+            assign star_y = i | times: 53 | modulo: 97
+            assign star_r = i | modulo: 5 | times: 0.025 | plus: 0.04
+            assign twinkles = i | modulo: 7
+          -%}
+          <circle
+            cx="{{ star_x }}"
+            cy="{{ star_y }}"
+            r="{{ star_r }}"
+            {% if twinkles == 0 %}
+              class="pg-hero__twinkle"
+              style="animation-delay: {{ i | modulo: 5 }}s"
+            {% endif %}
+          />
+        {%- endfor -%}
+      </svg>
+    {%- endif -%}
+  </div>
+
+  {%- if use_medal -%}
+    <div class="pg-hero__medal">
+      <svg class="pg-hero__rim" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <circle class="pg-hero__rim-outer" cx="50" cy="50" r="49" pathLength="1"/>
+        <circle class="pg-hero__rim-inner" cx="50" cy="50" r="45.6" pathLength="1"/>
+      </svg>
+      <div class="pg-hero__photo">
+        {%- if has_image -%}
+          {{
+            s.image
+            | image_url: width: 1200
+            | image_tag:
+              class: 'pg-hero__image',
+              widths: '600, 900, 1200',
+              sizes: '(min-width: 990px) 44vw, 80vw',
+              loading: load_mode,
+              fetchpriority: fetch_priority,
+              alt: s.image.alt
+          }}
+        {%- else -%}
+          {%- render 'pegasus-scene', name: s.scene, class: 'pg-hero__image', loading: load_mode -%}
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if s.show_constellation -%}
+    {%- render 'pegasus-constellation', class: 'pg-hero__map' -%}
+  {%- endif -%}
+
+  <div class="pg-hero__inner page-width">
+    {%- if heading_text != blank -%}
+      <h2 class="pg-hero__heading" aria-label="{{ heading_text | escape }}">
+        {%- for word in words -%}
+          <span class="pg-w" aria-hidden="true"><span class="pg-wi" style="--i: {{ forloop.index0 }}">{{ word | escape }}</span></span>
+          {%- unless forloop.last %} {% endunless -%}
+        {%- endfor -%}
+      </h2>
+    {%- endif -%}
+
+    {%- if s.text != blank -%}
+      <p class="pg-hero__text">{{ s.text | escape }}</p>
+    {%- endif -%}
+
+    {%- if s.button_label != blank or s.link_label != blank -%}
+      <div class="pg-hero__actions">
+        {%- if s.button_label != blank -%}
+          <a
+            class="button"
+            {% if s.button_link == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ s.button_link }}"
+            {% endif %}
+          >
+            {{- s.button_label | escape -}}
+          </a>
+        {%- endif -%}
+        {%- if s.link_label != blank -%}
+          <a
+            class="pg-hero__link"
+            {% if s.link_url == blank %}
+              role="link" aria-disabled="true"
+            {% else %}
+              href="{{ s.link_url }}"
+            {% endif %}
+          >
+            {{- s.link_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+

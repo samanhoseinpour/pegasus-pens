@@ -10,13 +10,62 @@
 {
   "sections": {
     "hero": {
-      "type": "pegasus-hero",
+      "type": "pegasus-slider",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "image_style": "medallion",
+            "scene": "desk",
+            "heading": "Pens made to be written with.",
+            "text": "Hand-turned wood and resin pens with gold hardware, made in British Columbia.",
+            "button_label": "Shop all pens",
+            "button_link": "shopify://collections/all",
+            "link_label": "How they are made",
+            "link_url": "shopify://pages/about",
+            "show_constellation": false
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "image_style": "background",
+            "background_scene": "burl",
+            "overlay": 35,
+            "heading": "Turned from a single blank.",
+            "text": "Each barrel is cut from one piece of wood or resin and finished by hand.",
+            "button_label": "Shop burl wood",
+            "button_link": "shopify://collections/burl-wood",
+            "link_label": "",
+            "show_constellation": false
+          }
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {
+            "image_style": "background",
+            "background_scene": "leather",
+            "overlay": 35,
+            "heading": "Made to be given.",
+            "text": "Add gift wrap and a card message to any pen.",
+            "button_label": "Shop gifts",
+            "button_link": "shopify://collections/gifts",
+            "link_label": "",
+            "show_constellation": false
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ],
       "settings": {
-        "button_link": "shopify://collections/all",
-        "link_url": "shopify://pages/about",
-        "image_style": "medallion",
-        "scene": "desk",
-        "show_constellation": false
+        "label": "Featured",
+        "height": "tall",
+        "autoplay": true,
+        "interval": 7,
+        "color_scheme": "scheme-4"
       }
     },
     "statement": {

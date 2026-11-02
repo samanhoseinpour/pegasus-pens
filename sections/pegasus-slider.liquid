@@ -1,0 +1,320 @@
+{{ 'pegasus-hero.css' | asset_url | stylesheet_tag }}
+{{ 'pegasus-slider.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pegasus-slider.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign total = section.blocks.size
+  assign multi = false
+  if total > 1
+    assign multi = true
+  endif
+  assign interval_ms = section.settings.interval | default: 7 | times: 1000
+-%}
+
+<pg-slider
+  class="pg-slider color-{{ section.settings.color_scheme }} gradient"
+  role="region"
+  aria-roledescription="carousel"
+  aria-label="{{ section.settings.label | escape }}"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-interval="{{ interval_ms }}"
+  data-pause-label="{{ 'sections.slideshow.pause_slideshow' | t | escape }}"
+  data-play-label="{{ 'sections.slideshow.play_slideshow' | t | escape }}"
+>
+  <div class="pg-slider__stage" data-stage>
+    {%- for block in section.blocks -%}
+      {%- assign slide_lazy = true -%}
+      {%- if forloop.first -%}
+        {%- assign slide_lazy = false -%}
+      {%- endif -%}
+      <div
+        class="pg-slide{% if forloop.first %} is-active{% endif %}"
+        role="group"
+        aria-roledescription="slide"
+        aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ total }}"
+        data-slide
+        {{ block.shopify_attributes }}
+      >
+        {%- render 'pegasus-hero-slide',
+          s: block.settings,
+          height: section.settings.height,
+          scheme: section.settings.color_scheme,
+          lazy: slide_lazy
+        -%}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if multi -%}
+    <div class="pg-slider__bar">
+      <div class="pg-slider__bar-inner page-width">
+        <div class="pg-slider__dots" role="group" aria-label="{{ section.settings.label | escape }}">
+          {%- for block in section.blocks -%}
+            <button
+              type="button"
+              class="pg-slider__dot{% if forloop.first %} is-active{% endif %}"
+              aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ total }}"
+              {% if forloop.first %}aria-current="true"{% endif %}
+              data-dot
+            >
+              <span class="pg-slider__dot-fill"></span>
+            </button>
+          {%- endfor -%}
+        </div>
+        <div class="pg-slider__buttons">
+          <button type="button" class="pg-slider__button pg-slider__pause" aria-label="{{ 'sections.slideshow.pause_slideshow' | t }}" data-pause hidden>
+            <span class="pg-slider__icon pg-slider__icon--pause" aria-hidden="true"></span>
+            <span class="pg-slider__icon pg-slider__icon--play" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="pg-slider__button" aria-label="{{ 'general.slider.previous_slide' | t }}" data-prev>
+            <span class="svg-wrapper pg-slider__arrow pg-slider__arrow--prev">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+          </button>
+          <button type="button" class="pg-slider__button" aria-label="{{ 'general.slider.next_slide' | t }}" data-next>
+            <span class="svg-wrapper pg-slider__arrow">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</pg-slider>
+
+{% schema %}
+{
+  "name": "Pegasus slider",
+  "tag": "div",
+  "class": "pg-slider-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Accessible name",
+      "info": "Read aloud by screen readers for the slider.",
+      "default": "Featured"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "options": [
+        {
+          "value": "tall",
+          "label": "Tall"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "compact",
+          "label": "Compact"
+        }
+      ],
+      "default": "tall"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Change slides automatically",
+      "info": "Stops when the pointer or keyboard focus is on the slider, when it is off screen, and for visitors who prefer reduced motion.",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "interval",
+      "label": "Time per slide",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "default": 7
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo",
+          "info": "Optional. Without a photo the medallion style shows the default scene, and the full-width style the background photo."
+        },
+        {
+          "type": "select",
+          "id": "image_style",
+          "label": "Photo style",
+          "options": [
+            {
+              "value": "medallion",
+              "label": "Medallion, framed like the emblem"
+            },
+            {
+              "value": "background",
+              "label": "Full-width background"
+            }
+          ],
+          "default": "medallion"
+        },
+        {
+          "type": "select",
+          "id": "scene",
+          "label": "Default scene",
+          "info": "Shown in the medallion until you choose a photo.",
+          "options": [
+            {
+              "value": "desk",
+              "label": "Pen on a stand, desk at dusk"
+            },
+            {
+              "value": "burl",
+              "label": "Burl wood pen on a leather desk"
+            },
+            {
+              "value": "leather",
+              "label": "Pen on a leather notebook"
+            },
+            {
+              "value": "stone",
+              "label": "Pen on dark stone"
+            },
+            {
+              "value": "skyline",
+              "label": "Marbled pen, city skyline"
+            }
+          ],
+          "default": "desk"
+        },
+        {
+          "type": "select",
+          "id": "background_scene",
+          "label": "Background photo",
+          "info": "For the full-width style, until you choose a photo.",
+          "options": [
+            {
+              "value": "none",
+              "label": "None, night sky"
+            },
+            {
+              "value": "burl",
+              "label": "Burl wood pen on a leather desk"
+            },
+            {
+              "value": "leather",
+              "label": "Pen on a leather notebook"
+            },
+            {
+              "value": "stone",
+              "label": "Pen on dark stone"
+            },
+            {
+              "value": "desk",
+              "label": "Pen on a stand, desk at dusk"
+            },
+            {
+              "value": "skyline",
+              "label": "Marbled pen, city skyline"
+            }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "range",
+          "id": "overlay",
+          "min": 0,
+          "max": 80,
+          "step": 5,
+          "unit": "%",
+          "label": "Overlay (background style)",
+          "default": 25
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Pens made to be written with."
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Hand-turned wood and resin pens with gold hardware, made in British Columbia."
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop all pens"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Text link label",
+          "default": "How they are made"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Text link"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_constellation",
+          "label": "Draw the Great Square on load",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Pegasus slider",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "image_style": "background",
+            "heading": "Turned from a single blank.",
+            "text": "Each barrel is cut from one piece of wood or resin and finished by hand.",
+            "button_label": "Shop burl wood",
+            "link_label": "How they are made",
+            "overlay": 35,
+            "background_scene": "burl"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "image_style": "background",
+            "heading": "Made to be given.",
+            "text": "Add gift wrap and a card message to any pen.",
+            "button_label": "Shop gifts",
+            "link_label": "",
+            "overlay": 35,
+            "background_scene": "leather"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
