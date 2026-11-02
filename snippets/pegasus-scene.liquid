@@ -1,0 +1,47 @@
+{% doc %}
+  Renders one of the bundled Pegasus lifestyle photos from the theme's assets.
+  Sections use it as the default image until a merchant picks their own in the theme editor.
+
+  @param {string} name - Which scene to show: `desk`, `burl`, `leather`, `stone` or `skyline`. Renders nothing for any other value.
+  @param {string} [class] - Extra CSS classes for the image.
+  @param {string} [loading] - `lazy` (default) or `eager`.
+  @param {string} [alt] - Alternative text. Defaults to empty, since these photos are decorative.
+
+  @example
+  {% render 'pegasus-scene', name: 'burl', class: 'pg-hero__image', loading: 'eager' %}
+{% enddoc %}
+{%- liquid
+  assign file = null
+  case name
+    when 'desk'
+      assign file = 'pegasus-scene-desk.jpg'
+      assign file_width = 1145
+      assign file_height = 1526
+    when 'burl'
+      assign file = 'pegasus-scene-burl.jpg'
+      assign file_width = 1312
+      assign file_height = 1730
+    when 'leather'
+      assign file = 'pegasus-scene-leather.jpg'
+      assign file_width = 1122
+      assign file_height = 1402
+    when 'stone'
+      assign file = 'pegasus-scene-stone.jpg'
+      assign file_width = 1086
+      assign file_height = 1432
+    when 'skyline'
+      assign file = 'pegasus-scene-skyline.jpg'
+      assign file_width = 1145
+      assign file_height = 1526
+  endcase
+-%}
+{%- if file != blank -%}
+  <img
+    src="{{ file | asset_url }}"
+    alt="{{ alt | escape }}"
+    width="{{ file_width }}"
+    height="{{ file_height }}"
+    loading="{{ loading | default: 'lazy' }}"
+    {% if class != blank %}class="{{ class }}"{% endif %}
+  >
+{%- endif -%}

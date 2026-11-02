@@ -29,13 +29,19 @@
 }
 
 :root {
-  --pg-paper: #f2f3ef;
-  --pg-ink: #111a32;
-  --pg-moon: #dde3ea;
-  --pg-teal: #0e7c7b;
-  --pg-nib: #b8975a;
-  --pg-garnet: #a3283d;
-  --pg-night: #0d1329;
+  /* Sampled from the Pegasus emblem. Gold is for dark surfaces only (8.3:1 on espresso, 1.9:1 on parchment);
+     use bronze for accents on light surfaces. Colors for surfaces live in the theme's color schemes. */
+  --pg-parchment: #f6ecd8;
+  --pg-parchment-rgb: 246, 236, 216;
+  --pg-sand: #e9cda9;
+  --pg-bronze: #7d5027;
+  --pg-ink: #2a1508;
+  --pg-espresso: #22110a;
+  --pg-espresso-rgb: 34, 17, 10;
+  --pg-gold: #d4a857;
+  --pg-gold-rgb: 212, 168, 87;
+  --pg-gold-deep: #a8741f;
+  --pg-maple: #8e221c;
 
   --pg-display: 'Pegasus Display', 'Newsreader', Georgia, 'Times New Roman', serif;
   --pg-sans: 'Pegasus Sans', 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -144,8 +150,8 @@ h3,
 }
 
 ::selection {
-  background: var(--pg-teal);
-  color: #fff;
+  background: var(--pg-gold);
+  color: var(--pg-espresso);
 }
 
 /* Craft tracks UI text for its default font; Hanken Grotesk wants far less. */
@@ -192,8 +198,8 @@ volume-pricing li,
 }
 
 .button:not(.button--secondary):not(.button--tertiary):not([disabled]):hover {
-  --color-button: 14, 124, 123;
-  --color-button-text: 255, 255, 255;
+  --color-button: 196, 150, 66;
+  --color-button-text: 34, 17, 10;
 }
 
 .button--secondary:not([disabled]):hover {
@@ -230,7 +236,7 @@ volume-pricing li,
   flex: none;
   width: 0.9rem;
   height: 0.9rem;
-  background: var(--pg-nib);
+  background: var(--pg-gold);
   clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
 }
 
@@ -247,8 +253,9 @@ volume-pricing li,
 
 .pg-wordmark__mark {
   flex: none;
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 5.2rem;
+  height: 5.2rem;
+  border-radius: 50%;
 }
 
 .pg-wordmark__name {
@@ -256,6 +263,50 @@ volume-pricing li,
   font-weight: 400;
   letter-spacing: -0.02em;
   white-space: nowrap;
+}
+
+@media screen and (max-width: 749px) {
+  .pg-wordmark {
+    gap: 0.8rem;
+  }
+
+  .pg-wordmark__mark {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .pg-wordmark__name {
+    font-size: 2.2rem;
+  }
+}
+
+@media screen and (max-width: 389px) {
+  .pg-wordmark__mark {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+
+  .pg-wordmark__name {
+    font-size: 1.8rem;
+  }
+}
+
+@media screen and (max-width: 339px) {
+  .pg-wordmark__mark {
+    width: 4.2rem;
+    height: 4.2rem;
+  }
+
+  /* Visually hidden, still announced: the emblem carries the name on the smallest phones. */
+  .pg-wordmark__name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 }
 
 .pg-wordmark__name i {
@@ -298,6 +349,26 @@ volume-pricing li,
   max-width: 54ch;
   font-size: clamp(1.6rem, 0.6vw + 1.2rem, 1.9rem);
   line-height: 1.6;
+}
+
+/* The story section's default photo is portrait; keep the pen in frame inside the landscape crop. */
+.image-with-text__scene {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 68%;
+}
+
+/* Unavailable variant pills: Craft's 60% text is just under AA on parchment. The extra class beats the
+   section stylesheet, which loads later. */
+.product-form__input.product-form__input--pill input[type='radio']:disabled + label,
+.product-form__input.product-form__input--pill input[type='radio'].disabled + label {
+  color: rgba(var(--color-foreground), 0.7);
+}
+
+.product-form__input.product-form__input--pill input[type='radio'].disabled:checked + label,
+.product-form__input.product-form__input--pill input[type='radio']:disabled:checked + label {
+  color: rgba(var(--color-background), 0.75);
 }
 
 /* Collection list: three across on tablet instead of two giant columns. */
@@ -345,7 +416,9 @@ volume-pricing li,
   overflow: hidden;
 }
 
-.pg-wipe.pg-pending {
+/* The clip goes on the children, never on the observed element itself: the browser counts an element's
+   own clip-path when deciding whether it is visible, so a fully clipped target would never be revealed. */
+.pg-wipe.pg-pending > * {
   clip-path: inset(0 0 100% 0);
 }
 
@@ -354,7 +427,7 @@ volume-pricing li,
   transform: scale(1.12);
 }
 
-.pg-wipe.pg-in {
+.pg-wipe.pg-in > * {
   clip-path: inset(0);
   transition: clip-path 1.2s var(--pg-ease);
 }
@@ -362,7 +435,7 @@ volume-pricing li,
 .pg-wipe.pg-in img,
 .pg-wipe.pg-in video {
   transform: none;
-  transition: transform 1.6s var(--pg-ease);
+  transition: clip-path 1.2s var(--pg-ease), transform 1.6s var(--pg-ease);
 }
 
 .pg-w {
@@ -388,9 +461,8 @@ volume-pricing li,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pg-wipe.pg-pending,
-  .pg-pending .pg-wi,
-  .pg-wipe.pg-pending img {
+  .pg-wipe.pg-pending > *,
+  .pg-pending .pg-wi {
     clip-path: none;
     transform: none;
   }
