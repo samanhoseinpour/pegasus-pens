@@ -1,0 +1,101 @@
+/* Pens drifting past a giant headline. While it is pinned, scroll progress (--p, 0 to 1) moves each pen along its
+   path; without motion the pens simply sit in a row under the headline. */
+
+.pg-par {
+  position: relative;
+  display: block;
+}
+
+.pg-par__stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* The pens are blended (multiply) into whatever is behind them inside this stage, so the stage has to carry the
+     section color itself: a sticky or isolated element is its own stacking context. */
+  background: rgb(var(--color-background));
+  padding: clamp(6rem, 10vw, 12rem) 0;
+}
+
+.pg-par__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  text-align: center;
+}
+
+.pg-par__heading {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(5.4rem, 11vw, 15.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+/* ---------- Static: no motion ---------- */
+
+.pg-par__pens {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.4rem;
+  margin: 5.6rem 0 0;
+  padding: 0 var(--pg-gutter);
+  list-style: none;
+}
+
+.pg-pen {
+  width: min(calc(var(--size) * 0.6rem), 40vw);
+  /* Multiply turns each photo's white background into the section color. It goes on the pen itself, not the image:
+     a transformed element is its own stacking context, so a blend on its child would have nothing to blend with. */
+  mix-blend-mode: multiply;
+}
+
+.pg-pen img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Pinned: the pens move ---------- */
+
+.pg-par.is-pinned {
+  height: var(--pg-par-length, 300vh);
+}
+
+.pg-par.is-pinned .pg-par__stage {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  height: 100svh;
+  min-height: 52rem;
+  padding: 0;
+}
+
+.pg-par.is-pinned .pg-par__pens {
+  position: absolute;
+  inset: 0;
+  display: block;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.pg-par.is-pinned .pg-pen {
+  /* Each pen has its own window of the scroll: --q runs 0 to 1 inside it and is clamped outside it. */
+  --q: clamp(0, calc((var(--p, 0) - var(--start)) / var(--span)), 1);
+  --x: calc((var(--x0) + (var(--x1) - var(--x0)) * var(--q)) * 1vw);
+  --y: calc((var(--y0) + (var(--y1) - var(--y0)) * var(--q)) * 1svh);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(calc(var(--size) * 1rem), 46vw);
+  transform: translate3d(var(--x), var(--y), 0) translate(-50%, -50%)
+    rotate(calc(var(--tilt) * 1deg + (var(--q) - 0.5) * 36deg));
+  will-change: transform;
+}

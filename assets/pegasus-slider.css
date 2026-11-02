@@ -212,6 +212,21 @@ pg-slider.is-paused .pg-slider__icon--play {
   display: block;
 }
 
+@media screen and (max-width: 420px) {
+  .pg-slider__bar-inner {
+    gap: 0.8rem;
+  }
+
+  .pg-slider__dot {
+    width: 4rem;
+    padding: 0 0.5rem;
+  }
+
+  .pg-slider__button {
+    width: 4rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   pg-slider[data-ready] .pg-slide {
     transition: none;

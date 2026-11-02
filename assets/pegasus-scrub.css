@@ -1,0 +1,33 @@
+/* A statement whose words light up as it scrolls through the screen. */
+
+.pg-scrub {
+  display: block;
+}
+
+.pg-scrub__text {
+  max-width: 34ch;
+  margin: 0;
+  color: rgb(var(--color-foreground));
+  font-family: var(--pg-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  text-wrap: pretty;
+  font-size: clamp(3.4rem, 5vw, 6.8rem);
+}
+
+.pg-scrub__text--xl {
+  max-width: 24ch;
+  font-size: clamp(4rem, 7vw, 10rem);
+  line-height: 1.04;
+}
+
+/* Only when the script has taken over: without it (or without motion) every word is fully visible. */
+.pg-scrub.is-scrub .pg-scrub__w {
+  /* --p is the scroll progress 0 to 1; a word reaches full strength three "words" after the wave passes it. */
+  opacity: clamp(0.14, calc((var(--p, 0) * (var(--n) + 3) - var(--i)) / 3), 1);
+}
+
+.pg-scrub__button {
+  margin-top: 4rem;
+}

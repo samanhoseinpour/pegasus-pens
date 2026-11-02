@@ -1,0 +1,203 @@
+{{ 'pegasus-parallax.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pegasus-parallax.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  #pg-par-{{ section.id }} {
+    --pg-par-length: {{ section.settings.length }}vh;
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign total = section.blocks.size
+  assign window_span = 1.0
+  if total > 1
+    assign window_span = 0.55
+  endif
+  assign last_start = 1.0 | minus: window_span
+-%}
+
+<pg-parallax id="pg-par-{{ section.id }}" class="pg-par color-{{ section.settings.color_scheme }} gradient">
+  <div class="pg-par__stage">
+    <div class="pg-par__copy page-width">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pg-par__heading" data-pg-rise>{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="button" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+          {{- section.settings.button_label | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <ul class="pg-par__pens" aria-hidden="true">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign media = block.settings.image
+          if media == blank
+            assign media = block.settings.product.featured_media
+          endif
+          assign start = 0
+          if total > 1
+            assign steps = total | minus: 1
+            assign start = forloop.index0 | times: last_start | divided_by: steps
+          endif
+          case block.settings.direction
+            when 'left'
+              assign x0 = 118
+              assign x1 = -18
+              assign y0 = block.settings.lane
+              assign y1 = block.settings.lane
+            when 'up'
+              assign x0 = block.settings.lane
+              assign x1 = block.settings.lane
+              assign y0 = 125
+              assign y1 = -25
+            when 'down'
+              assign x0 = block.settings.lane
+              assign x1 = block.settings.lane
+              assign y0 = -25
+              assign y1 = 125
+            else
+              assign x0 = -18
+              assign x1 = 118
+              assign y0 = block.settings.lane
+              assign y1 = block.settings.lane
+          endcase
+        -%}
+        {%- if media != blank -%}
+          <li
+            class="pg-pen"
+            style="--start: {{ start }}; --span: {{ window_span }}; --x0: {{ x0 }}; --x1: {{ x1 }}; --y0: {{ y0 }}; --y1: {{ y1 }}; --tilt: {{ block.settings.tilt }}; --size: {{ block.settings.size }};"
+            {{ block.shopify_attributes }}
+          >
+            {{
+              media
+              | image_url: width: 900
+              | image_tag: width: 450, height: 600, loading: 'lazy', alt: '', widths: '300, 450, 600, 900', sizes: '(min-width: 750px) 30vw, 55vw'
+            }}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</pg-parallax>
+
+{% schema %}
+{
+  "name": "Pegasus pens drifting",
+  "tag": "section",
+  "class": "pg-par-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Hand-turned, one at a time."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "See every pen"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "info": "Leave empty to open all products."
+    },
+    {
+      "type": "range",
+      "id": "length",
+      "label": "Scroll length",
+      "info": "How long the headline stays pinned while the pens pass, in screen heights.",
+      "min": 180,
+      "max": 500,
+      "step": 20,
+      "unit": "%",
+      "default": 300
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "info": "Use a light scheme: the pen photos have white backgrounds and are blended into the section color.",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pen",
+      "name": "Pen",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product",
+          "info": "Its main photo is used."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Optional. Overrides the product photo. A pen on a white or plain light background works best."
+        },
+        {
+          "type": "select",
+          "id": "direction",
+          "label": "Moves",
+          "options": [
+            { "value": "right", "label": "Left to right" },
+            { "value": "left", "label": "Right to left" },
+            { "value": "up", "label": "Bottom to top" },
+            { "value": "down", "label": "Top to bottom" }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "range",
+          "id": "lane",
+          "label": "Position across its path",
+          "info": "Height on screen for left and right, distance from the left edge for up and down.",
+          "min": 5,
+          "max": 95,
+          "step": 5,
+          "unit": "%",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "size",
+          "label": "Size",
+          "min": 14,
+          "max": 44,
+          "step": 2,
+          "unit": "rem",
+          "default": 26
+        },
+        {
+          "type": "range",
+          "id": "tilt",
+          "label": "Tilt",
+          "min": -60,
+          "max": 60,
+          "step": 5,
+          "unit": "°",
+          "default": 20
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pegasus pens drifting",
+      "blocks": [
+        { "type": "pen", "settings": { "direction": "right", "lane": 35, "tilt": 25 } },
+        { "type": "pen", "settings": { "direction": "left", "lane": 65, "tilt": -20 } },
+        { "type": "pen", "settings": { "direction": "right", "lane": 70, "tilt": 15 } }
+      ]
+    }
+  ]
+}
+{% endschema %}

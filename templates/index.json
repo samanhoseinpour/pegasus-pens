@@ -69,42 +69,15 @@
       }
     },
     "statement": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_1": {
-          "type": "heading",
-          "settings": {
-            "heading": "A good pen makes you want to finish the sentence.",
-            "heading_size": "h0"
-          }
-        },
-        "text_2": {
-          "type": "text",
-          "settings": {
-            "text": "<p>We make a short list of pens, each turned from a single blank of wood or resin, and keep refining them until they feel right in the hand. Nothing here is built to be thrown away.</p>"
-          }
-        },
-        "button_3": {
-          "type": "button",
-          "settings": {
-            "button_label": "How we make them",
-            "button_link": "shopify://pages/about",
-            "button_style_secondary": true
-          }
-        }
-      },
-      "block_order": [
-        "heading_1",
-        "text_2",
-        "button_3"
-      ],
+      "type": "pegasus-scrub",
       "settings": {
-        "desktop_content_position": "left",
-        "content_alignment": "left",
+        "text": "A good pen makes you want to finish the sentence. We make a short list of pens, each turned from a single blank of wood or resin, and keep refining them until they feel right in the hand. Nothing here is built to be thrown away.",
+        "size": "large",
+        "button_label": "How we make them",
+        "button_link": "shopify://pages/about",
         "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 96,
-        "padding_bottom": 100
+        "padding_top": 120,
+        "padding_bottom": 120
       }
     },
     "kinds": {
@@ -288,6 +261,64 @@
         "color_scheme": "scheme-1",
         "padding_top": 96,
         "padding_bottom": 96
+      }
+    },
+    "drift": {
+      "type": "pegasus-parallax",
+      "blocks": {
+        "pen_1": {
+          "type": "pen",
+          "settings": {
+            "product": "burl-hourglass-pen",
+            "direction": "right",
+            "lane": 32,
+            "size": 26,
+            "tilt": 25
+          }
+        },
+        "pen_2": {
+          "type": "pen",
+          "settings": {
+            "product": "brown-wood-pen",
+            "direction": "left",
+            "lane": 68,
+            "size": 24,
+            "tilt": -20
+          }
+        },
+        "pen_3": {
+          "type": "pen",
+          "settings": {
+            "product": "marbled-resin-pen",
+            "direction": "right",
+            "lane": 70,
+            "size": 26,
+            "tilt": 15
+          }
+        },
+        "pen_4": {
+          "type": "pen",
+          "settings": {
+            "product": "laminated-wood-pen",
+            "direction": "left",
+            "lane": 30,
+            "size": 24,
+            "tilt": -30
+          }
+        }
+      },
+      "block_order": [
+        "pen_1",
+        "pen_2",
+        "pen_3",
+        "pen_4"
+      ],
+      "settings": {
+        "heading": "Hand-turned, one at a time.",
+        "button_label": "See every pen",
+        "button_link": "shopify://collections/all",
+        "length": 320,
+        "color_scheme": "scheme-1"
       }
     },
     "engrave": {
@@ -601,6 +632,7 @@
     "great_square",
     "story",
     "collage",
+    "drift",
     "engrave",
     "anatomy",
     "nibs",
