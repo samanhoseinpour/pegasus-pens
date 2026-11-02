@@ -7,12 +7,21 @@
   {% render 'header-search', input_id: 'Search-In-Modal' %}
 {% enddoc %}
 
+{%- liquid
+  assign search_label = section.settings.search_label
+  if search_label == blank
+    assign search_label = 'general.search.search' | t
+  endif
+  assign start_collection = section.settings.search_collection | default: collections['all']
+  assign start_terms = section.settings.search_terms | newline_to_br | split: '<br />'
+  assign browse_menu = section.settings.menu
+-%}
 <details-modal class="header__search">
   <details>
     <summary
       class="header__icon header__icon--search header__icon--summary link focus-inset modal__toggle"
       aria-haspopup="dialog"
-      aria-label="{{ 'general.search.search' | t }}"
+      aria-label="{{ search_label | escape }}"
     >
       <span>
         <span class="svg-wrapper">
@@ -22,6 +31,7 @@
           {{- 'icon-close.svg' | inline_asset_content -}}
         </span>
       </span>
+      <span class="pg-search__label" aria-hidden="true">{{ search_label | escape }}</span>
     </summary>
     <div
       class="search-modal modal__content gradient"
@@ -47,7 +57,7 @@
               type="search"
               name="q"
               value="{{ search.terms | escape }}"
-              placeholder="{{ 'general.search.search' | t }}"
+              placeholder="{{ search_label | escape }}"
               {%- if settings.predictive_search_enabled -%}
                 role="combobox"
                 aria-expanded="false"
@@ -61,7 +71,7 @@
                 spellcheck="false"
               {%- endif -%}
             >
-            <label class="field__label" for="{{ input_id }}">{{ 'general.search.search' | t }}</label>
+            <label class="field__label" for="{{ input_id }}">{{ search_label | escape }}</label>
             <input type="hidden" name="options[prefix]" value="last">
             <button
               type="reset"
@@ -87,6 +97,55 @@
             <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
           {%- endif -%}
         </form>
+
+        {%- comment -%} Shown until there are results to show (see pegasus-chrome.css). {%- endcomment -%}
+        <div class="pg-search-start">
+          {%- if start_collection.products.size > 0 -%}
+            <div class="pg-search-start__products">
+              <h2 class="pg-search-start__heading">{{ 'general.search.popular_pens' | t }}</h2>
+              <ul class="pg-search-start__grid" role="list">
+                {%- for product in start_collection.products limit: 4 -%}
+                  <li>
+                    <a href="{{ product.url }}" class="pg-search-card">
+                      {%- if product.featured_media -%}
+                        <span class="pg-search-card__media">
+                          {{
+                            product.featured_media
+                            | image_url: width: 240
+                            | image_tag: width: 120, height: 160, loading: 'lazy', alt: ''
+                          }}
+                        </span>
+                      {%- endif -%}
+                      <span class="pg-search-card__title">{{ product.title | escape }}</span>
+                      <span class="pg-search-card__price">{{ product.price | money }}</span>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+          <div class="pg-search-start__links">
+            {%- if start_terms.size > 0 and start_terms[0] != blank -%}
+              <h2 class="pg-search-start__heading">{{ 'general.search.try_searching' | t }}</h2>
+              <ul role="list">
+                {%- for term in start_terms -%}
+                  {%- assign term_clean = term | strip -%}
+                  {%- if term_clean != blank -%}
+                    <li><a href="{{ routes.search_url }}?q={{ term_clean | url_encode }}">{{ term_clean | escape }}</a></li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+            {%- if browse_menu.links.size > 0 -%}
+              <h2 class="pg-search-start__heading">{{ 'general.search.browse' | t }}</h2>
+              <ul role="list">
+                {%- for link in browse_menu.links -%}
+                  <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+        </div>
         {%- if settings.predictive_search_enabled -%}
           </predictive-search>
         {%- else -%}

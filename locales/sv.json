@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "Sök",
-      "reset": "Rensa sökord"
+      "reset": "Rensa sökord",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "Visa varukorg ({{ count }})",

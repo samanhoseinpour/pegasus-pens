@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "Ara",
-      "reset": "Arama terimini temizle"
+      "reset": "Arama terimini temizle",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "Sepeti görüntüle ({{ count }})",

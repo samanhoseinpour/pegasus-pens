@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "Keresés",
-      "reset": "Keresőszó törlése"
+      "reset": "Keresőszó törlése",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "Kosár megtekintése ({{ count }})",

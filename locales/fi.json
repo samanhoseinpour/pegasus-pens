@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "Hae",
-      "reset": "Tyhjennä hakutermi"
+      "reset": "Tyhjennä hakutermi",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "Näytä ostoskori ({{ count }})",

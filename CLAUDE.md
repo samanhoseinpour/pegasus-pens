@@ -46,6 +46,15 @@ New sections (all with presets, so merchants can add them anywhere; schema label
 
 `<pg-rail>` cancels native `dragstart` (links and images otherwise swallow the pointer events and break drag-to-scroll) and snaps explicitly after a drag.
 
+## Header search
+
+`assets/pegasus-chrome.css` (loaded after `pegasus.css`) restyles Craft's search modal instead of replacing it, so the predictive search JS, the Section Rendering API calls and the focus handling stay Craft's.
+
+- The `summary` of the single `header-search` is a field-shaped trigger: in the left slot on 990 px and wider, a full-width second row below that, and an icon beside the menu button in the compact header. Its visible text is the header setting `search_label`, and the same text is the `aria-label` (label in name). `header.liquid` renders the search **once** (`render_search_left`); Craft rendered it twice and hid one with CSS, which left duplicate IDs. The mobile grid areas use `!important` because Craft sets them with several stacked `:not()` selectors.
+- Opening it shows a wide parchment panel (dimmed, blurred page behind). Before there are results it shows `.pg-search-start`: four pens from the `search_collection` setting, "Try searching for" lines from `search_terms` (one per line) and the main menu as "Browse". It sits inside `<predictive-search>`, so `predictive-search[open]`/`[loading]` hide it when results arrive. Results reuse Craft's markup (`sections/predictive-search.liquid`), re-laid-out with CSS only: products left, suggestions right.
+- axe reports `aria-required-children` and `nested-interactive` on Craft's own results markup (a listbox holding groups); they are not from this layer, and the test disables those two rules.
+- Strings are `general.search.popular_pens`, `try_searching` and `browse`; new keys go in every `locales/*.json`.
+
 ## Compact header
 
 On screens 990 px and wider, once the header has been scrolled past and comes back (scroll up, with `sticky_header_type: on-scroll-up`), Craft adds `scrolled-past-header` to `.section-header`. `assets/pegasus.css` ("Compact header") then collapses the two-row header to one row: the hidden `header-drawer` menu button is shown in the `left-icons` slot (the nav row is hidden and stays reachable through that drawer), the wordmark shrinks, padding drops. With sticky type "None" Craft never adds the class, so nothing changes. Phones and tablets are untouched.

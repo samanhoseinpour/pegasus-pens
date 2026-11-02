@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "Αναζήτηση",
-      "reset": "Διαγραφή όρου αναζήτησης"
+      "reset": "Διαγραφή όρου αναζήτησης",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "Προβολή καλαθιού ({{ count }})",

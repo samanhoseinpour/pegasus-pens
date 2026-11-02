@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "Търсене",
-      "reset": "Изчисти думата за търсене"
+      "reset": "Изчисти думата за търсене",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "Покажи количката ({{ count }})",

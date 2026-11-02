@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "ค้นหา",
-      "reset": "ล้างคำที่ใช้ค้นหา"
+      "reset": "ล้างคำที่ใช้ค้นหา",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "ดูตะกร้าสินค้า ({{ count }})",

@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "Cari",
-      "reset": "Hapus kata kunci pencarian"
+      "reset": "Hapus kata kunci pencarian",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "Lihat keranjang ({{ count }})",

@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "Pesquisar",
-      "reset": "Limpar termo de pesquisa"
+      "reset": "Limpar termo de pesquisa",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "Ver carrinho ({{ count }})",

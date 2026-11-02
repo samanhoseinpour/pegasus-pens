@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "Căutați",
-      "reset": "Golește termenul de căutare"
+      "reset": "Golește termenul de căutare",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "Vezi coșul ({{ count }})",

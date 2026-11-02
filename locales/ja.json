@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "検索",
-      "reset": "検索ワードをクリアする"
+      "reset": "検索ワードをクリアする",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "カートを見る ({{ count }})",

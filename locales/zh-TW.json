@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "搜尋",
-      "reset": "清除搜尋詞彙"
+      "reset": "清除搜尋詞彙",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "檢視購物車 ({{ count }})",

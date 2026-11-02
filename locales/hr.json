@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "Traži",
-      "reset": "Izbriši pojam za pretraživanje"
+      "reset": "Izbriši pojam za pretraživanje",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "Prikaži košaricu ({{ count }})",

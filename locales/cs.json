@@ -46,7 +46,10 @@
     },
     "search": {
       "search": "Hledání",
-      "reset": "Vymazat hledaný termín"
+      "reset": "Vymazat hledaný termín",
+      "popular_pens": "Popular pens",
+      "try_searching": "Try searching for",
+      "browse": "Browse"
     },
     "cart": {
       "view": "Zobrazit košík ({{ count }})",
