@@ -1,0 +1,204 @@
+/* Collage: one tall tile, one wide, two small. Each tile is a single link; tiles without a photo
+   fall back to their color scheme with a field of stars, so an empty collage still looks designed. */
+
+.pg-collage {
+  --pg-collage-gap: 1.2rem;
+}
+
+.pg-collage__heading {
+  max-width: 18ch;
+  margin: 0 0 clamp(2.4rem, 4vw, 4.8rem);
+}
+
+.pg-collage__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--pg-collage-gap);
+}
+
+.pg-collage__tile {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  isolation: isolate;
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+}
+
+.pg-collage__tile:focus-visible {
+  outline: 2px solid var(--pg-teal);
+  outline-offset: 3px;
+}
+
+.pg-collage__tile--image {
+  color: #f2f3ef;
+}
+
+.pg-collage__tile--dark-caption {
+  color: #111a32;
+}
+
+/* Phones: tall tile and wide tile full width, the two small tiles side by side. */
+.pg-collage__tile--1,
+.pg-collage__tile--2 {
+  grid-column: 1 / -1;
+}
+
+.pg-collage__tile--1 { aspect-ratio: 4 / 5; }
+.pg-collage__tile--2 { aspect-ratio: 16 / 10; }
+.pg-collage__tile--3,
+.pg-collage__tile--4 { aspect-ratio: 3 / 4; }
+
+.pg-collage__grid--1 .pg-collage__tile--1 { aspect-ratio: 4 / 5; }
+.pg-collage__grid--3 .pg-collage__tile--3 { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+
+/* ---------- Media ---------- */
+
+
+.pg-collage__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.pg-collage__media.pg-in {
+  transition-delay: calc(var(--i, 0) * 120ms);
+}
+
+.pg-collage__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pg-collage__tile:hover .pg-collage__media img {
+  transform: scale(1.05);
+  transition: transform 1.6s var(--pg-ease);
+}
+
+.pg-collage__tile--image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, rgba(13, 19, 41, 0.78) 0%, rgba(13, 19, 41, 0.28) 42%, rgba(13, 19, 41, 0) 70%);
+}
+
+.pg-collage__tile--dark-caption::after {
+  background: linear-gradient(to top, rgba(242, 243, 239, 0.94) 0%, rgba(242, 243, 239, 0.6) 34%, rgba(242, 243, 239, 0) 66%);
+}
+
+/* Stars and the wash follow the tile's text color, so they read on dark and light schemes alike. */
+.pg-collage__sky {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 18% 22%, rgba(var(--color-foreground), 0.9) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 72% 14%, rgba(var(--color-foreground), 0.7) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 86% 46%, rgba(184, 151, 90, 0.95) 0 1.5px, transparent 2.3px),
+    radial-gradient(circle at 34% 58%, rgba(var(--color-foreground), 0.55) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 58% 36%, rgba(var(--color-foreground), 0.8) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 12% 78%, rgba(var(--color-foreground), 0.6) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 64% 82%, rgba(var(--color-foreground), 0.7) 0 1px, transparent 1.6px),
+    radial-gradient(120% 90% at 100% 100%, rgba(var(--color-foreground), 0.1), transparent 60%);
+}
+
+/* ---------- Caption ---------- */
+
+.pg-collage__caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  justify-items: start;
+  gap: 0.8rem;
+  padding: clamp(1.6rem, 2.2vw, 3.2rem);
+}
+
+.pg-collage__title {
+  margin: 0;
+  max-width: 16ch;
+  font-size: clamp(2.4rem, 5.4vw, 3.4rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: inherit;
+}
+
+.pg-collage__tile--1 .pg-collage__title {
+  font-size: clamp(3.2rem, 7vw, 4.6rem);
+}
+
+.pg-collage__text {
+  margin: 0;
+  max-width: 32ch;
+  font-size: 1.5rem;
+  line-height: 1.45;
+  color: inherit;
+  opacity: 0.9;
+}
+
+.pg-collage__link {
+  margin-top: 0.6rem;
+  padding-bottom: 0.3rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  background: linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat;
+  transition: background-size 0.5s var(--pg-ease), background-position 0.5s var(--pg-ease);
+}
+
+.pg-collage__tile:hover .pg-collage__link,
+.pg-collage__tile:focus-visible .pg-collage__link {
+  background-size: 0 1px;
+  background-position: right bottom;
+}
+
+/* ---------- Tablet and up: a 12-column composition ---------- */
+
+@media screen and (min-width: 750px) {
+  .pg-collage {
+    --pg-collage-gap: 2rem;
+  }
+
+  .pg-collage__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(2, clamp(24rem, 27vw, 46rem));
+  }
+
+  .pg-collage__tile {
+    aspect-ratio: auto;
+    grid-column: auto;
+  }
+
+  .pg-collage__tile--1 { grid-column: 1 / span 6; grid-row: 1 / span 2; aspect-ratio: auto; }
+  .pg-collage__tile--2 { grid-column: 7 / span 6; grid-row: 1; aspect-ratio: auto; }
+  .pg-collage__tile--3 { grid-column: 7 / span 3; grid-row: 2; aspect-ratio: auto; }
+  .pg-collage__tile--4 { grid-column: 10 / span 3; grid-row: 2; aspect-ratio: auto; }
+
+  .pg-collage__grid--3 .pg-collage__tile--3 { grid-column: 7 / span 6; aspect-ratio: auto; }
+  .pg-collage__grid--2 .pg-collage__tile--2 { grid-row: 1 / span 2; }
+  .pg-collage__grid--1 .pg-collage__tile--1 { grid-column: 1 / -1; aspect-ratio: auto; }
+
+  .pg-collage__title {
+    font-size: clamp(2.2rem, 2.6vw, 3.6rem);
+  }
+
+  .pg-collage__tile--1 .pg-collage__title {
+    font-size: clamp(3.4rem, 4.6vw, 6.4rem);
+  }
+
+  .pg-collage__tile--3 .pg-collage__title,
+  .pg-collage__tile--4 .pg-collage__title {
+    font-size: clamp(2rem, 2vw, 2.8rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-collage__tile:hover .pg-collage__media img {
+    transform: none;
+  }
+
+  .pg-collage__link {
+    transition: none;
+  }
+}

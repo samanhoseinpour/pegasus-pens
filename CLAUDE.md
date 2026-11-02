@@ -26,7 +26,7 @@ There is no Shopify store linked to this project (the Shopify CLI config on this
 
 ## Home page
 
-`templates/index.json` order: `pegasus-hero` → `rich-text` (statement) → `collection-list` (six kinds) → `pegasus-product-tabs` → `pegasus-constellation` → `image-with-text` → `pegasus-marquee` → `pegasus-quotes` → `multicolumn` (promises). Header, newsletter and footer come from the section groups.
+`templates/index.json` order: `pegasus-hero` → `rich-text` (statement) → `collection-list` (six kinds) → `pegasus-product-tabs` → `pegasus-constellation` → `image-with-text` (story) → `pegasus-collage` → `pegasus-marquee` (dark) → `pegasus-quotes` → `multicolumn` (promises). Header, newsletter and footer come from the section groups.
 
 New sections (all with presets, so merchants can add them anywhere; schema labels are plain English, not `t:` keys, so no locale files are needed for them):
 
@@ -35,9 +35,20 @@ New sections (all with presets, so merchants can add them anywhere; schema label
 - `pegasus-constellation`: the signature pinned section, `<pg-constellation>` (assets/pegasus-constellation.js). Scroll progress drives `--seg-1..6` (line drawing), `.is-lit` / `.is-active` on stars and `.is-active` on panels. It pins **only** when motion is allowed (not reduced-motion, not theme editor, not `pegasus_motion` off); otherwise it renders statically with all four panels visible. Inactive panels use `visibility: hidden`, and the nav buttons jump to a star by scrolling.
 - `pegasus-marquee`: slow looping text (the only continuous motion); two copies of the list, the second `aria-hidden`; stops under reduced motion.
 - `pegasus-quotes`: one big quote at a time in a `<pg-rail>`; the track is focusable and named via a setting.
+- `pegasus-collage`: 12-column composition (tall tile, wide tile, two small; stacks on phones; `max_blocks: 4`). Blocks are `tile` (image, title, link) or `product` (title, price and image come from the product). Each tile is one `<a>`. Tiles with no image use their color scheme plus a CSS star field that follows `--color-foreground`, so it reads on dark and light schemes. `caption_style: dark` swaps the dark scrim for a paper fade, for light product shots.
 - Shared snippets: `pegasus-constellation` (the Great Square SVG, stars 1-4 are the square, 5-6 trail off) and `pegasus-rail-controls` (progress line + prev/next).
 
 `<pg-rail>` cancels native `dragstart` (links and images otherwise swallow the pointer events and break drag-to-scroll) and snaps explicitly after a drag.
+
+## Product page: sticky add-to-cart bar
+
+`snippets/pegasus-sticky-atc.liquid` is rendered at the end of `sections/main-product.liquid` (inside `<product-info>`), behind the `sticky_bar` section setting (default on). `<pg-sticky-atc>` (assets/pegasus-sticky-atc.js) never submits anything: its button calls `.click()` on the real `#ProductSubmitButton-<section id>`, and a MutationObserver mirrors that button's label, `disabled`, `aria-disabled` and `loading` state, so errors, spinners and sold-out behave exactly like the page. The price is copied from `#price-<section id>` (Craft rewrites it on variant change); the variant title and thumbnail come from the `variantChange` pubsub event.
+
+- Visibility uses a rAF-throttled scroll check on `.product-form__buttons`, **not** IntersectionObserver: an observer only reports state changes, so a jump straight past the buttons (restored scroll, anchor link) is never reported.
+- Craft's "sticky product info" setting keeps the buy buttons in view while the product section is on screen, so on desktop the bar correctly appears only after the section has scrolled past; on stacked layouts (phones) it appears as soon as the buttons leave the top.
+- While the bar is showing, `body:has(pg-sticky-atc.is-visible)` gets bottom padding so the footer is never covered. Hidden, it is `inert` and `visibility: hidden`.
+- Craft's price markup contains block `<div>`s, so the price must not sit inside a `<p>`: the parser closes the paragraph and the price drops out of the layout.
+- Craft hides empty elements globally (`div:empty { display: none }`); remember this when inserting spacer divs in tests.
 
 ## Commands
 

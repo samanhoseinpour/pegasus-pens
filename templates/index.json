@@ -299,7 +299,7 @@
       ],
       "settings": {
         "speed": 70,
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-4",
         "padding_top": 40,
         "padding_bottom": 40
       }
@@ -387,6 +387,61 @@
         "button_label": "",
         "background_style": "none"
       }
+    },
+    "collage": {
+      "type": "pegasus-collage",
+      "blocks": {
+        "tile_1": {
+          "type": "product",
+          "settings": {
+            "product": "nocturne-fountain-pen",
+            "link_label": "View pen",
+            "color_scheme": "scheme-4",
+            "caption_style": "dark"
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "title": "Inks that dry the way they look",
+            "text": "Blue-black, teal and one with a quiet shimmer.",
+            "link_label": "Shop inks",
+            "link": "shopify://collections/inks",
+            "color_scheme": "scheme-3"
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "title": "Paper that lies flat",
+            "text": "Notebooks bound to take a wet nib.",
+            "link_label": "Shop notebooks",
+            "link": "shopify://collections/notebooks",
+            "color_scheme": "scheme-1"
+          }
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "title": "Ready to give",
+            "text": "Boxed, wrapped and engraved on request.",
+            "link_label": "Shop gifts",
+            "link": "shopify://collections/gifts",
+            "color_scheme": "scheme-4"
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     }
   },
   "order": [
@@ -396,6 +451,7 @@
     "fresh",
     "great_square",
     "story",
+    "collage",
     "nibs",
     "quotes",
     "promises"

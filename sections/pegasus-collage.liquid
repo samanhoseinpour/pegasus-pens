@@ -1,0 +1,242 @@
+{{ 'pegasus-collage.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- assign heading_text = section.settings.heading | strip_html | strip -%}
+
+<div class="pg-collage color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width">
+    {%- if heading_text != blank -%}
+      <h2 class="h1 pg-collage__heading" data-pg-rise>{{ heading_text | escape }}</h2>
+    {%- endif -%}
+
+    <div class="pg-collage__grid pg-collage__grid--{{ section.blocks.size }}">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign tile_url = block.settings.link
+          assign tile_image = block.settings.image
+          assign tile_title = block.settings.title
+          assign tile_text = block.settings.text
+          assign tile_label = block.settings.link_label
+
+          if block.type == 'product'
+            assign tile_product = block.settings.product
+            assign tile_title = 'Choose a pen'
+            assign tile_text = null
+            if tile_product != blank
+              assign tile_url = tile_product.url
+              assign tile_title = tile_product.title
+              assign tile_text = tile_product.price | money
+              if tile_image == blank
+                assign tile_image = tile_product.featured_image
+              endif
+            endif
+          endif
+
+          if forloop.index <= 2
+            assign tile_sizes = '(min-width: 990px) 50vw, 100vw'
+          else
+            assign tile_sizes = '(min-width: 990px) 25vw, 50vw'
+          endif
+        -%}
+        <a
+          class="pg-collage__tile pg-collage__tile--{{ forloop.index }} color-{{ block.settings.color_scheme }} gradient{% if tile_image != blank %} pg-collage__tile--image{% if block.settings.caption_style == 'dark' %} pg-collage__tile--dark-caption{% endif %}{% endif %}"
+          {% if tile_url == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ tile_url }}"
+          {% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <div class="pg-collage__media" data-pg-wipe style="--i: {{ forloop.index0 }};">
+            {%- if tile_image != blank -%}
+              {{
+                tile_image
+                | image_url: width: 1600
+                | image_tag:
+                  class: 'pg-collage__image',
+                  widths: '600, 900, 1200, 1600',
+                  sizes: tile_sizes,
+                  loading: 'lazy',
+                  alt: tile_image.alt
+              }}
+            {%- else -%}
+              <span class="pg-collage__sky" aria-hidden="true"></span>
+            {%- endif -%}
+          </div>
+          <div class="pg-collage__caption">
+            {%- if tile_title != blank -%}
+              <h3 class="pg-collage__title">{{ tile_title | escape }}</h3>
+            {%- endif -%}
+            {%- if tile_text != blank -%}
+              <p class="pg-collage__text">{{ tile_text | escape }}</p>
+            {%- endif -%}
+            {%- if tile_label != blank -%}
+              <span class="pg-collage__link">{{ tile_label | escape }}</span>
+            {%- endif -%}
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pegasus collage",
+  "tag": "section",
+  "class": "pg-collage-section",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tile",
+      "name": "Tile",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Without an image the tile uses its color scheme and a field of stars."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Paper that lies flat"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "Shop notebooks"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "caption_style",
+          "label": "Text over image",
+          "options": [
+            { "value": "light", "label": "Light, for dark photos" },
+            { "value": "dark", "label": "Dark, for light photos" }
+          ],
+          "default": "light"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-4"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Optional. Defaults to the product's first image."
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "View pen"
+        },
+        {
+          "type": "select",
+          "id": "caption_style",
+          "label": "Text over image",
+          "options": [
+            { "value": "light", "label": "Light, for dark photos" },
+            { "value": "dark", "label": "Dark, for light photos" }
+          ],
+          "default": "dark"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-4"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pegasus collage",
+      "blocks": [
+        { "type": "product" },
+        { "type": "tile", "settings": { "title": "Inks that dry the way they look", "text": "Blue-black, teal and one with a quiet shimmer.", "link_label": "Shop inks", "color_scheme": "scheme-3" } },
+        { "type": "tile" },
+        { "type": "tile", "settings": { "title": "Ready to give", "text": "Boxed, wrapped and engraved on request.", "link_label": "Shop gifts" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
