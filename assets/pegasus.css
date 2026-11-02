@@ -1,0 +1,381 @@
+/* ==========================================================================
+   Pegasus Pens: design layer on top of Craft.
+   Tokens, type, controls, chrome. Colors come from the theme's color schemes,
+   fonts from the `--font-*` variables (see layout/theme.liquid).
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Pegasus Display';
+  src: url('pegasus-display.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pegasus Display';
+  src: url('pegasus-display-italic.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pegasus Sans';
+  src: url('pegasus-sans.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --pg-paper: #f2f3ef;
+  --pg-ink: #111a32;
+  --pg-moon: #dde3ea;
+  --pg-teal: #0e7c7b;
+  --pg-nib: #b8975a;
+  --pg-garnet: #a3283d;
+  --pg-night: #0d1329;
+
+  --pg-display: 'Pegasus Display', 'Newsreader', Georgia, 'Times New Roman', serif;
+  --pg-sans: 'Pegasus Sans', 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --pg-ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --pg-ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --pg-gutter: 1.6rem;
+  --pg-hair: rgba(var(--color-foreground), 0.16);
+}
+
+@media screen and (min-width: 750px) {
+  :root {
+    --pg-gutter: 2.4rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  :root {
+    --pg-gutter: 3.2rem;
+  }
+}
+
+/* ---------- Type ---------- */
+
+body {
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.h0,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.hxl,
+.hxxl {
+  letter-spacing: -0.012em;
+  line-height: 1.06;
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
+.hxxl {
+  font-size: calc(var(--font-heading-scale) * clamp(5.4rem, 10.5vw, 14rem));
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+}
+
+.hxl {
+  font-size: calc(var(--font-heading-scale) * clamp(4.8rem, 8.2vw, 11rem));
+  line-height: 1;
+  letter-spacing: -0.028em;
+}
+
+.h0 {
+  font-size: calc(var(--font-heading-scale) * clamp(4rem, 6.2vw, 8.4rem));
+  letter-spacing: -0.024em;
+}
+
+h1,
+.h1 {
+  font-size: calc(var(--font-heading-scale) * clamp(3.4rem, 4.8vw, 6.4rem));
+  letter-spacing: -0.02em;
+}
+
+h2,
+.h2 {
+  font-size: calc(var(--font-heading-scale) * clamp(2.8rem, 3.5vw, 4.6rem));
+  letter-spacing: -0.016em;
+}
+
+h3,
+.h3 {
+  font-size: calc(var(--font-heading-scale) * clamp(2.2rem, 2.3vw, 3rem));
+}
+
+.h4 {
+  font-size: calc(var(--font-heading-scale) * 2rem);
+}
+
+.h5 {
+  font-size: calc(var(--font-heading-scale) * 1.7rem);
+}
+
+/* Labels stay in sentence case. */
+.caption,
+.caption-large,
+.caption-with-letter-spacing,
+.caption-with-letter-spacing--medium,
+.caption-with-letter-spacing--large {
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+
+.price,
+.price-item,
+.cart-item__price-wrapper {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+::selection {
+  background: var(--pg-teal);
+  color: #fff;
+}
+
+/* Craft tracks UI text for its default font; Hanken Grotesk wants far less. */
+.text-body,
+.caption,
+.caption-large,
+.customer .field input,
+.customer select,
+.field__input,
+.form__label,
+.select__select,
+.link-with-icon,
+.subtitle,
+.subtitle--small,
+.subtitle--medium,
+.field__label,
+.customer .field label,
+.badge,
+.article-card__footer,
+.card-information .caption,
+.price,
+.price--large,
+.unit-price,
+.product-form__input--pill input[type='radio'] + label,
+volume-pricing li,
+.product-form__input .price-per-item,
+.shopify-payment-button__button,
+.shopify-payment-button__button--unbranded,
+.header-localization .disclosure .localization-form__select,
+.pickup-availability-button {
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Buttons ---------- */
+
+.button,
+.shopify-challenge__button,
+.customer button {
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  min-height: 4.8rem;
+  padding: 0 3.2rem;
+  transition: background-color 0.4s var(--pg-ease), color 0.4s var(--pg-ease), box-shadow var(--duration-short) ease;
+}
+
+.button:not(.button--secondary):not(.button--tertiary):not([disabled]):hover {
+  --color-button: 14, 124, 123;
+  --color-button-text: 255, 255, 255;
+}
+
+.button--secondary:not([disabled]):hover {
+  --color-button: var(--color-foreground);
+  --color-button-text: var(--color-background);
+}
+
+/* Text links: underline draws in from the left. */
+.link,
+.underlined-link,
+.link--text {
+  text-underline-offset: 0.35em;
+  text-decoration-thickness: 1px;
+}
+
+/* ---------- Announcement bar ---------- */
+
+.announcement-bar {
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+}
+
+.announcement-bar__message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  text-align: center;
+}
+
+.announcement-bar__message::before,
+.announcement-bar__message::after {
+  content: '';
+  flex: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  background: var(--pg-nib);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+}
+
+/* ---------- Wordmark ---------- */
+
+.pg-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.1rem;
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-heading-family);
+  line-height: 1;
+}
+
+.pg-wordmark__mark {
+  flex: none;
+  width: 2.6rem;
+  height: 2.6rem;
+}
+
+.pg-wordmark__name {
+  font-size: 2.8rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.pg-wordmark__name i {
+  font-style: italic;
+  font-weight: 350;
+}
+
+.header__heading-link {
+  text-decoration: none;
+}
+
+/* ---------- Footer wordmark ---------- */
+
+.footer__wordmark {
+  container-type: inline-size;
+  overflow: hidden;
+  padding-top: 3.2rem;
+  padding-bottom: 1.6rem;
+  user-select: none;
+}
+
+.footer__wordmark .pg-wordmark {
+  display: block;
+  color: rgba(var(--color-foreground), 0.1);
+}
+
+.footer__wordmark .pg-wordmark__name {
+  display: block;
+  font-size: 17vw;
+  font-size: 19.4cqw;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+}
+
+/* ---------- Product page ---------- */
+
+.product__title h1,
+.product__title .h1 {
+  font-size: calc(var(--font-heading-scale) * clamp(2.8rem, 3.1vw, 4.4rem));
+  line-height: 1.08;
+}
+
+/* ---------- Cards ---------- */
+
+.card__heading,
+.card__heading a {
+  font-family: var(--font-heading-family);
+  font-size: 1.9rem;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+}
+
+.card-information .price {
+  font-size: 1.4rem;
+  letter-spacing: 0.01em;
+}
+
+.badge {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  padding: 0.5rem 1rem;
+}
+
+/* ---------- Reveal choreography (driven by pegasus.js) ---------- */
+
+.pg-wipe {
+  overflow: hidden;
+}
+
+.pg-wipe.pg-pending {
+  clip-path: inset(0 0 100% 0);
+}
+
+.pg-wipe.pg-pending img,
+.pg-wipe.pg-pending video {
+  transform: scale(1.12);
+}
+
+.pg-wipe.pg-in {
+  clip-path: inset(0);
+  transition: clip-path 1.2s var(--pg-ease);
+}
+
+.pg-wipe.pg-in img,
+.pg-wipe.pg-in video {
+  transform: none;
+  transition: transform 1.6s var(--pg-ease);
+}
+
+.pg-w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.pg-wi {
+  display: inline-block;
+  will-change: transform;
+}
+
+.pg-pending .pg-wi {
+  transform: translateY(108%);
+}
+
+.pg-in .pg-wi {
+  transform: none;
+  transition: transform 1s var(--pg-ease) calc(var(--i, 0) * 55ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-wipe.pg-pending,
+  .pg-pending .pg-wi,
+  .pg-wipe.pg-pending img {
+    clip-path: none;
+    transform: none;
+  }
+}
