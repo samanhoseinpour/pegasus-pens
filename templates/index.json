@@ -335,8 +335,8 @@
         "column_1": {
           "type": "column",
           "settings": {
-            "title": "Engraved for free",
-            "text": "<p>Initials or a short line, on any pen over $100.</p>"
+            "title": "Engraved to order",
+            "text": "<p>Add initials or a short line to any pen.</p>"
           }
         },
         "column_2": {
