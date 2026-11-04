@@ -94,12 +94,18 @@
                 {%- when '@app' -%}
                   {% render block %}
                 {%- when 'text' -%}
-                  {%- if block.settings.text != blank -%}
+                  {%- liquid
+                    assign text_line = block.settings.text
+                    if block.settings.use_product_type
+                      assign text_line = product.type | escape
+                    endif
+                  -%}
+                  {%- if text_line != blank -%}
                     <p
                       class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
                       {{ block.shopify_attributes }}
                     >
-                      {{- block.settings.text -}}
+                      {{- text_line -}}
                     </p>
                   {%- endif -%}
                 {%- when 'title' -%}
@@ -806,6 +812,13 @@
           "id": "text",
           "default": "t:sections.main-product.blocks.text.settings.text.default",
           "label": "t:sections.main-product.blocks.text.settings.text.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_product_type",
+          "label": "Show the product type instead",
+          "info": "Replaces the text with the product's type, and shows nothing when the type is empty. A template cannot use the product type as a dynamic source, so this is how the type line works.",
+          "default": false
         },
         {
           "type": "select",
