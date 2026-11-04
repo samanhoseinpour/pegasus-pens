@@ -19,6 +19,10 @@
   assign s = section.settings
   assign target = s.product.url | default: routes.all_products_collection_url
   assign limit = s.limit | default: 20
+  comment
+    Keep curly braces out of a double-brace output tag: Shopify's Liquid ends it at the first closing brace.
+  endcomment
+  assign counter_text = s.counter_text | default: '{count} of {max}'
 -%}
 
 <div class="pg-engrave-sec color-{{ s.color_scheme }} gradient section-{{ section.id }}-padding">
@@ -27,7 +31,7 @@
       class="pg-eng"
       data-limit="{{ limit }}"
       data-sample="{{ s.sample | escape }}"
-      data-counter="{{ s.counter_text | default: '{count} of {max}' | escape }}"
+      data-counter="{{ counter_text | escape }}"
     >
       <div class="pg-eng__intro">
         {%- if s.heading != blank -%}

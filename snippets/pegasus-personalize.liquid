@@ -19,13 +19,17 @@
   assign s = block.settings
   assign engraving_limit = s.engraving_limit | default: 20
   assign message_limit = s.gift_message_limit | default: 160
+  comment
+    Keep curly braces out of a double-brace output tag: Shopify's Liquid ends it at the first closing brace.
+  endcomment
+  assign counter_text = s.counter_text | default: '{count} of {max}'
 -%}
 
 <pg-personalize
   class="pg-personalize"
   data-form="{{ product_form_id }}"
   data-error="{{ s.engraving_error | escape }}"
-  data-counter="{{ s.counter_text | default: '{count} of {max}' | escape }}"
+  data-counter="{{ counter_text | escape }}"
   {{ block.shopify_attributes }}
 >
   {%- if s.show_engraving -%}
