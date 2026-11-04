@@ -25,7 +25,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "{{ product.type }}",
+            "use_product_type": true,
             "text_style": "body"
           }
         },
