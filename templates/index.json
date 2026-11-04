@@ -8,6 +8,727 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "hero": {
+      "type": "pegasus-slider",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "image_style": "medallion",
+            "scene": "desk",
+            "heading": "Pens made to be written with.",
+            "text": "Hand-turned wood and resin pens with gold hardware, made in British Columbia.",
+            "button_label": "Shop all pens",
+            "button_link": "shopify://collections/all",
+            "link_label": "How they are made",
+            "link_url": "shopify://pages/about",
+            "show_constellation": false
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "image_style": "background",
+            "background_scene": "burl",
+            "overlay": 35,
+            "heading": "Turned from a single blank.",
+            "text": "Each barrel is cut from one piece of wood or resin and finished by hand.",
+            "button_label": "Shop burl wood",
+            "button_link": "shopify://collections/burl-wood",
+            "link_label": "",
+            "show_constellation": false
+          }
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {
+            "image_style": "background",
+            "background_scene": "leather",
+            "overlay": 35,
+            "heading": "Made to be given.",
+            "text": "Add gift wrap and a card message to any pen.",
+            "button_label": "Shop gifts",
+            "button_link": "shopify://collections/gifts",
+            "link_label": "",
+            "show_constellation": false
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ],
+      "settings": {
+        "label": "Featured",
+        "height": "tall",
+        "autoplay": true,
+        "interval": 7,
+        "color_scheme": "scheme-4"
+      }
+    },
+    "statement": {
+      "type": "pegasus-scrub",
+      "settings": {
+        "text": "A good pen makes you want to finish the sentence. We make a short list of pens, each turned from a single blank of wood or resin, and keep refining them until they feel right in the hand. Nothing here is built to be thrown away.",
+        "size": "large",
+        "button_label": "How we make them",
+        "button_link": "shopify://pages/about",
+        "color_scheme": "scheme-1",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "kinds": {
+      "type": "collection-list",
+      "blocks": {
+        "kind_1": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "burl-wood"
+          }
+        },
+        "kind_2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "hardwood"
+          }
+        },
+        "kind_3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "laminated-wood"
+          }
+        },
+        "kind_4": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "resin"
+          }
+        }
+      },
+      "block_order": [
+        "kind_1",
+        "kind_2",
+        "kind_3",
+        "kind_4"
+      ],
+      "settings": {
+        "title": "Shop by material",
+        "heading_size": "h1",
+        "image_ratio": "portrait",
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "show_view_all": false,
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 96
+      }
+    },
+    "fresh": {
+      "type": "pegasus-product-tabs",
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "title": "New and notable",
+            "collection": "all"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "title": "Burl wood",
+            "collection": "burl-wood"
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "title": "Resin",
+            "collection": "resin"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3"
+      ],
+      "settings": {
+        "heading": "Fresh from the workshop",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "image_ratio": "portrait"
+      }
+    },
+    "spotlight": {
+      "type": "pegasus-spotlight",
+      "blocks": {
+        "spec_1": {
+          "type": "spec",
+          "settings": {
+            "label": "Hardware",
+            "value": "Gold"
+          }
+        },
+        "spec_2": {
+          "type": "spec",
+          "settings": {
+            "label": "Mechanism",
+            "value": "Twist action"
+          }
+        },
+        "spec_3": {
+          "type": "spec",
+          "settings": {
+            "label": "Refill",
+            "value": "Refillable cartridge"
+          }
+        }
+      },
+      "block_order": [
+        "spec_1",
+        "spec_2",
+        "spec_3"
+      ],
+      "settings": {
+        "product": "marbled-resin-pen",
+        "button_label": "View pen",
+        "engrave_label": "Engrave it",
+        "color_scheme": "scheme-1",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
+    "great_square": {
+      "type": "pegasus-constellation",
+      "blocks": {
+        "star_1": {
+          "type": "star",
+          "settings": {
+            "name": "Markab",
+            "title": "Burl wood",
+            "text": "Figured maple burl, turned thin and sealed to a deep gloss.",
+            "link_label": "Shop burl wood",
+            "link": "shopify://collections/burl-wood"
+          }
+        },
+        "star_2": {
+          "type": "star",
+          "settings": {
+            "name": "Scheat",
+            "title": "Hardwood",
+            "text": "Solid blanks turned in rings and oiled by hand.",
+            "link_label": "Shop hardwood",
+            "link": "shopify://collections/hardwood"
+          }
+        },
+        "star_3": {
+          "type": "star",
+          "settings": {
+            "name": "Algenib",
+            "title": "Laminated wood",
+            "text": "Layers of contrasting woods, cut so the grain stripes the barrel.",
+            "link_label": "Shop laminated wood",
+            "link": "shopify://collections/laminated-wood"
+          }
+        },
+        "star_4": {
+          "type": "star",
+          "settings": {
+            "name": "Alpheratz",
+            "title": "Resin",
+            "text": "Swirled and marbled colour, cast and polished. No two alike.",
+            "link_label": "Shop resin",
+            "link": "shopify://collections/resin"
+          }
+        }
+      },
+      "block_order": [
+        "star_1",
+        "star_2",
+        "star_3",
+        "star_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-4",
+        "heading": "Four materials, one workshop.",
+        "scroll_length": 360,
+        "intro": "Pegasus is a constellation of four bright stars. Ours are four materials."
+      }
+    },
+    "story": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Turned from a single blank, finished by hand.",
+            "heading_size": "h1"
+          }
+        },
+        "text_2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Each barrel is cut from one piece of wood or resin, shaped on the lathe, polished and fitted with gold-plated hardware. We write with every pen before it leaves the bench.</p>"
+          }
+        },
+        "button_3": {
+          "type": "button",
+          "settings": {
+            "button_label": "See how it's made",
+            "button_link": "shopify://pages/about"
+          }
+        }
+      },
+      "block_order": [
+        "heading_1",
+        "text_2",
+        "button_3"
+      ],
+      "settings": {
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "content_layout": "no-overlap",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "drift": {
+      "type": "pegasus-parallax",
+      "blocks": {
+        "pen_1": {
+          "type": "pen",
+          "settings": {
+            "product": "burl-hourglass-pen",
+            "direction": "right",
+            "lane": 32,
+            "size": 26,
+            "tilt": 25
+          }
+        },
+        "pen_2": {
+          "type": "pen",
+          "settings": {
+            "product": "brown-wood-pen",
+            "direction": "left",
+            "lane": 68,
+            "size": 24,
+            "tilt": -20
+          }
+        },
+        "pen_3": {
+          "type": "pen",
+          "settings": {
+            "product": "marbled-resin-pen",
+            "direction": "right",
+            "lane": 70,
+            "size": 26,
+            "tilt": 15
+          }
+        },
+        "pen_4": {
+          "type": "pen",
+          "settings": {
+            "product": "laminated-wood-pen",
+            "direction": "left",
+            "lane": 30,
+            "size": 24,
+            "tilt": -30
+          }
+        }
+      },
+      "block_order": [
+        "pen_1",
+        "pen_2",
+        "pen_3",
+        "pen_4"
+      ],
+      "settings": {
+        "heading": "Hand-turned, one at a time.",
+        "button_label": "See every pen",
+        "button_link": "shopify://collections/all",
+        "length": 240,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "engrave": {
+      "type": "pegasus-engrave",
+      "settings": {
+        "heading": "Add your initials to any pen.",
+        "text": "Type what you would like engraved and see it on the plate. Sending a pen as a gift? Wrap it and add a card message on the same page.",
+        "sample": "E. M. Hartley",
+        "field_label": "Text to engrave",
+        "limit": 20,
+        "counter_text": "{count} of {max}",
+        "note": "Preview only.",
+        "product": "burl-hourglass-pen",
+        "button_label": "Start with a pen",
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "gifts": {
+      "type": "pegasus-product-tabs",
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "title": "Gift pens",
+            "collection": "gifts"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "title": "Resin",
+            "collection": "resin"
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "title": "Hardwood",
+            "collection": "hardwood"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3"
+      ],
+      "settings": {
+        "heading": "Ready to give",
+        "description": "Add gift wrap and a card message on any pen's page.",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "image_ratio": "portrait"
+      }
+    },
+    "anatomy": {
+      "type": "pegasus-photo-cards",
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "title": "The barrel",
+            "text": "Turned from a single blank of wood or resin, then polished by hand."
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "title": "The twist",
+            "text": "Twist the barrel to bring the tip out, and twist it back to put it away."
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "title": "The refill",
+            "text": "A refillable cartridge, so you swap the ink and keep the pen."
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ],
+      "settings": {
+        "heading": "Inside a Pegasus pen.",
+        "scene": "stone",
+        "focus": 45,
+        "color_scheme": "scheme-4",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "nibs": {
+      "type": "pegasus-marquee",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "text": "Burl wood"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "text": "Hardwood"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "text": "Laminated wood"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "text": "Resin"
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "text": "Gold hardware"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5"
+      ],
+      "settings": {
+        "speed": 70,
+        "color_scheme": "scheme-4",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "quotes": {
+      "type": "pegasus-review-wall",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "text": "It feels made for my hand, and the gold catches the light every time I sign.",
+            "name": "Maya R.",
+            "detail": "Vancouver",
+            "rating": 0
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "text": "It arrived in a gift box with a note about the wood. That is the whole reason I came back.",
+            "name": "Tomás A.",
+            "detail": "Lisbon",
+            "rating": 0
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "text": "I bought one as a gift and kept it. Now I am waiting for the next one.",
+            "name": "Priya S.",
+            "detail": "Leeds",
+            "rating": 0
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "heading": "Kind words",
+        "label": "Customer reviews",
+        "speed": 18,
+        "color_scheme": "scheme-1",
+        "padding_top": 104,
+        "padding_bottom": 104
+      }
+    },
+    "pills": {
+      "type": "pegasus-pills",
+      "blocks": {
+        "link_1": {
+          "type": "link",
+          "settings": {
+            "label": "New runs",
+            "link": "shopify://collections/new-runs"
+          }
+        },
+        "link_2": {
+          "type": "link",
+          "settings": {
+            "label": "Gifts",
+            "link": "shopify://collections/gifts"
+          }
+        },
+        "link_3": {
+          "type": "link",
+          "settings": {
+            "label": "Limited",
+            "link": "shopify://collections/limited"
+          }
+        },
+        "link_4": {
+          "type": "link",
+          "settings": {
+            "label": "Bestsellers",
+            "link": "shopify://collections/bestsellers"
+          }
+        },
+        "link_5": {
+          "type": "link",
+          "settings": {
+            "label": "All pens",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "link_1",
+        "link_2",
+        "link_3",
+        "link_4",
+        "link_5"
+      ],
+      "settings": {
+        "heading": "Where would you like to start?",
+        "color_scheme": "scheme-1",
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    },
+    "promises": {
+      "type": "pegasus-features",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "engrave",
+            "title": "Engraved to order",
+            "text": "Add initials or a short line to any pen."
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "refill",
+            "title": "Refillable",
+            "text": "Swap the cartridge and keep the pen for good."
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "gift",
+            "title": "Gift wrap",
+            "text": "Add gift wrap to any pen."
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "message",
+            "title": "A card with your words",
+            "text": "Write a short message for the recipient."
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "heading": "Little things, done properly.",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "collage": {
+      "type": "pegasus-collage",
+      "blocks": {
+        "product_1": {
+          "type": "product",
+          "settings": {
+            "product": "burl-hourglass-pen",
+            "link_label": "View pen",
+            "caption_style": "dark",
+            "color_scheme": "scheme-4"
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "scene": "leather",
+            "title": "Hand-turned in British Columbia",
+            "text": "Every barrel is shaped and polished on the lathe.",
+            "link_label": "How they are made",
+            "link": "shopify://pages/about",
+            "color_scheme": "scheme-4",
+            "caption_style": "light"
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "scene": "stone",
+            "title": "Resin, one of a kind",
+            "text": "Swirled and marbled, never repeated.",
+            "link_label": "Shop resin",
+            "link": "shopify://collections/resin",
+            "color_scheme": "scheme-4",
+            "caption_style": "light"
+          }
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "scene": "none",
+            "title": "Ready to give",
+            "text": "Boxed, wrapped and engraved on request.",
+            "link_label": "Shop gifts",
+            "link": "shopify://collections/gifts",
+            "color_scheme": "scheme-3",
+            "caption_style": "light"
+          }
+        }
+      },
+      "block_order": [
+        "product_1",
+        "tile_2",
+        "tile_3",
+        "tile_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "statement",
+    "kinds",
+    "fresh",
+    "spotlight",
+    "great_square",
+    "story",
+    "collage",
+    "drift",
+    "engrave",
+    "gifts",
+    "anatomy",
+    "nibs",
+    "quotes",
+    "pills",
+    "promises"
+  ]
 }
