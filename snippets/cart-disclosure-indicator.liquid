@@ -9,6 +9,7 @@
 {% enddoc %}
 
 {%- liquid
+  # theme-check-disable-next-line UnknownFilter
   assign disclosures = product.metafields.shopify.disclosure.value | applicable_disclosures
   assign cart_disclosures_count = 0
 

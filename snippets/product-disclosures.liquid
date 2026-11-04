@@ -12,6 +12,7 @@
   {% render 'product-disclosures', product: product, heading: 'Product information', heading_size: 'h2', open_by_default: false, block: block, surface: 'product_page' %}
 {%- enddoc -%}
 {%- assign disclosure_surface = surface | default: 'product_page' -%}
+{%- # theme-check-disable-next-line UnknownFilter -%}
 {%- assign disclosures = product.metafields.shopify.disclosure.value | applicable_disclosures -%}
 {%- assign summary_html = '' -%}
 {%- assign details_html = '' -%}
