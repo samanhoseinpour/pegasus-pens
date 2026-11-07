@@ -23,7 +23,7 @@
         "shop": {
           "type": "link_list",
           "settings": {
-            "heading": "Shop",
+            "heading": "Browse",
             "menu": "main-menu"
           }
         },
