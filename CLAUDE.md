@@ -25,7 +25,9 @@ Craft stays the engine. The identity comes from settings plus a few files loaded
 - Craft's own `animations_reveal_on_scroll` is off in the saved settings because `pegasus.js` replaces it.
 - Typography rules: sentence case for labels (no all-caps eyebrows), UI text tracking reset to `0.01em` (Craft tracks much wider), display headings use `font-optical-sizing: auto`.
 
-There is no Shopify store linked to this project (the Shopify CLI config on this machine belongs to other projects), so `shopify theme dev` is not available yet. Visual checks were done with a throwaway local Liquid renderer (LiquidJS + a mock catalog built from the real photos in `docs/brand/products/`) driven by Playwright at 320 to 1440 px. It is not in the repo.
+The store is `rjxgij-f1.myshopify.com` (password protected). Test on it, not on a mock: while `shopify theme dev --store rjxgij-f1.myshopify.com` runs, http://127.0.0.1:9292 serves the local files on Shopify's engine with the real store data and no password prompt, so Playwright can drive it (WebKit too, the owner browses in Safari; give lazy photos a few seconds, the proxy is slow). The CDN's `standard-events.js` fails CORS from localhost, so tests stub it. Earlier checks used a throwaway LiquidJS renderer with a mock catalog; it hid engine differences (see "Liquid trap") and features only a real store has: Follow on Shop (off in the footer), Shop Pay installments, the Buy with Shop button, "Powered by Shopify".
+
+The catalog was created through the Admin API on 2026-11-07 with **placeholder** names, descriptions and tags and **prices of 0.00**: six pens (product types `Burl wood`, `Hardwood`, `Laminated wood`, `Resin`; tags `gift`, `new-run`, `limited`, `bestseller`), eight automatic collections on that type or tag, the pages `about`, `contact`, `shipping-returns`, `care`, and both menus. Set real prices before the password comes off.
 
 ## Home page
 
