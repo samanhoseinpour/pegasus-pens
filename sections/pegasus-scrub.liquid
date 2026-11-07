@@ -30,7 +30,8 @@
         <p class="pg-scrub__text pg-scrub__text--{{ section.settings.size }}">
           {%- for word in words -%}
             <span class="pg-scrub__w" style="--i: {{ forloop.index0 }};">{{ word | escape }}</span>
-            {%- unless forloop.last %} {% endunless -%}
+            {%- comment -%} An output, not a bare space in an if or unless: Shopify's Liquid drops whitespace-only block bodies. {%- endcomment -%}
+            {{- ' ' -}}
           {%- endfor -%}
         </p>
       </pg-scrub>

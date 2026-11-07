@@ -123,7 +123,8 @@
       <h2 class="pg-hero__heading" aria-label="{{ heading_text | escape }}">
         {%- for word in words -%}
           <span class="pg-w" aria-hidden="true"><span class="pg-wi" style="--i: {{ forloop.index0 }}">{{ word | escape }}</span></span>
-          {%- unless forloop.last %} {% endunless -%}
+          {%- comment -%} An output, not a bare space in an if or unless: Shopify's Liquid drops whitespace-only block bodies. {%- endcomment -%}
+          {{- ' ' -}}
         {%- endfor -%}
       </h2>
     {%- endif -%}
