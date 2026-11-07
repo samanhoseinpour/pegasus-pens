@@ -19,9 +19,10 @@
   transition-delay: 0s;
 }
 
-/* While the bar is showing, keep the end of the page scrollable above it so it never covers the footer. */
+/* While the bar is showing, keep the end of the page scrollable above it so it never covers the footer. The value is
+   the bar's height: any more shows a strip of the page color between the dark footer and the bar. */
 body:has(pg-sticky-atc.is-visible) {
-  padding-bottom: calc(8rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(7.3rem + env(safe-area-inset-bottom, 0px));
 }
 
 .pg-sticky__inner {
@@ -141,6 +142,10 @@ body:has(pg-sticky-atc.is-visible) {
 }
 
 @media screen and (max-width: 749px) {
+  body:has(pg-sticky-atc.is-visible) {
+    padding-bottom: calc(6.8rem + env(safe-area-inset-bottom, 0px));
+  }
+
   .pg-sticky__inner {
     gap: 1.2rem;
     padding-block: 1rem;

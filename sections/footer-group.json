@@ -45,7 +45,7 @@
         "newsletter_enable": true,
         "newsletter_heading": "New runs, first",
         "newsletter_text": "Limited editions sell out. Join the list and hear about each run before it opens.",
-        "enable_follow_on_shop": true,
+        "enable_follow_on_shop": false,
         "show_social": false,
         "enable_country_selector": true,
         "enable_language_selector": true,

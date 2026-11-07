@@ -111,8 +111,8 @@
                         <span class="pg-search-card__media">
                           {{
                             product.featured_media
-                            | image_url: width: 240
-                            | image_tag: width: 120, height: 160, loading: 'lazy', alt: ''
+                            | image_url: width: 600
+                            | image_tag: width: 300, height: 400, loading: 'lazy', alt: '', widths: '240, 400, 600', sizes: '(min-width: 990px) 16vw, 45vw'
                           }}
                         </span>
                       {%- endif -%}
