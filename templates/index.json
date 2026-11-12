@@ -98,7 +98,7 @@
         "kind_3": {
           "type": "featured_collection",
           "settings": {
-            "collection": "laminated-wood"
+            "collection": "segmented-wood"
           }
         },
         "kind_4": {
@@ -234,7 +234,7 @@
             "title": "Laminated wood",
             "text": "Layers of contrasting woods, cut so the grain stripes the barrel.",
             "link_label": "Shop laminated wood",
-            "link": "shopify://collections/laminated-wood"
+            "link": "shopify://collections/segmented-wood"
           }
         },
         "star_4": {
@@ -339,7 +339,7 @@
         "pen_4": {
           "type": "pen",
           "settings": {
-            "product": "laminated-wood-pen",
+            "product": "six-hardwoods-pen",
             "direction": "left",
             "lane": 30,
             "size": 24,
