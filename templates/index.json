@@ -119,9 +119,9 @@
         "heading_size": "h1",
         "image_ratio": "portrait",
         "columns_desktop": 4,
-        "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "show_view_all": false,
+        "columns_mobile": "2",
         "swipe_on_mobile": false,
         "padding_top": 0,
         "padding_bottom": 96
@@ -159,10 +159,10 @@
       ],
       "settings": {
         "heading": "Fresh from the workshop",
+        "image_ratio": "portrait",
         "color_scheme": "scheme-2",
         "padding_top": 96,
-        "padding_bottom": 96,
-        "image_ratio": "portrait"
+        "padding_bottom": 96
       }
     },
     "spotlight": {
@@ -196,7 +196,7 @@
         "spec_3"
       ],
       "settings": {
-        "product": "marbled-resin-pen",
+        "product": "date-seed-pen",
         "button_label": "View pen",
         "engrave_label": "Engrave it",
         "color_scheme": "scheme-1",
@@ -255,10 +255,10 @@
         "star_4"
       ],
       "settings": {
-        "color_scheme": "scheme-4",
         "heading": "Four materials, one workshop.",
+        "intro": "Pegasus is a constellation of four bright stars. Ours are four materials.",
         "scroll_length": 360,
-        "intro": "Pegasus is a constellation of four bright stars. Ours are four materials."
+        "color_scheme": "scheme-4"
       }
     },
     "story": {
@@ -309,7 +309,7 @@
         "pen_1": {
           "type": "pen",
           "settings": {
-            "product": "burl-hourglass-pen",
+            "product": "plum-wood-persian-khatam-pen",
             "direction": "right",
             "lane": 32,
             "size": 26,
@@ -319,7 +319,7 @@
         "pen_2": {
           "type": "pen",
           "settings": {
-            "product": "brown-wood-pen",
+            "product": "cross-grain-oak-pen",
             "direction": "left",
             "lane": 68,
             "size": 24,
@@ -329,7 +329,7 @@
         "pen_3": {
           "type": "pen",
           "settings": {
-            "product": "marbled-resin-pen",
+            "product": "date-seed-pen",
             "direction": "right",
             "lane": 70,
             "size": 26,
@@ -371,7 +371,7 @@
         "limit": 20,
         "counter_text": "{count} of {max}",
         "note": "Preview only.",
-        "product": "burl-hourglass-pen",
+        "product": "plum-wood-persian-khatam-pen",
         "button_label": "Start with a pen",
         "color_scheme": "scheme-1",
         "padding_top": 96,
@@ -411,10 +411,10 @@
       "settings": {
         "heading": "Ready to give",
         "description": "Add gift wrap and a card message on any pen's page.",
+        "image_ratio": "portrait",
         "color_scheme": "scheme-2",
         "padding_top": 96,
-        "padding_bottom": 96,
-        "image_ratio": "portrait"
+        "padding_bottom": 96
       }
     },
     "anatomy": {
@@ -657,7 +657,7 @@
         "product_1": {
           "type": "product",
           "settings": {
-            "product": "burl-hourglass-pen",
+            "product": "plum-wood-persian-khatam-pen",
             "link_label": "View pen",
             "caption_style": "dark",
             "color_scheme": "scheme-4"
@@ -671,8 +671,8 @@
             "text": "Every barrel is shaped and polished on the lathe.",
             "link_label": "How they are made",
             "link": "shopify://pages/about",
-            "color_scheme": "scheme-4",
-            "caption_style": "light"
+            "caption_style": "light",
+            "color_scheme": "scheme-4"
           }
         },
         "tile_3": {
@@ -683,8 +683,8 @@
             "text": "Swirled and marbled, never repeated.",
             "link_label": "Shop resin",
             "link": "shopify://collections/resin",
-            "color_scheme": "scheme-4",
-            "caption_style": "light"
+            "caption_style": "light",
+            "color_scheme": "scheme-4"
           }
         },
         "tile_4": {
@@ -695,8 +695,8 @@
             "text": "Boxed, wrapped and engraved on request.",
             "link_label": "Shop gifts",
             "link": "shopify://collections/gifts",
-            "color_scheme": "scheme-3",
-            "caption_style": "light"
+            "caption_style": "light",
+            "color_scheme": "scheme-3"
           }
         }
       },
