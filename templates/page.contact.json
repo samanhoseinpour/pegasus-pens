@@ -16,7 +16,7 @@
           "type": "topic",
           "settings": {
             "label": "A pen",
-            "hint": "Ask about materials, ink colours or refills.",
+            "hint": "Ask about a pen's materials or refills.",
             "ref_label": "Which pen? (optional)"
           }
         },
@@ -26,13 +26,14 @@
             "label": "Engraving",
             "hint": "Tell us the pen and the words you would like engraved.",
             "ref_label": "Which pen? (optional)"
-          }
+          },
+          "disabled": true
         },
         "topic_3": {
           "type": "topic",
           "settings": {
             "label": "A gift",
-            "hint": "Tell us who it is for, and any message for the card.",
+            "hint": "Tell us who it is for.",
             "ref_label": "Which pen? (optional)"
           }
         },
@@ -62,8 +63,8 @@
       ],
       "settings": {
         "heading": "Write to the workshop.",
-        "text": "Questions about a pen, an engraving, a gift or an order? Tell us what it is about and write to us here.",
-        "workshop_line": "Hand-turned in British Columbia, Canada.",
+        "text": "Questions about a pen, a gift or an order? Tell us what it is about and write to us here.",
+        "workshop_line": "Handcrafted in Vancouver, British Columbia.",
         "topic_legend": "What is it about?",
         "plate_placeholder": "Choose a topic",
         "topic_field": "Topic",

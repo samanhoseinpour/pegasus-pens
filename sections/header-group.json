@@ -17,7 +17,7 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Hand-turned in British Columbia",
+            "text": "Handcrafted in Vancouver, British Columbia",
             "link": ""
           }
         }
@@ -52,7 +52,7 @@
         "menu_color_scheme": "scheme-1",
         "search_label": "Search pens",
         "search_collection": "all",
-        "search_terms": "Gift pens\nRefillable\nTwist pen",
+        "search_terms": "Leather\nOlive wood\nPersian Khatam",
         "enable_country_selector": true,
         "enable_language_selector": true,
         "margin_bottom": 0,

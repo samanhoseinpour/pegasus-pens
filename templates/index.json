@@ -17,11 +17,11 @@
           "settings": {
             "image_style": "medallion",
             "scene": "desk",
-            "heading": "Pens made to be written with.",
-            "text": "Hand-turned wood and resin pens with gold hardware, made in British Columbia.",
+            "heading": "One pen, one story, never duplicated.",
+            "text": "Handcrafted one at a time in Vancouver, British Columbia, by a German-trained carpenter.",
             "button_label": "Shop all pens",
             "button_link": "shopify://collections/all",
-            "link_label": "How they are made",
+            "link_label": "Read our story",
             "link_url": "shopify://pages/about",
             "show_constellation": false
           }
@@ -32,10 +32,10 @@
             "image_style": "background",
             "background_scene": "burl",
             "overlay": 35,
-            "heading": "Turned from a single blank.",
-            "text": "Each barrel is cut from one piece of wood or resin and finished by hand.",
-            "button_label": "Shop burl wood",
-            "button_link": "shopify://collections/burl-wood",
+            "heading": "From a branch of the family plum tree.",
+            "text": "Plum wood from our family home in North Vancouver, inlaid by hand with Persian Khatam.",
+            "button_label": "See the pen",
+            "button_link": "shopify://products/plum-wood-persian-khatam-pen",
             "link_label": "",
             "show_constellation": false
           }
@@ -47,7 +47,7 @@
             "background_scene": "leather",
             "overlay": 35,
             "heading": "Made to be given.",
-            "text": "Add gift wrap and a card message to any pen.",
+            "text": "A one-of-a-kind gift for someone who seems to have everything.",
             "button_label": "Shop gifts",
             "button_link": "shopify://collections/gifts",
             "link_label": "",
@@ -71,9 +71,9 @@
     "statement": {
       "type": "pegasus-scrub",
       "settings": {
-        "text": "A good pen makes you want to finish the sentence. We make a short list of pens, each turned from a single blank of wood or resin, and keep refining them until they feel right in the hand. Nothing here is built to be thrown away.",
+        "text": "We don't manufacture pens. We transform materials into functional pieces of art: exotic woods, Canadian leather, date seeds, Persian inlay. Some take 30 hours of turning, shaping and finishing. All are made by hand, and no two are exactly alike.",
         "size": "large",
-        "button_label": "How we make them",
+        "button_label": "Read our story",
         "button_link": "shopify://pages/about",
         "color_scheme": "scheme-1",
         "padding_top": 120,
@@ -86,25 +86,25 @@
         "kind_1": {
           "type": "featured_collection",
           "settings": {
-            "collection": "burl-wood"
+            "collection": "hardwood"
           }
         },
         "kind_2": {
           "type": "featured_collection",
           "settings": {
-            "collection": "hardwood"
+            "collection": "segmented-wood"
           }
         },
         "kind_3": {
           "type": "featured_collection",
           "settings": {
-            "collection": "segmented-wood"
+            "collection": "leather"
           }
         },
         "kind_4": {
           "type": "featured_collection",
           "settings": {
-            "collection": "resin"
+            "collection": "date-seed"
           }
         }
       },
@@ -140,15 +140,15 @@
         "tab_2": {
           "type": "tab",
           "settings": {
-            "title": "Burl wood",
-            "collection": "burl-wood"
+            "title": "Hardwood",
+            "collection": "hardwood"
           }
         },
         "tab_3": {
           "type": "tab",
           "settings": {
-            "title": "Resin",
-            "collection": "resin"
+            "title": "Segmented wood",
+            "collection": "segmented-wood"
           }
         }
       },
@@ -171,22 +171,22 @@
         "spec_1": {
           "type": "spec",
           "settings": {
-            "label": "Hardware",
-            "value": "Gold"
+            "label": "Material",
+            "value": "Date seeds"
           }
         },
         "spec_2": {
           "type": "spec",
           "settings": {
-            "label": "Mechanism",
-            "value": "Twist action"
+            "label": "Work",
+            "value": "About 30 hours"
           }
         },
         "spec_3": {
           "type": "spec",
           "settings": {
-            "label": "Refill",
-            "value": "Refillable cartridge"
+            "label": "Hardware",
+            "value": "Gold-tone"
           }
         }
       },
@@ -198,7 +198,7 @@
       "settings": {
         "product": "date-seed-pen",
         "button_label": "View pen",
-        "engrave_label": "Engrave it",
+        "engrave_label": "",
         "color_scheme": "scheme-1",
         "padding_top": 112,
         "padding_bottom": 112
@@ -211,40 +211,40 @@
           "type": "star",
           "settings": {
             "name": "Markab",
-            "title": "Burl wood",
-            "text": "Figured maple burl, turned thin and sealed to a deep gloss.",
-            "link_label": "Shop burl wood",
-            "link": "shopify://collections/burl-wood"
+            "title": "Hardwood",
+            "text": "Oak, maple, olive and plum wood, each turned and polished to show its own grain.",
+            "link_label": "Shop hardwood",
+            "link": "shopify://collections/hardwood"
           }
         },
         "star_2": {
           "type": "star",
           "settings": {
             "name": "Scheat",
-            "title": "Hardwood",
-            "text": "Solid blanks turned in rings and oiled by hand.",
-            "link_label": "Shop hardwood",
-            "link": "shopify://collections/hardwood"
+            "title": "Segmented wood",
+            "text": "Up to six woods, from ebony to purpleheart, joined in bands and shaped as one.",
+            "link_label": "Shop segmented wood",
+            "link": "shopify://collections/segmented-wood"
           }
         },
         "star_3": {
           "type": "star",
           "settings": {
             "name": "Algenib",
-            "title": "Laminated wood",
-            "text": "Layers of contrasting woods, cut so the grain stripes the barrel.",
-            "link_label": "Shop laminated wood",
-            "link": "shopify://collections/segmented-wood"
+            "title": "Leather",
+            "text": "Layers of genuine Canadian leather, compressed and shaped by hand. The leather becomes the pen.",
+            "link_label": "Shop leather",
+            "link": "shopify://collections/leather"
           }
         },
         "star_4": {
           "type": "star",
           "settings": {
             "name": "Alpheratz",
-            "title": "Resin",
-            "text": "Swirled and marbled colour, cast and polished. No two alike.",
-            "link_label": "Shop resin",
-            "link": "shopify://collections/resin"
+            "title": "Date seed",
+            "text": "Date seeds set together and turned into a barrel, about 30 hours of work in one pen.",
+            "link_label": "Shop date seed",
+            "link": "shopify://collections/date-seed"
           }
         }
       },
@@ -267,20 +267,20 @@
         "heading_1": {
           "type": "heading",
           "settings": {
-            "heading": "Turned from a single blank, finished by hand.",
+            "heading": "The work of our father, Mehdi.",
             "heading_size": "h1"
           }
         },
         "text_2": {
           "type": "text",
           "settings": {
-            "text": "<p>Each barrel is cut from one piece of wood or resin, shaped on the lathe, polished and fitted with gold-plated hardware. We write with every pen before it leaves the bench.</p>"
+            "text": "<p>A German-trained carpenter, Mehdi has spent his career creating furniture and specialty pieces for royal residences. At 75, he still spends his days in the workshop, and over the past two years he has made more than 150 pens by hand.</p>"
           }
         },
         "button_3": {
           "type": "button",
           "settings": {
-            "button_label": "See how it's made",
+            "button_label": "Read his story",
             "button_link": "shopify://pages/about"
           }
         }
@@ -300,7 +300,8 @@
         "section_color_scheme": "scheme-1",
         "color_scheme": "scheme-1",
         "padding_top": 96,
-        "padding_bottom": 96
+        "padding_bottom": 96,
+        "image": "shopify://shop_images/pegasus-workshop-date-seed-blank.jpg"
       }
     },
     "drift": {
@@ -376,7 +377,8 @@
         "color_scheme": "scheme-1",
         "padding_top": 96,
         "padding_bottom": 96
-      }
+      },
+      "disabled": true
     },
     "gifts": {
       "type": "pegasus-product-tabs",
@@ -391,15 +393,15 @@
         "tab_2": {
           "type": "tab",
           "settings": {
-            "title": "Resin",
-            "collection": "resin"
+            "title": "Leather",
+            "collection": "leather"
           }
         },
         "tab_3": {
           "type": "tab",
           "settings": {
-            "title": "Hardwood",
-            "collection": "hardwood"
+            "title": "Date seed",
+            "collection": "date-seed"
           }
         }
       },
@@ -410,7 +412,7 @@
       ],
       "settings": {
         "heading": "Ready to give",
-        "description": "Add gift wrap and a card message on any pen's page.",
+        "description": "A gift they definitely won't already have.",
         "image_ratio": "portrait",
         "color_scheme": "scheme-2",
         "padding_top": 96,
@@ -424,7 +426,7 @@
           "type": "card",
           "settings": {
             "title": "The barrel",
-            "text": "Turned from a single blank of wood or resin, then polished by hand."
+            "text": "Turned and shaped by hand from wood, leather or date seed, then polished."
           }
         },
         "card_2": {
@@ -438,7 +440,7 @@
           "type": "card",
           "settings": {
             "title": "The refill",
-            "text": "A refillable cartridge, so you swap the ink and keep the pen."
+            "text": "Swap the refill when the ink runs out, and keep the pen."
           }
         }
       },
@@ -462,31 +464,31 @@
         "item_1": {
           "type": "item",
           "settings": {
-            "text": "Burl wood"
+            "text": "Hardwood"
           }
         },
         "item_2": {
           "type": "item",
           "settings": {
-            "text": "Hardwood"
+            "text": "Segmented wood"
           }
         },
         "item_3": {
           "type": "item",
           "settings": {
-            "text": "Laminated wood"
+            "text": "Canadian leather"
           }
         },
         "item_4": {
           "type": "item",
           "settings": {
-            "text": "Resin"
+            "text": "Date seed"
           }
         },
         "item_5": {
           "type": "item",
           "settings": {
-            "text": "Gold hardware"
+            "text": "Persian Khatam"
           }
         }
       },
@@ -555,32 +557,39 @@
         "link_1": {
           "type": "link",
           "settings": {
-            "label": "New runs",
-            "link": "shopify://collections/new-runs"
+            "label": "Hardwood",
+            "link": "shopify://collections/hardwood"
           }
         },
         "link_2": {
+          "type": "link",
+          "settings": {
+            "label": "Segmented wood",
+            "link": "shopify://collections/segmented-wood"
+          }
+        },
+        "link_3": {
+          "type": "link",
+          "settings": {
+            "label": "Leather",
+            "link": "shopify://collections/leather"
+          }
+        },
+        "link_4": {
+          "type": "link",
+          "settings": {
+            "label": "Date seed",
+            "link": "shopify://collections/date-seed"
+          }
+        },
+        "link_5": {
           "type": "link",
           "settings": {
             "label": "Gifts",
             "link": "shopify://collections/gifts"
           }
         },
-        "link_3": {
-          "type": "link",
-          "settings": {
-            "label": "Limited",
-            "link": "shopify://collections/limited"
-          }
-        },
-        "link_4": {
-          "type": "link",
-          "settings": {
-            "label": "Bestsellers",
-            "link": "shopify://collections/bestsellers"
-          }
-        },
-        "link_5": {
+        "link_6": {
           "type": "link",
           "settings": {
             "label": "All pens",
@@ -593,7 +602,8 @@
         "link_2",
         "link_3",
         "link_4",
-        "link_5"
+        "link_5",
+        "link_6"
       ],
       "settings": {
         "heading": "Where would you like to start?",
@@ -608,33 +618,33 @@
         "feature_1": {
           "type": "feature",
           "settings": {
-            "icon": "engrave",
-            "title": "Engraved to order",
-            "text": "Add initials or a short line to any pen."
+            "icon": "mountain",
+            "title": "Made in Vancouver",
+            "text": "Handcrafted one at a time in Vancouver, British Columbia."
           }
         },
         "feature_2": {
           "type": "feature",
           "settings": {
-            "icon": "refill",
-            "title": "Refillable",
-            "text": "Swap the cartridge and keep the pen for good."
+            "icon": "gift",
+            "title": "One of a kind",
+            "text": "Only one of each pen is made, and no two are exactly alike."
           }
         },
         "feature_3": {
           "type": "feature",
           "settings": {
-            "icon": "gift",
-            "title": "Gift wrap",
-            "text": "Add gift wrap to any pen."
+            "icon": "refill",
+            "title": "Made to be used",
+            "text": "A working pen to use, display and keep for years."
           }
         },
         "feature_4": {
           "type": "feature",
           "settings": {
             "icon": "message",
-            "title": "A card with your words",
-            "text": "Write a short message for the recipient."
+            "title": "Ask us anything",
+            "text": "Write to us about any pen, and we will reply by email."
           }
         }
       },
@@ -645,7 +655,7 @@
         "feature_4"
       ],
       "settings": {
-        "heading": "Little things, done properly.",
+        "heading": "What every pen has in common.",
         "color_scheme": "scheme-2",
         "padding_top": 96,
         "padding_bottom": 96
@@ -667,9 +677,9 @@
           "type": "tile",
           "settings": {
             "scene": "leather",
-            "title": "Hand-turned in British Columbia",
-            "text": "Every barrel is shaped and polished on the lathe.",
-            "link_label": "How they are made",
+            "title": "Handcrafted in Vancouver",
+            "text": "Every pen is turned, shaped and polished by hand.",
+            "link_label": "Read our story",
             "link": "shopify://pages/about",
             "caption_style": "light",
             "color_scheme": "scheme-4"
@@ -679,10 +689,10 @@
           "type": "tile",
           "settings": {
             "scene": "stone",
-            "title": "Resin, one of a kind",
-            "text": "Swirled and marbled, never repeated.",
-            "link_label": "Shop resin",
-            "link": "shopify://collections/resin",
+            "title": "Oak, cut against the grain",
+            "text": "The lines across the barrel are the oak's own grain, never painted or printed.",
+            "link_label": "See the pen",
+            "link": "shopify://products/cross-grain-oak-pen",
             "caption_style": "light",
             "color_scheme": "scheme-4"
           }
@@ -692,7 +702,7 @@
           "settings": {
             "scene": "none",
             "title": "Ready to give",
-            "text": "Boxed, wrapped and engraved on request.",
+            "text": "One-of-a-kind pens for someone who seems to have everything.",
             "link_label": "Shop gifts",
             "link": "shopify://collections/gifts",
             "caption_style": "light",

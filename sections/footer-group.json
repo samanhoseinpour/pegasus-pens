@@ -43,8 +43,8 @@
       "settings": {
         "color_scheme": "scheme-4",
         "newsletter_enable": true,
-        "newsletter_heading": "New runs, first",
-        "newsletter_text": "Limited editions sell out. Join the list and hear about each run before it opens.",
+        "newsletter_heading": "New pens, first",
+        "newsletter_text": "Every pen is one of a kind. Join the list to hear when new ones are ready.",
         "enable_follow_on_shop": false,
         "show_social": false,
         "enable_country_selector": true,

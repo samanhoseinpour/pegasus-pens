@@ -13,7 +13,7 @@
       "type": "pegasus-page-hero",
       "settings": {
         "heading": "Where your pen comes from.",
-        "text": "Each Pegasus pen is turned from a single blank of wood or resin in a workshop in British Columbia, Canada. Below is what happens between the blank and the box.",
+        "text": "Every Pegasus pen is made by hand by our father, Mehdi, in Vancouver, British Columbia, and no two are alike.",
         "visual": "emblem",
         "scene": "stone",
         "color_scheme": "scheme-1",
@@ -27,36 +27,36 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "title": "Choose the blank",
-            "text": "Every pen starts as one block of burl wood, hardwood, laminated wood or resin."
+            "title": "Choose the material",
+            "text": "Exotic hardwoods, Canadian leather, date seeds, acrylic or Persian Khatam. The plum wood came from a branch of a tree at our family home in North Vancouver."
           }
         },
         "step_2": {
           "type": "step",
           "settings": {
-            "title": "Turn it on the lathe",
-            "text": "The barrel is shaped from that single piece on the lathe."
+            "title": "Build the blank",
+            "text": "Some pens start as a single piece of wood. Others are built up from bands of different woods, layers of leather or date seeds set together."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
-            "title": "Polish by hand",
-            "text": "Every barrel is finished by hand: burl is sealed to a deep gloss, hardwood is oiled and resin is polished."
+            "title": "Turn and shape",
+            "text": "Each barrel is turned and shaped by hand into its own curves, sometimes against the grain."
           }
         },
         "step_4": {
           "type": "step",
           "settings": {
-            "title": "Fit and test",
-            "text": "Gold-plated hardware, the twist mechanism and a refillable cartridge go in. We write with every pen before it leaves the bench."
+            "title": "Finish and polish",
+            "text": "Every pen is finished and polished by hand. Depending on the material, that is about 5 to 30 hours of work."
           }
         },
         "step_5": {
           "type": "step",
           "settings": {
-            "title": "Engrave and box",
-            "text": "Engraved on request, then boxed. Add initials or a short line to any pen, and gift wrap and a card with your own words if it is a gift."
+            "title": "Fit the hardware",
+            "text": "Gold-tone hardware goes on last: the pocket clip, the centre band and the writing tip."
           }
         }
       },
@@ -68,7 +68,7 @@
         "step_5"
       ],
       "settings": {
-        "heading": "Five stops between the blank and the box.",
+        "heading": "Five steps from material to pen.",
         "text": "What happens to a pen before it reaches you.",
         "color_scheme": "scheme-4",
         "padding_top": 112,
@@ -95,8 +95,8 @@
         "link_3": {
           "type": "link",
           "settings": {
-            "label": "New runs",
-            "link": "shopify://collections/new-runs"
+            "label": "Hardwood",
+            "link": "shopify://collections/hardwood"
           }
         }
       },
@@ -111,10 +111,53 @@
         "padding_top": 96,
         "padding_bottom": 120
       }
+    },
+    "story": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_1": {
+          "type": "heading",
+          "settings": {
+            "heading": "The story behind Pegasus Pens",
+            "heading_size": "h1"
+          }
+        },
+        "text_2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pegasus Pens is the work of our father, Mehdi.</p><p>A German-trained carpenter with decades of experience in fine woodworking, Mehdi has spent his career creating furniture and specialty pieces for royal residences, with his work represented in museums and palaces across England and the Middle East.</p><p>At 75, he still spends his days in the workshop. Over the past two years, he has brought that same skill and dedication to a new craft, creating more than 150 individually handcrafted pens.</p><p>Mehdi lets his craftsmanship speak for itself. He's genuine, humble and hardworking, and every pen reflects his patience and care. Pegasus Pens Co. is his passion brought to life, and as his family, we're proud to share his creations with the world, one pen at a time.</p>"
+          }
+        },
+        "text_3": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Who we are.</strong> We're Mehdi's son and daughter. He makes the pens, and we take care of everything else, from photography and marketing to customer orders, so he can continue doing what he loves.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "heading_1",
+        "text_2",
+        "text_3"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/pegasus-workshop-date-seeds.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "content_layout": "no-overlap",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-2",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     }
   },
   "order": [
     "hero",
+    "story",
     "process",
     "next"
   ]

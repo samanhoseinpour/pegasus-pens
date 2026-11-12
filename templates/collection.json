@@ -43,29 +43,29 @@
         "link_1": {
           "type": "link",
           "settings": {
-            "label": "Burl wood",
-            "link": "shopify://collections/burl-wood"
+            "label": "Hardwood",
+            "link": "shopify://collections/hardwood"
           }
         },
         "link_2": {
           "type": "link",
           "settings": {
-            "label": "Hardwood",
-            "link": "shopify://collections/hardwood"
+            "label": "Segmented wood",
+            "link": "shopify://collections/segmented-wood"
           }
         },
         "link_3": {
           "type": "link",
           "settings": {
-            "label": "Laminated wood",
-            "link": "shopify://collections/segmented-wood"
+            "label": "Leather",
+            "link": "shopify://collections/leather"
           }
         },
         "link_4": {
           "type": "link",
           "settings": {
-            "label": "Resin",
-            "link": "shopify://collections/resin"
+            "label": "Date seed",
+            "link": "shopify://collections/date-seed"
           }
         },
         "link_5": {
@@ -104,33 +104,33 @@
         "feature_1": {
           "type": "feature",
           "settings": {
-            "icon": "engrave",
-            "title": "Engraved to order",
-            "text": "Add initials or a short line to any pen."
+            "icon": "mountain",
+            "title": "Made in Vancouver",
+            "text": "Handcrafted one at a time in Vancouver, British Columbia."
           }
         },
         "feature_2": {
           "type": "feature",
           "settings": {
-            "icon": "refill",
-            "title": "Refillable",
-            "text": "Swap the cartridge and keep the pen for good."
+            "icon": "gift",
+            "title": "One of a kind",
+            "text": "Only one of each pen is made, and no two are exactly alike."
           }
         },
         "feature_3": {
           "type": "feature",
           "settings": {
-            "icon": "gift",
-            "title": "Gift wrap",
-            "text": "Add gift wrap to any pen."
+            "icon": "refill",
+            "title": "Made to be used",
+            "text": "A working pen to use, display and keep for years."
           }
         },
         "feature_4": {
           "type": "feature",
           "settings": {
             "icon": "message",
-            "title": "A card with your words",
-            "text": "Write a short message for the recipient."
+            "title": "Ask us anything",
+            "text": "Write to us about any pen, and we will reply by email."
           }
         }
       },
@@ -141,7 +141,7 @@
         "feature_4"
       ],
       "settings": {
-        "heading": "Little things, done properly.",
+        "heading": "What every pen has in common.",
         "color_scheme": "scheme-2",
         "padding_top": 96,
         "padding_bottom": 96

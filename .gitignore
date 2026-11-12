@@ -5,3 +5,6 @@ node_modules/
 
 # Shopify CLI local state (dev theme ids, store links)
 .shopify/
+
+# Client source files (photos and Word docs); the product photos live on the products in Shopify
+product-images/

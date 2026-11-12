@@ -46,11 +46,13 @@
         },
         "quantity_selector": {
           "type": "quantity_selector",
-          "settings": {}
+          "settings": {},
+          "disabled": true
         },
         "personalize": {
           "type": "personalize",
-          "settings": {}
+          "settings": {},
+          "disabled": true
         },
         "buy_buttons": {
           "type": "buy_buttons",
@@ -64,11 +66,11 @@
           "type": "facts",
           "settings": {
             "icon_1": "mountain",
-            "text_1": "Hand-turned in British Columbia",
+            "text_1": "Handcrafted in Vancouver, BC",
             "icon_2": "refill",
-            "text_2": "Refillable cartridge",
+            "text_2": "Refillable",
             "icon_3": "gift",
-            "text_3": "Engraving and gift box"
+            "text_3": "One of a kind, only one made"
           }
         },
         "description": {
@@ -83,7 +85,7 @@
           "settings": {
             "heading": "Care",
             "icon": "none",
-            "content": "<p>Wipe your pen with a soft, dry cloth. Keep it away from heat and long direct sun, which can mark wood and resin.</p>"
+            "content": "<p>Wipe your pen with a soft, dry cloth. Keep it away from heat and long direct sun, which can mark wood and leather.</p>"
           }
         },
         "shipping": {
@@ -152,21 +154,21 @@
           "type": "barrel",
           "settings": {
             "name": "Turned barrel",
-            "text": "Hand-turned from wood or resin."
+            "text": "Shaped by hand from wood, leather or date seed."
           }
         },
         "cartridge": {
           "type": "cartridge",
           "settings": {
-            "name": "Refillable cartridge",
-            "text": "Swap the cartridge and keep the pen."
+            "name": "Refill",
+            "text": "Swap the refill when the ink runs out."
           }
         },
         "hardware": {
           "type": "hardware",
           "settings": {
-            "name": "Gold hardware",
-            "text": "The top, clip, bands and tip."
+            "name": "Gold-tone hardware",
+            "text": "The clip, centre band and writing tip."
           }
         }
       },
@@ -265,5 +267,3 @@
     "related-products"
   ]
 }
-
-
