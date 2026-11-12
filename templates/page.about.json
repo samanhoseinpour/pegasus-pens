@@ -125,20 +125,13 @@
         "text_2": {
           "type": "text",
           "settings": {
-            "text": "<p>Pegasus Pens is the work of our father, Mehdi.</p><p>A German-trained carpenter with decades of experience in fine woodworking, Mehdi has spent his career creating furniture and specialty pieces for royal residences, with his work represented in museums and palaces across England and the Middle East.</p><p>At 75, he still spends his days in the workshop. Over the past two years, he has brought that same skill and dedication to a new craft, creating more than 150 individually handcrafted pens.</p><p>Mehdi lets his craftsmanship speak for itself. He's genuine, humble and hardworking, and every pen reflects his patience and care. Pegasus Pens Co. is his passion brought to life, and as his family, we're proud to share his creations with the world, one pen at a time.</p>"
-          }
-        },
-        "text_3": {
-          "type": "text",
-          "settings": {
-            "text": "<p><strong>Who we are.</strong> We're Mehdi's son and daughter. He makes the pens, and we take care of everything else, from photography and marketing to customer orders, so he can continue doing what he loves.</p>"
+            "text": "<p>Pegasus Pens is the work of our father, Mehdi.</p><p>A German-trained carpenter with decades of experience in fine woodworking, Mehdi has spent his career creating furniture and specialty pieces for royal residences, with his work represented in museums and palaces across England and the Middle East.</p><p>At 75, he still spends his days in the workshop. Over the past two years, he has brought that same skill and dedication to a new craft, creating more than 150 individually handcrafted pens.</p><p>Mehdi lets his craftsmanship speak for itself. He's genuine, humble and hardworking, and every pen reflects his patience and care. Pegasus Pens Co. is his passion brought to life, and as his family, we're proud to share his creations with the world, one pen at a time.</p><p><strong>Who we are.</strong> We're Mehdi's son and daughter. He makes the pens, and we take care of everything else, from photography and marketing to customer orders, so he can continue doing what he loves.</p>"
           }
         }
       },
       "block_order": [
         "heading_1",
-        "text_2",
-        "text_3"
+        "text_2"
       ],
       "settings": {
         "image": "shopify://shop_images/pegasus-workshop-date-seeds.jpg",
