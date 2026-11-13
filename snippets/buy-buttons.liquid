@@ -124,6 +124,13 @@
     </div>
   {%- endif -%}
 
+  {%- comment -%} Every pen is one of a kind: once it has sold, point to the pens still available. {%- endcomment -%}
+  {%- if product != blank and product.available == false -%}
+    <p class="pg-sold-note">
+      <a href="{{ routes.all_products_collection_url }}" class="link">{{ 'general.continue_shopping' | t }}</a>
+    </p>
+  {%- endif -%}
+
   {%- if show_pickup_availability -%}
     {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
 
