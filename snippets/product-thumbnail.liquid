@@ -13,6 +13,7 @@
   @param {boolean} [xr_button] - Whether to show the Shopify XR button for 3D models. Defaults to false.
   @param {boolean} [constrain_to_viewport] - Whether to constrain the media height to the viewport. Defaults to false.
   @param {boolean} [lazy_load] - Whether to lazy-load the preview image. Defaults to true.
+  @param {object} [cutouts] - The product's cut-outs (`product.metafields.custom.cutouts.value`). When set, the product's first photo shows its cut-out instead, with the class `pg-cutout`.
   @param {object} [section] - The current product section context, supplied implicitly when rendered from that section and used for its image zoom setting.
 
   @example
@@ -37,6 +38,12 @@
 
   if media.media_type == 'image'
     assign image_class = 'image-magnify-' | append: section.settings.image_zoom
+  endif
+
+  assign preview = media.preview_image
+  if media.position == 1 and media.media_type == 'image' and cutouts.size > 0
+    assign preview = cutouts | first
+    assign image_class = image_class | append: ' pg-cutout'
   endif
 -%}
 
@@ -74,13 +81,14 @@
     {%- render 'loading-spinner' -%}
     <div class="product__media media media--transparent">
       {{
-        media.preview_image
+        preview
         | image_url: width: 1946
         | image_tag:
           class: image_class,
           loading: lazy,
           sizes: sizes,
-          widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+          widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+          alt: media.alt
       }}
     </div>
     <button

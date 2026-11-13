@@ -33,8 +33,13 @@
       {%- for block in section.blocks -%}
         {%- liquid
           assign media = block.settings.image
+          assign pen_class = ''
           if media == blank
-            assign media = block.settings.product.featured_media
+            assign cutout = block.settings.product.metafields.custom.cutouts.value | first
+            assign media = cutout | default: block.settings.product.featured_media
+            if cutout
+              assign pen_class = 'pg-cutout'
+            endif
           endif
           assign start = 0
           if total > 1
@@ -73,7 +78,7 @@
             {{
               media
               | image_url: width: 900
-              | image_tag: width: 450, height: 600, loading: 'lazy', alt: '', widths: '300, 450, 600, 900', sizes: '(min-width: 750px) 30vw, 55vw'
+              | image_tag: width: 450, height: 600, loading: 'lazy', alt: '', class: pen_class, widths: '300, 450, 600, 900', sizes: '(min-width: 750px) 30vw, 55vw'
             }}
           </li>
         {%- endif -%}
@@ -141,7 +146,7 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image",
-          "info": "Optional. Overrides the product photo. A pen on a white or plain light background works best."
+          "info": "Optional. Overrides the product photo; a pen on a white or plain light background works best. Leave it empty to use the product's cut-out, which floats with a shadow."
         },
         {
           "type": "select",

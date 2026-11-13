@@ -24,6 +24,16 @@
   object-fit: contain;
 }
 
+/* The first photo, when the product has a cut-out of it: the pen lifted off the page instead of a photo on a mat.
+   The lightbox still shows the photo. */
+.product-media-container.constrain-height.media-fit-contain:has(.pg-cutout) {
+  background: none;
+}
+
+.product__media img.pg-cutout {
+  filter: var(--pg-shadow-near);
+}
+
 /* Limited / New run: bottom left of the first photo, like the badge on the product cards. */
 .product__media-item {
   position: relative;

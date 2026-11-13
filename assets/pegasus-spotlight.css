@@ -49,6 +49,12 @@
   height: auto;
 }
 
+/* With a cut-out (the product's `custom.cutouts`) the pen is lifted off the page instead of blended into it. */
+.pg-spot__pen:has(.pg-cutout) {
+  mix-blend-mode: normal;
+  filter: var(--pg-shadow-far);
+}
+
 /* Scroll-driven entrance where the browser supports it; everywhere else the pen simply sits in its rim. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
@@ -58,11 +64,25 @@
       animation-range: entry 5% cover 50%;
     }
 
+    /* As the pen rises, its shadow falls away from it. */
+    .pg-spot__pen:has(.pg-cutout) {
+      animation-name: pg-spot-drift, pg-spot-lift;
+    }
+
     .pg-spot__ring {
       animation: pg-spot-ring linear both;
       animation-timeline: view();
       animation-range: entry 0% cover 45%;
     }
+  }
+}
+
+@keyframes pg-spot-lift {
+  from {
+    filter: var(--pg-shadow-near);
+  }
+  to {
+    filter: var(--pg-shadow-far);
   }
 }
 

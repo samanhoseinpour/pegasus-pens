@@ -58,6 +58,17 @@
   height: auto;
 }
 
+/* With a cut-out (the product's `custom.cutouts`) the pen floats over the page and casts its shadow on it.
+   shortcut: the shadow is drawn in the pen's own frame, so it turns with the pen; a light that keeps one direction
+   would need a second, counter-rotated copy of every pen. */
+.pg-pen:has(.pg-cutout) {
+  mix-blend-mode: normal;
+}
+
+.pg-pen .pg-cutout {
+  filter: var(--pg-shadow-far);
+}
+
 /* ---------- Pinned: the pens move ---------- */
 
 .pg-par.is-pinned {

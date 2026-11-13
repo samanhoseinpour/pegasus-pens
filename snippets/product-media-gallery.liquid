@@ -5,7 +5,7 @@
   @param {product} [product] - The product whose media is rendered. Uses the current product when omitted.
   @param {object} [section] - The current product section context, supplied implicitly when rendered from that section and used for gallery IDs, behavior, and presentation.
   @param {number} [limit] - The maximum number of media items to render. Defaults to all media.
-  @param {boolean} [pegasus] - Whether to add the Pegasus extras: the Limited / New run badge on the first photo and the phone progress line. Defaults to `false`.
+  @param {boolean} [pegasus] - Whether to add the Pegasus extras: the Limited / New run badge on the first photo, the phone progress line and the first photo's cut-out (`custom.cutouts`). Defaults to `false`.
   @param {model} [first_3d_model] - The first 3D model, used to render the gallery's Shopify XR button.
 
   @example
@@ -19,6 +19,10 @@
 
   if limit == 1
     assign single_media_visible = true
+  endif
+
+  if pegasus
+    assign pg_cutouts = product.metafields.custom.cutouts.value
   endif
 
   assign media_count = product.media.size
@@ -82,7 +86,8 @@
             media_width: media_width,
             media_fit: section.settings.media_fit,
             constrain_to_viewport: section.settings.constrain_to_viewport,
-            lazy_load: false
+            lazy_load: false,
+            cutouts: pg_cutouts
           %}
           {%- if pegasus -%}
             {%- render 'pegasus-gallery-badge', product: product -%}
@@ -123,7 +128,8 @@
               media_width: media_width,
               media_fit: section.settings.media_fit,
               constrain_to_viewport: section.settings.constrain_to_viewport,
-              lazy_load: lazy_load
+              lazy_load: lazy_load,
+              cutouts: pg_cutouts
             %}
             {%- if pegasus and media_position == 1 -%}
               {%- render 'pegasus-gallery-badge', product: product -%}

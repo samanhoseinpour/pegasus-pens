@@ -92,6 +92,14 @@ Two workshop photos of pen 1 are also in Files, for theme sections (image settin
 - `pegasus-workshop-date-seed-blank.jpg`, in the home story.
 - `pegasus-workshop-date-seeds.jpg`, in the About story.
 
+### Cut-outs (2026-11-13)
+
+So the pens float on the page with their own shadow (the client asked for them to "look 3D on the background"), each studio shot also exists as a cut-out: the same photo, same size, on a transparent background. They are in Files as `<handle>-front-cutout.png` and `<handle>-side-cutout.png`, with the matching photo's alt text, and listed on each product in the metafield **Cut-outs** (`custom.cutouts`), in the same order as the photos: front, then side. There are 13: the front shot of all eight pens, plus the side shot of pens 1, 5, 6, 7 and 8 (the second photo of pens 2 to 4 is a scene, which stays a photo).
+
+How they were made: Apple Vision's subject mask (`VNGenerateForegroundInstanceMaskRequest`, the engine behind Preview's Remove Background), with the soft edge tightened and one pixel taken off so no white fringe is left (`magick photo.png \( mask.png -level 45%,100% -morphology Erode Disk:1 \) -alpha off -compose CopyOpacity -composite cutout.png`). The glossy studio floor mirrors the tip of pens 1 and 2, so their masks were cut just below the ball point. They are made for light backgrounds: on espresso, a thin light sliver can show in the narrow gap between a clip and the barrel.
+
+**For a new pen:** open the white studio shot in Preview, choose Tools > Remove Background, then File > Export as PNG. Name it `<handle>-front-cutout.png` and add it to the product's Cut-outs field (then the side shot's, if there is one). Without a cut-out the pen simply keeps the old look.
+
 ### Earlier photos (`products/`, 2026-11-02)
 
 The 15 images supplied first (the 16th file is the logo). Before the client named the pens, I gave them names from their look; they turned out to be five of the eight pens plus one more:
