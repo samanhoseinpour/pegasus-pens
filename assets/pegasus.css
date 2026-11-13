@@ -247,6 +247,25 @@ volume-pricing li,
   clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
 }
 
+/* One line on phones. In the fallback font the message wrapped to two lines and went back to one when Pegasus Sans
+   arrived, moving the whole page down and up again (CLS 0.32 in the lab). The stars give way on the narrowest phones
+   so the default message still fits. */
+@media screen and (max-width: 749px) {
+  .announcement-bar__message > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@media screen and (max-width: 389px) {
+  .announcement-bar__message::before,
+  .announcement-bar__message::after {
+    display: none;
+  }
+}
+
 /* ---------- Wordmark ---------- */
 
 .pg-wordmark {
