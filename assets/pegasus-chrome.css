@@ -416,6 +416,15 @@ predictive-search[loading] .pg-search-start {
   object-fit: contain;
 }
 
+/* A pen with a cut-out (`custom.cutouts`) floats on the panel instead of sitting on a white photo. */
+.pg-search-card__media:has(.pg-cutout) {
+  background: none;
+}
+
+.pg-search-card__media img.pg-cutout {
+  filter: var(--pg-shadow-near);
+}
+
 .pg-search-card__title {
   font-family: var(--pg-display);
   font-size: 1.8rem;

@@ -7,7 +7,7 @@
   @param {boolean} [extend_height] - Whether the card fills its available container space. Defaults to `false`.
   @param {string} [wrapper_class] - A custom wrapper class. When blank or `none`, the collection-card wrapper and settings are used.
   @param {string} [placeholder_image] - The placeholder SVG name to render when the collection is blank.
-  @param {boolean} [pg_scenes] - Whether a collection with no image of its own shows the bundled photo for its handle (see `pegasus-collection-photo`) in place of its first product's photo. Defaults to `false`.
+  @param {boolean} [pg_scenes] - Whether a collection with no image of its own shows the bundled photo for its handle (see `pegasus-collection-photo`) in place of its first product's photo. Defaults to `false`. Without it, such a collection shows its first product's cut-out (`custom.cutouts`) when it has one.
 
   @example
   {% render 'card-collection', card_collection: collection, media_aspect_ratio: 'adapt', columns: 3 %}
@@ -24,6 +24,14 @@
   assign tile_image = card_collection.featured_image
   if pg_photo != blank
     assign tile_image = null
+  endif
+  assign pg_cutout = false
+  if tile_image and card_collection.image == blank
+    assign pg_first_cutout = card_collection.products.first.metafields.custom.cutouts.value | first
+    if pg_first_cutout
+      assign tile_image = pg_first_cutout
+      assign pg_cutout = true
+    endif
   endif
   assign has_media = false
   if tile_image or pg_photo != blank
@@ -73,26 +81,26 @@
             {%- else -%}
             <img
               srcset="
-                {%- if card_collection.featured_image.width >= 165 -%}{{ card_collection.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
-                {%- if card_collection.featured_image.width >= 330 -%}{{ card_collection.featured_image | image_url: width: 330 }} 330w,{%- endif -%}
-                {%- if card_collection.featured_image.width >= 535 -%}{{ card_collection.featured_image | image_url: width: 535 }} 535w,{%- endif -%}
-                {%- if card_collection.featured_image.width >= 750 -%}{{ card_collection.featured_image | image_url: width: 750 }} 750w,{%- endif -%}
-                {%- if card_collection.featured_image.width >= 1000 -%}{{ card_collection.featured_image | image_url: width: 1000 }} 1000w,{%- endif -%}
-                {%- if card_collection.featured_image.width >= 1500 -%}{{ card_collection.featured_image | image_url: width: 1500 }} 1500w,{%- endif -%}
-                {%- if card_collection.featured_image.width >= 3000 -%}{{ card_collection.featured_image | image_url: width: 3000 }} 3000w,{%- endif -%}
-                {{ card_collection.featured_image | image_url }} {{ card_collection.featured_image.width }}w
+                {%- if tile_image.width >= 165 -%}{{ tile_image | image_url: width: 165 }} 165w,{%- endif -%}
+                {%- if tile_image.width >= 330 -%}{{ tile_image | image_url: width: 330 }} 330w,{%- endif -%}
+                {%- if tile_image.width >= 535 -%}{{ tile_image | image_url: width: 535 }} 535w,{%- endif -%}
+                {%- if tile_image.width >= 750 -%}{{ tile_image | image_url: width: 750 }} 750w,{%- endif -%}
+                {%- if tile_image.width >= 1000 -%}{{ tile_image | image_url: width: 1000 }} 1000w,{%- endif -%}
+                {%- if tile_image.width >= 1500 -%}{{ tile_image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if tile_image.width >= 3000 -%}{{ tile_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {{ tile_image | image_url }} {{ tile_image.width }}w
               "
-              src="{{ card_collection.featured_image | image_url: width: 1500 }}"
+              src="{{ tile_image | image_url: width: 1500 }}"
               sizes="
                 (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: columns }}px,
                 (min-width: 750px) {% if columns > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %},
                 calc(100vw - 3rem)
               "
               alt="{{ card_collection.featured_image.alt | escape }}"
-              height="{{ card_collection.featured_image.height }}"
-              width="{{ card_collection.featured_image.width }}"
+              height="{{ tile_image.height }}"
+              width="{{ tile_image.width }}"
               loading="lazy"
-              class="motion-reduce"
+              class="motion-reduce{% if pg_cutout %} pg-cutout{% endif %}"
             >
             {%- endif -%}
           </div>

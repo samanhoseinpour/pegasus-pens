@@ -41,8 +41,10 @@
   endif
 
   assign preview = media.preview_image
+  assign ratio = media.aspect_ratio
   if media.position == 1 and media.media_type == 'image' and cutouts.size > 0
     assign preview = cutouts | first
+    assign ratio = preview.aspect_ratio
     assign image_class = image_class | append: ' pg-cutout'
   endif
 -%}
@@ -53,7 +55,7 @@
 
 <div
   class="product-media-container media-type-{{ media.media_type }} media-fit-{{ media_fit }} global-media-settings gradient{% if constrain_to_viewport %} constrain-height{% endif %}"
-  style="--ratio: {{ media.aspect_ratio | default: 1.0 }}; --preview-ratio: {{ media.preview_image.aspect_ratio | default: 1.0 }};"
+  style="--ratio: {{ ratio | default: 1.0 }}; --preview-ratio: {{ preview.aspect_ratio | default: 1.0 }};"
 >
   <modal-opener
     class="product__modal-opener product__modal-opener--{{ media.media_type }}"
