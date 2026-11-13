@@ -13,7 +13,13 @@ if (!customElements.get('pg-parallax')) {
           document.documentElement.getAttribute('data-pg-motion') !== 'off';
         if (!allowed) return;
 
-        this.classList.add('is-pinned');
+        // A window over 2000px tall is a renderer that expands the viewport instead of scrolling (Google's), not a
+        // screen: pinned, the section would be 240% of that height. It gets the static row instead, also when the
+        // viewport is enlarged after load.
+        this.tall = window.matchMedia('(min-height: 2000px)');
+        this.onTall = () => this.classList.toggle('is-pinned', !this.tall.matches);
+        this.tall.addEventListener('change', this.onTall);
+        this.onTall();
         this.ticking = false;
         this.onScroll = () => {
           if (this.ticking) return;
@@ -31,6 +37,7 @@ if (!customElements.get('pg-parallax')) {
       disconnectedCallback() {
         window.removeEventListener('scroll', this.onScroll);
         window.removeEventListener('resize', this.onScroll);
+        this.tall?.removeEventListener('change', this.onTall);
       }
 
       update() {

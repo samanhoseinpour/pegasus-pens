@@ -43,8 +43,10 @@ if (!customElements.get('pg-constellation')) {
 
       // The pinned stage is at least 52rem tall. On a shorter screen (a phone on its side, a small window) its lower part,
       // with the star buttons, would sit below the fold with no way to scroll to it while it is pinned, so there the
-      // static layout is used instead, and it switches back if the window grows.
-      this.short = window.matchMedia('(max-height: 619px)');
+      // static layout is used instead, and it switches back if the window grows. A window over 2000px tall is not a
+      // screen but a renderer that expands the viewport instead of scrolling (Google's): pinned, the section would
+      // be 360% of that height, pushing the rest of the page tens of thousands of pixels down with three panels hidden.
+      this.short = window.matchMedia('(max-height: 619px), (min-height: 2000px)');
       this.onShort = () => this.setPinned(!this.short.matches);
       this.short.addEventListener('change', this.onShort);
       this.setPinned(!this.short.matches);
