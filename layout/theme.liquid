@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
 
     {%- if settings.favicon != blank -%}
@@ -28,6 +27,10 @@
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
+    {%- comment -%} Shopify keeps an empty blog in its sitemap, so keep it out of the index until the first post. {%- endcomment -%}
+    {%- if request.page_type == 'blog' and blog.articles_count == 0 -%}
+      <meta name="robots" content="noindex">
+    {%- endif -%}
 
     {% render 'meta-tags' %}
 
