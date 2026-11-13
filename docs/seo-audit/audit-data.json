@@ -1,0 +1,318 @@
+{
+  "summary": {
+    "health_score": 66,
+    "audited_host": "https://rjxgij-f1.myshopify.com",
+    "date": "2026-11-13",
+    "business_type": "E-commerce (eight one-of-a-kind hand-turned pens, CAD, ships within Canada)",
+    "top_findings": [
+      "No refund, shipping or terms policy (A1)",
+      "Placeholder reviews with false specifics (A2)",
+      "Product pages miss buyer facts (A7)",
+      "Two pen names mean other things in search (A6)",
+      "No custom domain; brand name shared with three other pen makers (A5, B1)"
+    ],
+    "quick_wins": [
+      "Switch off both review sections (A2)",
+      "Five relative URL redirects for deleted collections (A3)",
+      "Unpublish the 'Home page' collection; hide Blog until a post exists (A4)",
+      "Home title and meta description that say what is sold (A5)",
+      "A SKU on each pen (A15)"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "weight": 22,
+      "score": 77,
+      "what_works": [
+        "HTTPS + HSTS, http->https 301",
+        "Canonicals correct on all 23 HTML pages incl. variant, filter and /collections/<c>/products/<p> paths",
+        "Server-rendered: raw and rendered home text identical",
+        "Theme holds no hardcoded host"
+      ],
+      "findings": [
+        {
+          "title": "Four policy pages return 404; shipping page is 'coming soon'",
+          "severity": "High",
+          "description": "/policies/refund-policy, shipping-policy, terms-of-service and contact-information return 404 (TECH-01).",
+          "recommendation": "Write the policies in Shopify admin > Settings > Policies with the client's facts (A1)."
+        },
+        {
+          "title": "Deleted collections 404 without redirects",
+          "severity": "Medium",
+          "description": "burl-wood, resin, bestsellers, new-runs and limited were public for six days (TECH-02).",
+          "recommendation": "Add relative 301s in Online Store > Navigation > URL redirects (A3)."
+        },
+        {
+          "title": "JS-only links between pens, from a robots-blocked URL",
+          "severity": "Medium",
+          "description": "'You may also like' loads from /recommendations/products, disallowed in robots.txt (TECH-05).",
+          "recommendation": "Render related pens in Liquid (A10)."
+        },
+        {
+          "title": "Home page balloons to ~83,000 px in a tall render",
+          "severity": "Medium",
+          "description": "Constellation and parallax lengths are in viewport units; later sections land 47,800-81,300 px down (VIS-01, VIS-02).",
+          "recommendation": "Cap the lengths in px and unpin very tall viewports (A13)."
+        },
+        {
+          "title": "No Search Console or Bing Webmaster property",
+          "severity": "Medium",
+          "description": "No property exists in the connected account (TECH-12).",
+          "recommendation": "At the domain switch: Search Console Domain property (DNS), then Bing import (B3)."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "weight": 23,
+      "score": 55,
+      "what_works": [
+        "The maker's story gives real first-hand experience",
+        "Unique product titles and descriptions",
+        "Alt text on every image"
+      ],
+      "findings": [
+        {
+          "title": "Placeholder reviews make false claims",
+          "severity": "High",
+          "description": "Three invented cards labelled 'Customer reviews' cite Lisbon and Leeds, a gift box and a repeat buyer; repeated on the home page and all 8 pens (CONT-05, SXO-03, GEO-08).",
+          "recommendation": "Switch both review sections off until real reviews exist, or remove the false specifics (A2)."
+        },
+        {
+          "title": "Product pages miss buyer facts",
+          "severity": "High",
+          "description": "No dimensions, weight, writing system or refill type on any pen; 161-270 words; shared closing paragraph (CONT-07, CONT-10, SXO-04).",
+          "recommendation": "One content pass per pen with a quotable opening sentence and a five-line spec list (A7)."
+        },
+        {
+          "title": "Two pen names mean other things in search",
+          "severity": "High",
+          "description": "'date seed pen' = plantable seed pens; 'leather pen' = pen cases (SXO-01).",
+          "recommendation": "Add 'date palm seeds' and 'layered leather' to SEO title, meta description and first sentence (A6)."
+        },
+        {
+          "title": "Thin collection pages and no gift guide",
+          "severity": "Medium",
+          "description": "Collection descriptions are 10-17 words; gift queries want a guide (ECOM-08, SXO-06, SXO-07).",
+          "recommendation": "60-120 words per collection; make /collections/gifts a short guide (A8)."
+        },
+        {
+          "title": "Maker's credentials stated but never shown",
+          "severity": "Medium",
+          "description": "About page claims are unnamed and unsourced (CONT-09, GEO-06, SXO-09).",
+          "recommendation": "Add one or two checkable specifics or a workshop photo (A9)."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "weight": 20,
+      "score": 70,
+      "what_works": [
+        "Exactly one h1 per page",
+        "Metadata is not templated (templated_ratio 0.0)"
+      ],
+      "findings": [
+        {
+          "title": "Home title and description say only the brand",
+          "severity": "Medium",
+          "description": "Title 'Pegasus Pens', description 'Handcrafted luxury pens'; six pages have no meta description; /collections/all is titled 'Products' (CONT-01, TECH-06, SXO-05).",
+          "recommendation": "Name the object, place and maker in the home title and description; fill the six descriptions (A5)."
+        },
+        {
+          "title": "Home h1 is the header wordmark",
+          "severity": "Medium",
+          "description": "The hero headline is an h2 (VIS-03, CONT-03).",
+          "recommendation": "Make the first slide's heading the h1 on the home template (A14)."
+        },
+        {
+          "title": "Collection titles don't contain 'pens'",
+          "severity": "Medium",
+          "description": "Generic collection titles (SXO-06, ECOM-08).",
+          "recommendation": "SEO titles that say what each collection is (A5)."
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "weight": 10,
+      "score": 68,
+      "what_works": [
+        "Valid Product + Offer on all 8 pens",
+        "BreadcrumbList on product pages",
+        "No review markup for the placeholder reviews"
+      ],
+      "findings": [
+        {
+          "title": "Organization markup is sloppy",
+          "severity": "Medium",
+          "description": "Eight empty sameAs strings, no logo, url becomes the page URL on /pages/* (SCH-02, SCH-03, SCH-04, GEO-02).",
+          "recommendation": "Replace the block in sections/header.liquid with the dynamic snippet in findings/schema.md (A11)."
+        },
+        {
+          "title": "No SKU, shipping or return data on Product",
+          "severity": "Medium",
+          "description": "No identifiers; policies don't exist (SCH-05, SCH-06, ECOM-04).",
+          "recommendation": "SKUs in admin; shipping and returns via Merchant Center after A1 (A15, B4)."
+        },
+        {
+          "title": "Collection pages have no breadcrumbs",
+          "severity": "Low",
+          "description": "templates/collection.json lacks pegasus-breadcrumbs (SCH-09).",
+          "recommendation": "Add breadcrumb markup to collections (A15)."
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "weight": 10,
+      "score": 58,
+      "what_works": [
+        "Desktop lab LCP 0.9-1.8 s",
+        "CDN image formats, srcset and lazy loading on product images"
+      ],
+      "findings": [
+        {
+          "title": "Hero (LCP) image unprioritised and oversized",
+          "severity": "High",
+          "description": "Mobile lab LCP 9.7 s; pegasus-scene.liquid drops fetch_priority; one 1145x1526 file drawn ~400 px (PERF-01, PERF-11).",
+          "recommendation": "Pass fetchpriority through and ship 2-3 widths with srcset (A12)."
+        },
+        {
+          "title": "Mobile CLS 0.318 from the announcement bar",
+          "severity": "High",
+          "description": "The bar shrinks from two lines to one when the font arrives (PERF-02).",
+          "recommendation": "Fix the bar's mobile height; metric-matched fallback fonts (A12)."
+        },
+        {
+          "title": "Fonts download twice",
+          "severity": "Medium",
+          "description": "Preload URL has ?v=, CSS url() does not: ~168 KB duplicate per page (PERF-03).",
+          "recommendation": "Make the URLs match; drop the unused preconnect (A12)."
+        },
+        {
+          "title": "Product page LCP 4.9 s on mobile",
+          "severity": "Medium",
+          "description": "No priority hint on the main photo (PERF-04).",
+          "recommendation": "fetchpriority=high on the first product photo (A12)."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "weight": 10,
+      "score": 67,
+      "what_works": [
+        "All AI crawlers allowed; text server-rendered",
+        "Shopify's UCP profile, agents.md, llms.txt and WebMCP adapter present",
+        "0 unnamed controls in the accessibility tree"
+      ],
+      "findings": [
+        {
+          "title": "Brand name shared with three other pen makers",
+          "severity": "High",
+          "description": "Etsy 'PegasusPens', UK Facebook pages, a California maker; pegasuspens.com is for sale (GEO-01).",
+          "recommendation": "Tie the name to Vancouver, Mehdi and the materials everywhere; choose the domain with this in mind (A5, B1)."
+        },
+        {
+          "title": "Agents can't find shipping or return terms",
+          "severity": "High",
+          "description": "agents.md lists only the privacy policy (AGT-02, GEO-04).",
+          "recommendation": "Write the policies (A1); Shopify adds them to agents.md."
+        },
+        {
+          "title": "Search indexes still show placeholder copy",
+          "severity": "Medium",
+          "description": "Bing/Yahoo describe burl, laminated and resin pens (GEO-03).",
+          "recommendation": "At the switch: Bing Webmaster, sitemap, recrawl (B3)."
+        },
+        {
+          "title": "AI crawler policy is Shopify's default",
+          "severity": "Medium",
+          "description": "Nobody chose it (AGT-03).",
+          "recommendation": "Optional robots.txt.liquid with named groups (A16)."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "weight": 5,
+      "score": 60,
+      "what_works": [
+        "Every image has alt text",
+        "Product images use CDN formats, srcset and sizes"
+      ],
+      "findings": [
+        {
+          "title": "Bundled scene photos served at full size",
+          "severity": "Medium",
+          "description": "No srcset on theme-asset scenes (PERF-11).",
+          "recommendation": "Ship width variants (A12)."
+        },
+        {
+          "title": "95 KB emblem PNG drawn at ~52 px on every page",
+          "severity": "Low",
+          "description": "PERF-12.",
+          "recommendation": "Serve a small WebP (A12)."
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Trust floor",
+        "timeframe": "Week 1",
+        "items": [
+          "A1 Write the refund, shipping and terms policies and the shipping-returns page",
+          "A2 Decide the placeholder reviews",
+          "A3 Redirect the five deleted collections",
+          "A4 Take the 'Home page' collection and the empty blog out of the index"
+        ]
+      },
+      {
+        "name": "Phase 2: Say what we sell",
+        "timeframe": "Weeks 1-2",
+        "items": [
+          "A5 Titles and meta descriptions",
+          "A6 Disambiguate the date seed and leather pens",
+          "A7 One content pass per pen with specs",
+          "A8 Collection and gift copy",
+          "A9 Show the maker's proof"
+        ]
+      },
+      {
+        "name": "Phase 3: Theme work",
+        "timeframe": "Weeks 2-3",
+        "items": [
+          "A10 Server-rendered links between pens and a sold-pen state",
+          "A11 Organization markup",
+          "A12 Mobile speed and stability",
+          "A13 Tall-viewport rendering",
+          "A14 Home h1",
+          "A15 Small fixes",
+          "A16 AI crawler policy (optional)"
+        ]
+      },
+      {
+        "name": "Phase 4: At the domain switch",
+        "timeframe": "When the custom domain goes live",
+        "items": [
+          "B1 Choose the domain",
+          "B2 Make it primary and verify the handle redirects",
+          "B3 Search Console Domain property and Bing",
+          "B4 Merchant Center and free listings",
+          "B5 Off-site links",
+          "B6 Re-audit and baselines"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/",
+    "action_plan": "ACTION-PLAN.md",
+    "report": "FULL-AUDIT-REPORT.md"
+  }
+}
