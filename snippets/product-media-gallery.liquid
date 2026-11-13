@@ -87,7 +87,8 @@
             media_fit: section.settings.media_fit,
             constrain_to_viewport: section.settings.constrain_to_viewport,
             lazy_load: false,
-            cutouts: pg_cutouts
+            cutouts: pg_cutouts,
+            priority: pegasus
           %}
           {%- if pegasus -%}
             {%- render 'pegasus-gallery-badge', product: product -%}
@@ -129,7 +130,8 @@
               media_fit: section.settings.media_fit,
               constrain_to_viewport: section.settings.constrain_to_viewport,
               lazy_load: lazy_load,
-              cutouts: pg_cutouts
+              cutouts: pg_cutouts,
+              priority: pegasus
             %}
             {%- if pegasus and media_position == 1 -%}
               {%- render 'pegasus-gallery-badge', product: product -%}

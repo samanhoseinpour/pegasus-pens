@@ -59,7 +59,13 @@
           alt: s.image.alt
       }}
     {%- elsif bg_scene != blank -%}
-      {%- render 'pegasus-scene', name: bg_scene, class: 'pg-hero__image', loading: load_mode -%}
+      {%- render 'pegasus-scene',
+        name: bg_scene,
+        class: 'pg-hero__image',
+        loading: load_mode,
+        fetchpriority: fetch_priority,
+        sizes: '100vw'
+      -%}
     {%- else -%}
       <svg
         class="pg-hero__sky"
@@ -110,7 +116,13 @@
               alt: s.image.alt
           }}
         {%- else -%}
-          {%- render 'pegasus-scene', name: s.scene, class: 'pg-hero__image', loading: load_mode -%}
+          {%- render 'pegasus-scene',
+            name: s.scene,
+            class: 'pg-hero__image',
+            loading: load_mode,
+            fetchpriority: fetch_priority,
+            sizes: '(min-width: 990px) 44vw, 80vw'
+          -%}
         {%- endif -%}
       </div>
     </div>

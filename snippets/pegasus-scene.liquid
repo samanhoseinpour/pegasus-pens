@@ -6,6 +6,8 @@
   @param {string} [class] - Extra CSS classes for the image.
   @param {string} [loading] - `lazy` (default) or `eager`.
   @param {string} [alt] - Alternative text. Defaults to empty, since these photos are decorative.
+  @param {string} [sizes] - The `sizes` attribute for the responsive widths. Defaults to the browser's `100vw`.
+  @param {string} [fetchpriority] - `high` for the photo that is the page's largest paint (the first hero slide).
 
   @example
   {% render 'pegasus-scene', name: 'burl', class: 'pg-hero__image', loading: 'eager' %}
@@ -36,12 +38,19 @@
   endcase
 -%}
 {%- if file != blank -%}
+  {%- comment -%}
+    shortcut: the 600/900 widths rely on Shopify's image CDN resizing theme assets with &width= (checked 2026-11-13, not documented for assets); if it ever stops, ship sized files instead.
+  {%- endcomment -%}
+  {%- assign src = file | asset_url -%}
   <img
-    src="{{ file | asset_url }}"
+    src="{{ src }}"
+    srcset="{{ src }}&amp;width=600 600w, {{ src }}&amp;width=900 900w, {{ src }} {{ file_width }}w"
+    {% if sizes != blank %}sizes="{{ sizes }}"{% endif %}
     alt="{{ alt | escape }}"
     width="{{ file_width }}"
     height="{{ file_height }}"
     loading="{{ loading | default: 'lazy' }}"
+    {% if fetchpriority != blank %}fetchpriority="{{ fetchpriority }}"{% endif %}
     {% if class != blank %}class="{{ class }}"{% endif %}
   >
 {%- endif -%}

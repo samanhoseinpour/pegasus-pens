@@ -13,7 +13,8 @@
       <link rel="icon" type="image/png" href="{{ 'pegasus-emblem.png' | asset_url }}">
     {%- endif -%}
 
-    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+    {%- comment -%} The Pegasus fonts are self-hosted, so nothing comes from fonts.shopifycdn.com when they are on. {%- endcomment -%}
+    {%- unless settings.pegasus_fonts or settings.type_header_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
@@ -289,8 +290,11 @@
 
     {%- if settings.pegasus_fonts -%}
       {% comment %}theme-check-disable AssetPreload{% endcomment %}
-      <link rel="preload" as="font" href="{{ 'pegasus-sans.woff2' | asset_url }}" type="font/woff2" crossorigin>
-      <link rel="preload" as="font" href="{{ 'pegasus-display.woff2' | asset_url }}" type="font/woff2" crossorigin>
+      {%- comment -%}
+        No ?v= here: pegasus.css asks for the bare file name, and a preload is only reused when the URL is identical.
+      {%- endcomment -%}
+      <link rel="preload" as="font" href="{{ 'pegasus-sans.woff2' | asset_url | split: '?' | first }}" type="font/woff2" crossorigin>
+      <link rel="preload" as="font" href="{{ 'pegasus-display.woff2' | asset_url | split: '?' | first }}" type="font/woff2" crossorigin>
       {% comment %}theme-check-enable AssetPreload{% endcomment %}
       {% style %}
         :root {
