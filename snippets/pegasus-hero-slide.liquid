@@ -6,6 +6,7 @@
   @param {string} [height] - `tall`, `medium` or `compact`. Defaults to `s.height`, then `tall`.
   @param {string} [scheme] - A color scheme ID such as `scheme-4`. Defaults to `s.color_scheme`.
   @param {boolean} [lazy] - Whether the images load lazily (slides after the first). Defaults to `false`.
+  @param {string} [heading_tag] - `h1` when this headline is the page's main heading (the first hero on the home page). Defaults to `h2`.
 
   @example
   {% render 'pegasus-hero-slide', s: section.settings %}
@@ -20,6 +21,7 @@
     assign fetch_priority = 'auto'
   endif
   assign heading_text = s.heading | strip_html | strip
+  assign pg_heading_tag = heading_tag | default: 'h2'
   assign words = heading_text | split: ' '
   assign has_image = false
   if s.image != blank
@@ -120,13 +122,13 @@
 
   <div class="pg-hero__inner page-width">
     {%- if heading_text != blank -%}
-      <h2 class="pg-hero__heading" aria-label="{{ heading_text | escape }}">
+      <{{ pg_heading_tag }} class="pg-hero__heading" aria-label="{{ heading_text | escape }}">
         {%- for word in words -%}
           <span class="pg-w" aria-hidden="true"><span class="pg-wi" style="--i: {{ forloop.index0 }}">{{ word | escape }}</span></span>
           {%- comment -%} An output, not a bare space in an if or unless: Shopify's Liquid drops whitespace-only block bodies. {%- endcomment -%}
           {{- ' ' -}}
         {%- endfor -%}
-      </h2>
+      </{{ pg_heading_tag }}>
     {%- endif -%}
 
     {%- if s.text != blank -%}

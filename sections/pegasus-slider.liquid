@@ -22,8 +22,13 @@
   <div class="pg-slider__stage" data-stage>
     {%- for block in section.blocks -%}
       {%- assign slide_lazy = true -%}
+      {%- assign slide_heading = 'h2' -%}
       {%- if forloop.first -%}
         {%- assign slide_lazy = false -%}
+        {%- comment -%} The home page's h1 is the first slide of the first section; the header wordmark is not a heading. {%- endcomment -%}
+        {%- if request.page_type == 'index' and section.index == 1 -%}
+          {%- assign slide_heading = 'h1' -%}
+        {%- endif -%}
       {%- endif -%}
       <div
         class="pg-slide{% if forloop.first %} is-active{% endif %}"
@@ -37,7 +42,8 @@
           s: block.settings,
           height: section.settings.height,
           scheme: section.settings.color_scheme,
-          lazy: slide_lazy
+          lazy: slide_lazy,
+          heading_tag: slide_heading
         -%}
       </div>
     {%- endfor -%}

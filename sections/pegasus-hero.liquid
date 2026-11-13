@@ -1,6 +1,12 @@
 {{ 'pegasus-hero.css' | asset_url | stylesheet_tag }}
 
-{%- render 'pegasus-hero-slide', s: section.settings -%}
+{%- liquid
+  assign hero_heading = 'h2'
+  if request.page_type == 'index' and section.index == 1
+    assign hero_heading = 'h1'
+  endif
+-%}
+{%- render 'pegasus-hero-slide', s: section.settings, heading_tag: hero_heading -%}
 
 {% schema %}
 {
