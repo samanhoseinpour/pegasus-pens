@@ -9,6 +9,16 @@
  */
 {
   "sections": {
+    "breadcrumbs": {
+      "type": "pegasus-breadcrumbs",
+      "settings": {
+        "home_label": "Home",
+        "label": "Breadcrumb",
+        "color_scheme": "scheme-1",
+        "padding_top": 20,
+        "padding_bottom": 0
+      }
+    },
     "main-collection-banner": {
       "type": "main-collection-banner",
       "settings": {
@@ -149,6 +159,7 @@
     }
   },
   "order": [
+    "breadcrumbs",
     "main-collection-banner",
     "main-collection-product-grid",
     "more",
