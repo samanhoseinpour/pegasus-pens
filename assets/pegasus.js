@@ -145,6 +145,19 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(holdHeader);
   document.addEventListener('shopify:section:load', holdHeader);
 
+  // Outside links open in a new tab, announced by Craft's new-window message; in JS so merchant-typed links count too.
+  // shortcut: links added later by the Section Rendering API are not marked (all internal today); observe mutations if that changes.
+  function markExternal(scope) {
+    scope.querySelectorAll('a[href]:not([target])').forEach(function (a) {
+      if (!/^https?:$/.test(a.protocol) || a.hostname === location.hostname) return;
+      a.target = '_blank';
+      a.relList.add('noopener');
+      a.setAttribute('aria-describedby', ((a.getAttribute('aria-describedby') || '') + ' a11y-new-window-message').trim());
+    });
+  }
+  markExternal(document);
+  document.addEventListener('shopify:section:load', function (event) { markExternal(event.target); });
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { init(); });
   else init();
 
