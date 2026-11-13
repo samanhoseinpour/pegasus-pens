@@ -445,26 +445,36 @@
   customElements.define('sticky-header', StickyHeader);
 {% endjavascript %}
 
+{%- liquid
+  comment
+    sameAs lists only the social links that are filled in: an empty string is not a URL.
+  endcomment
+  assign pg_networks = 'twitter,facebook,pinterest,instagram,tiktok,tumblr,snapchat,youtube,vimeo' | split: ','
+  assign pg_same_as = ''
+  for pg_network in pg_networks
+    assign pg_key = 'social_' | append: pg_network | append: '_link'
+    if settings[pg_key] != blank
+      assign pg_same_as = pg_same_as | append: '|' | append: settings[pg_key]
+    endif
+  endfor
+-%}
 <script type="application/ld+json">
   {
-    "@context": "http://schema.org",
-    "@type": "Organization",
+    "@context": "https://schema.org",
+    "@type": "OnlineStore",
     "name": {{ shop.name | json }},
     {% if settings.logo %}
       "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
+    {% else %}
+      "logo": {{ 'pegasus-emblem.png' | asset_url | prepend: "https:" | json }},
     {% endif %}
-    "sameAs": [
-      {{ settings.social_twitter_link | json }},
-      {{ settings.social_facebook_link | json }},
-      {{ settings.social_pinterest_link | json }},
-      {{ settings.social_instagram_link | json }},
-      {{ settings.social_tiktok_link | json }},
-      {{ settings.social_tumblr_link | json }},
-      {{ settings.social_snapchat_link | json }},
-      {{ settings.social_youtube_link | json }},
-      {{ settings.social_vimeo_link | json }}
-    ],
-    "url": {{ request.origin | append: page.url | json }}
+    {% if settings.brand_description != blank %}
+      "description": {{ settings.brand_description | strip_html | strip | json }},
+    {% endif %}
+    {% if pg_same_as != blank %}
+      "sameAs": {{ pg_same_as | remove_first: '|' | split: '|' | json }},
+    {% endif %}
+    "url": {{ request.origin | append: routes.root_url | json }}
   }
 </script>
 
@@ -472,7 +482,7 @@
   {% assign potential_action_target = request.origin | append: routes.search_url | append: '?q={search_term_string}' %}
   <script type="application/ld+json">
     {
-      "@context": "http://schema.org",
+      "@context": "https://schema.org",
       "@type": "WebSite",
       "name": {{ shop.name | json }},
       "potentialAction": {
@@ -480,7 +490,7 @@
         "target": {{ potential_action_target | json }},
         "query-input": "required name=search_term_string"
       },
-      "url": {{ request.origin | append: page.url | json }}
+      "url": {{ request.origin | append: routes.root_url | json }}
     }
   </script>
 {%- endif -%}
