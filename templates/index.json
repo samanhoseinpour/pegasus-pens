@@ -17,6 +17,8 @@
           "settings": {
             "image_style": "medallion",
             "scene": "desk",
+            "background_scene": "none",
+            "overlay": 25,
             "heading": "One pen, one story, never duplicated.",
             "text": "Handcrafted one at a time in Vancouver, British Columbia, by a German-trained carpenter.",
             "button_label": "Shop all pens",
@@ -30,6 +32,7 @@
           "type": "slide",
           "settings": {
             "image_style": "background",
+            "scene": "desk",
             "background_scene": "burl",
             "overlay": 35,
             "heading": "From a branch of the family plum tree.",
@@ -37,6 +40,7 @@
             "button_label": "See the pen",
             "button_link": "shopify://products/plum-wood-persian-khatam-pen",
             "link_label": "",
+            "link_url": "",
             "show_constellation": false
           }
         },
@@ -44,6 +48,7 @@
           "type": "slide",
           "settings": {
             "image_style": "background",
+            "scene": "desk",
             "background_scene": "leather",
             "overlay": 35,
             "heading": "Made to be given.",
@@ -51,6 +56,7 @@
             "button_label": "Shop gifts",
             "button_link": "shopify://collections/gifts",
             "link_label": "",
+            "link_url": "",
             "show_constellation": false
           }
         }
@@ -159,7 +165,10 @@
       ],
       "settings": {
         "heading": "Fresh from the workshop",
+        "description": "",
+        "products_to_show": 8,
         "image_ratio": "portrait",
+        "show_secondary_image": true,
         "color_scheme": "scheme-2",
         "padding_top": 96,
         "padding_bottom": 96
@@ -197,6 +206,8 @@
       ],
       "settings": {
         "product": "date-seed-pen",
+        "heading": "",
+        "text": "",
         "button_label": "View pen",
         "engrave_label": "",
         "color_scheme": "scheme-1",
@@ -274,14 +285,16 @@
         "text_2": {
           "type": "text",
           "settings": {
-            "text": "<p>A German-trained carpenter, Mehdi has spent his career creating furniture and specialty pieces for royal residences. At 75, he still spends his days in the workshop, and over the past two years he has made more than 150 pens by hand.</p>"
+            "text": "<p>A German-trained carpenter, Mehdi has spent his career creating furniture and specialty pieces for royal residences. At 75, he still spends his days in the workshop, and over the past two years he has made more than 150 pens by hand.</p>",
+            "text_style": "body"
           }
         },
         "button_3": {
           "type": "button",
           "settings": {
             "button_label": "Read his story",
-            "button_link": "shopify://pages/about"
+            "button_link": "shopify://pages/about",
+            "button_style_secondary": false
           }
         }
       },
@@ -291,17 +304,81 @@
         "button_3"
       ],
       "settings": {
+        "image": "shopify://shop_images/pegasus-workshop-date-seed-blank.jpg",
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "image_first",
+        "image_behavior": "none",
         "content_layout": "no-overlap",
+        "desktop_content_position": "top",
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "left",
         "section_color_scheme": "scheme-1",
         "color_scheme": "scheme-1",
         "padding_top": 96,
-        "padding_bottom": 96,
-        "image": "shopify://shop_images/pegasus-workshop-date-seed-blank.jpg"
+        "padding_bottom": 96
+      }
+    },
+    "collage": {
+      "type": "pegasus-collage",
+      "blocks": {
+        "product_1": {
+          "type": "product",
+          "settings": {
+            "product": "plum-wood-persian-khatam-pen",
+            "link_label": "View pen",
+            "caption_style": "dark",
+            "color_scheme": "scheme-4"
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "scene": "leather",
+            "title": "Handcrafted in Vancouver",
+            "text": "Every pen is turned, shaped and polished by hand.",
+            "link_label": "Read our story",
+            "link": "shopify://pages/about",
+            "caption_style": "light",
+            "color_scheme": "scheme-4"
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "scene": "stone",
+            "title": "Oak, cut against the grain",
+            "text": "The lines across the barrel are the oak's own grain, never painted or printed.",
+            "link_label": "See the pen",
+            "link": "shopify://products/cross-grain-oak-pen",
+            "caption_style": "light",
+            "color_scheme": "scheme-4"
+          }
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "scene": "none",
+            "title": "Ready to give",
+            "text": "One-of-a-kind pens for someone who seems to have everything.",
+            "link_label": "Shop gifts",
+            "link": "shopify://collections/gifts",
+            "caption_style": "light",
+            "color_scheme": "scheme-3"
+          }
+        }
+      },
+      "block_order": [
+        "product_1",
+        "tile_2",
+        "tile_3",
+        "tile_4"
+      ],
+      "settings": {
+        "heading": "",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96
       }
     },
     "drift": {
@@ -364,6 +441,7 @@
     },
     "engrave": {
       "type": "pegasus-engrave",
+      "disabled": true,
       "settings": {
         "heading": "Add your initials to any pen.",
         "text": "Type what you would like engraved and see it on the plate. Sending a pen as a gift? Wrap it and add a card message on the same page.",
@@ -377,8 +455,7 @@
         "color_scheme": "scheme-1",
         "padding_top": 96,
         "padding_bottom": 96
-      },
-      "disabled": true
+      }
     },
     "gifts": {
       "type": "pegasus-product-tabs",
@@ -413,7 +490,9 @@
       "settings": {
         "heading": "Ready to give",
         "description": "A gift they definitely won't already have.",
+        "products_to_show": 8,
         "image_ratio": "portrait",
+        "show_secondary_image": true,
         "color_scheme": "scheme-2",
         "padding_top": 96,
         "padding_bottom": 96
@@ -542,6 +621,7 @@
         "review_2",
         "review_3"
       ],
+      "disabled": true,
       "settings": {
         "heading": "Kind words",
         "label": "Customer reviews",
@@ -656,67 +736,6 @@
       ],
       "settings": {
         "heading": "What every pen has in common.",
-        "color_scheme": "scheme-2",
-        "padding_top": 96,
-        "padding_bottom": 96
-      }
-    },
-    "collage": {
-      "type": "pegasus-collage",
-      "blocks": {
-        "product_1": {
-          "type": "product",
-          "settings": {
-            "product": "plum-wood-persian-khatam-pen",
-            "link_label": "View pen",
-            "caption_style": "dark",
-            "color_scheme": "scheme-4"
-          }
-        },
-        "tile_2": {
-          "type": "tile",
-          "settings": {
-            "scene": "leather",
-            "title": "Handcrafted in Vancouver",
-            "text": "Every pen is turned, shaped and polished by hand.",
-            "link_label": "Read our story",
-            "link": "shopify://pages/about",
-            "caption_style": "light",
-            "color_scheme": "scheme-4"
-          }
-        },
-        "tile_3": {
-          "type": "tile",
-          "settings": {
-            "scene": "stone",
-            "title": "Oak, cut against the grain",
-            "text": "The lines across the barrel are the oak's own grain, never painted or printed.",
-            "link_label": "See the pen",
-            "link": "shopify://products/cross-grain-oak-pen",
-            "caption_style": "light",
-            "color_scheme": "scheme-4"
-          }
-        },
-        "tile_4": {
-          "type": "tile",
-          "settings": {
-            "scene": "none",
-            "title": "Ready to give",
-            "text": "One-of-a-kind pens for someone who seems to have everything.",
-            "link_label": "Shop gifts",
-            "link": "shopify://collections/gifts",
-            "caption_style": "light",
-            "color_scheme": "scheme-3"
-          }
-        }
-      },
-      "block_order": [
-        "product_1",
-        "tile_2",
-        "tile_3",
-        "tile_4"
-      ],
-      "settings": {
         "color_scheme": "scheme-2",
         "padding_top": 96,
         "padding_bottom": 96
