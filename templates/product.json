@@ -25,6 +25,7 @@
         "text": {
           "type": "text",
           "settings": {
+            "text": "Text block",
             "use_product_type": true,
             "text_style": "body"
           }
@@ -44,15 +45,45 @@
             "swatch_shape": "circle"
           }
         },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {},
-          "disabled": true
-        },
         "personalize": {
           "type": "personalize",
-          "settings": {},
-          "disabled": true
+          "disabled": true,
+          "settings": {
+            "show_engraving": true,
+            "engraving_heading": "Engraving",
+            "engraving_toggle": "Engrave this pen",
+            "engraving_help": "Add initials or a short line.",
+            "engraving_field": "Text to engrave",
+            "engraving_name": "Engraving",
+            "engraving_limit": 20,
+            "engraving_error": "Add the text to engrave, or turn engraving off.",
+            "quantity_note": "The same engraving is applied to every pen in this order line.",
+            "counter_text": "{count} of {max}",
+            "show_gift": true,
+            "gift_heading": "Gift options",
+            "gift_toggle": "This is a gift",
+            "gift_help": "Choose how it is packed and add a note for the recipient.",
+            "gift_name": "Gift",
+            "gift_value": "Yes",
+            "show_gift_wrap": true,
+            "gift_wrap_label": "Wrap it in a gift box",
+            "wrap_name": "Gift wrap",
+            "wrap_value": "Yes",
+            "show_gift_message": true,
+            "gift_message_label": "Message for the card",
+            "message_name": "Gift message",
+            "gift_message_limit": 160,
+            "show_packing": true,
+            "packing_label": "Leave prices off the packing slip",
+            "packing_name": "Packing slip",
+            "packing_value": "No prices",
+            "fine_print": ""
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "disabled": true,
+          "settings": {}
         },
         "buy_buttons": {
           "type": "buy_buttons",
@@ -85,7 +116,8 @@
           "settings": {
             "heading": "Care",
             "icon": "none",
-            "content": "<p>Wipe your pen with a soft, dry cloth. Keep it away from heat and long direct sun, which can mark wood and leather.</p>"
+            "content": "<p>Wipe your pen with a soft, dry cloth. Keep it away from heat and long direct sun, which can mark wood and leather.</p>",
+            "page": ""
           }
         },
         "shipping": {
@@ -93,6 +125,7 @@
           "settings": {
             "heading": "Shipping and returns",
             "icon": "none",
+            "content": "",
             "page": "shipping-returns"
           }
         },
@@ -119,6 +152,7 @@
       ],
       "settings": {
         "enable_sticky_info": true,
+        "sticky_bar": true,
         "color_scheme": "scheme-1",
         "media_size": "medium",
         "constrain_to_viewport": true,
@@ -131,6 +165,17 @@
         "enable_video_looping": false,
         "padding_top": 20,
         "padding_bottom": 44
+      }
+    },
+    "disclosures": {
+      "type": "disclosures",
+      "settings": {
+        "heading": "Disclosures",
+        "heading_size": "h2",
+        "open_by_default": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 0
       }
     },
     "anatomy": {
@@ -223,6 +268,7 @@
         "review_2",
         "review_3"
       ],
+      "disabled": true,
       "settings": {
         "heading": "Kind words",
         "label": "Customer reviews",
@@ -248,13 +294,6 @@
         "show_rating": false,
         "padding_top": 36,
         "padding_bottom": 68
-      }
-    },
-    "disclosures": {
-      "type": "disclosures",
-      "settings": {
-        "padding_top": 36,
-        "padding_bottom": 0
       }
     }
   },
