@@ -41,23 +41,26 @@
     },
     "header": {
       "type": "header",
+      "custom_css": [
+        "@media screen and (min-width:990px){.header{grid-template-areas:'left-icons heading navigation search icons' !important;grid-template-columns:auto auto minmax(0,1fr) auto auto !important;column-gap:0 !important;align-items:center}.header .header__inline-menu{justify-self:center;padding:0 2rem}.header .header__inline-menu .list-menu--inline{flex-wrap:nowrap}.header>.header__search{justify-self:end !important;width:20rem !important;margin:0 1.2rem 0 0 !important}.header>.header__search summary.header__icon--search{}}"
+      ],
       "settings": {
         "logo_position": "top-left",
         "mobile_logo_position": "left",
         "menu": "main-menu",
         "menu_type_desktop": "dropdown",
+        "search_label": "Search pens",
+        "search_collection": "all",
+        "search_terms": "Leather\nOlive wood\nPersian Khatam",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
         "color_scheme": "scheme-1",
         "menu_color_scheme": "scheme-1",
-        "search_label": "Search pens",
-        "search_collection": "all",
-        "search_terms": "Leather\nOlive wood\nPersian Khatam",
         "enable_country_selector": true,
         "enable_language_selector": true,
         "margin_bottom": 0,
-        "padding_top": 20,
-        "padding_bottom": 20
+        "padding_top": 12,
+        "padding_bottom": 12
       }
     }
   },
