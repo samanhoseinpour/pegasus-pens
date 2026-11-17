@@ -7,14 +7,20 @@
   {% render 'cart-drawer' %}
 {% enddoc %}
 
-{{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
-{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  The drawer is closed on load, so its styles must not hold up the first paint: they load without blocking (here and
+  in theme.liquid), and the rule below keeps the closed drawer invisible and out of the page flow until they arrive.
+{%- endcomment -%}
+<link rel="stylesheet" href="{{ 'quantity-popover.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
 <style>
   .drawer {
+    position: fixed;
+    inset: 0;
     visibility: hidden;
   }
 </style>
