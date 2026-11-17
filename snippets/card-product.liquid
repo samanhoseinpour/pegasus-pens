@@ -12,6 +12,7 @@
   @param {boolean} [skip_styles] - Whether to omit the component styles. Defaults to `false`.
   @param {string} [quick_add] - The quick-add behavior. Allowed values are `none`, `standard`, and `bulk`. Defaults to `none`.
   @param {string} [section_id] - The section ID used to namespace card and quick-add element IDs.
+  @param {string} [image_sizes] - The photos' `sizes` attribute, for cards that are not in a 4/3/2-column grid (the rails). Defaults to the grid.
   @param {boolean} [horizontal_class] - Whether to add the `card--horizontal` class. Defaults to `false`.
   @param {boolean} [horizontal_quick_add] - Whether to use horizontal quick-add styles. Defaults to `false`.
   @param {string} [placeholder_image] - The placeholder SVG name. Defaults to `product-apparel-2`.
@@ -69,7 +70,8 @@
                   show: show_secondary_image,
                   product_media: card_product.media,
                   cutouts: card_product.metafields.custom.cutouts.value,
-                  lazy_load: lazy_load
+                  lazy_load: lazy_load,
+                  sizes: image_sizes
                 -%}
               </div>
               {%- render 'pegasus-card-photo', part: 'line', show: show_secondary_image, product_media: card_product.media -%}

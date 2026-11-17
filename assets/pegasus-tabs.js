@@ -11,7 +11,7 @@ if (!customElements.get('pg-tabs')) {
       });
 
       this.addEventListener('shopify:block:select', (event) => {
-        const tab = this.querySelector(`#PgTab-${event.detail.blockId}`);
+        const tab = this.querySelector(`[role="tab"][data-block="${event.detail.blockId}"]`);
         if (tab) this.select(tab);
       });
     }

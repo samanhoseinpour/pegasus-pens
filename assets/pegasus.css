@@ -497,6 +497,16 @@ volume-pricing li,
   opacity: 1;
 }
 
+/* A photo still waiting for pegasus-card-gallery.js (data-srcset) never shows. Without JavaScript the first photo then
+   stays up on hover instead of Craft's swap to an empty frame. */
+.card__media .media > img[data-srcset] {
+  display: none;
+}
+
+.card-wrapper:hover .card__media .media.media--hover-effect > img:first-child:has(+ img[data-srcset]) {
+  opacity: 1;
+}
+
 /* A photo with a cut-out shows the pen on the card's own surface, lifted off it by its shadow. */
 .card__media img.pg-cutout {
   filter: var(--pg-shadow-near);

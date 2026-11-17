@@ -3,13 +3,17 @@
   attribute, the photos themselves, and the line of segments that shows which photo is up. A card holds up to three
   photos when the second-photo option is on, and one otherwise. A photo with a cut-out (the product's
   `custom.cutouts` list: cut-out i stands in for photo i) shows the cut-out instead, with the class `pg-cutout`.
+  Photos after the first wait in `data-src`/`data-srcset` until the gallery script wakes them (the card comes near the
+  screen after the page has loaded, or the visitor reaches for it), so a page full of cards does not download every
+  extra photo up front.
   Kept out of card-product.liquid so that file stays under theme-check's complexity limit.
 
   @param {string} part - `attr` prints the `data-pg-frames` attribute, `photos` the photos, `line` the segment line.
   @param {object} product_media - The product's media list.
   @param {boolean} [show] - Whether the second-photo option is on for the card.
   @param {object} [cutouts] - The product's cut-outs (`card_product.metafields.custom.cutouts.value`).
-  @param {boolean} [lazy_load] - Whether the first photo is lazy-loaded. Defaults to `true`; the others always are.
+  @param {boolean} [lazy_load] - Whether the first photo is lazy-loaded. Defaults to `true`; the others always wait.
+  @param {string} [sizes] - The photos' `sizes` attribute. Defaults to a grid of 4, 3 and 2 columns.
 
   @example
   <div class="card__media" {% render 'pegasus-card-photo', part: 'attr', show: show_secondary_image, product_media: card_product.media %}>
@@ -23,7 +27,15 @@
 {%- if part == 'attr' and frames > 1 -%}
   data-pg-frames="{{ frames }}"
 {%- elsif part == 'photos' -%}
-  {%- assign last = frames | minus: 1 -%}
+  {%- liquid
+    assign last = frames | minus: 1
+    assign grid_px = settings.page_width | minus: 130 | divided_by: 4
+    assign grid_sizes = '(min-width: ' | append: settings.page_width | append: 'px) ' | append: grid_px | append: 'px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)'
+    comment
+      shortcut: `quality` on Shopify's image CDN is not documented (checked 2026-11-17); if it is ever ignored, the photos only come back at the default quality.
+    endcomment
+    assign q = '&quality=75'
+  -%}
   {%- for i in (0..last) -%}
     {%- liquid
       assign photo = product_media[i]
@@ -36,20 +48,26 @@
         assign picture = item
         assign cutout = true
       endfor
+      assign src_attr = 'src'
+      assign srcset_attr = 'srcset'
+      if i > 0
+        assign src_attr = 'data-src'
+        assign srcset_attr = 'data-srcset'
+      endif
     -%}
     {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
     <img
-      srcset="
-        {%- if picture.width >= 165 -%}{{ picture | image_url: width: 165 }} 165w,{%- endif -%}
-        {%- if picture.width >= 360 -%}{{ picture | image_url: width: 360 }} 360w,{%- endif -%}
-        {%- if picture.width >= 533 -%}{{ picture | image_url: width: 533 }} 533w,{%- endif -%}
-        {%- if picture.width >= 720 -%}{{ picture | image_url: width: 720 }} 720w,{%- endif -%}
-        {%- if picture.width >= 940 -%}{{ picture | image_url: width: 940 }} 940w,{%- endif -%}
-        {%- if picture.width >= 1066 -%}{{ picture | image_url: width: 1066 }} 1066w,{%- endif -%}
-        {{ picture | image_url }} {{ picture.width }}w
+      {{ srcset_attr }}="
+        {%- if picture.width >= 165 -%}{{ picture | image_url: width: 165 }}{{ q }} 165w,{%- endif -%}
+        {%- if picture.width >= 360 -%}{{ picture | image_url: width: 360 }}{{ q }} 360w,{%- endif -%}
+        {%- if picture.width >= 533 -%}{{ picture | image_url: width: 533 }}{{ q }} 533w,{%- endif -%}
+        {%- if picture.width >= 720 -%}{{ picture | image_url: width: 720 }}{{ q }} 720w,{%- endif -%}
+        {%- if picture.width >= 940 -%}{{ picture | image_url: width: 940 }}{{ q }} 940w,{%- endif -%}
+        {%- if picture.width >= 1066 -%}{{ picture | image_url: width: 1066 }}{{ q }} 1066w,{%- endif -%}
+        {{ picture | image_url }}{{ q }} {{ picture.width }}w
       "
-      src="{{ picture | image_url: width: 533 }}"
-      sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+      {{ src_attr }}="{{ picture | image_url: width: 533 }}{{ q }}"
+      sizes="{{ sizes | default: grid_sizes }}"
       alt="{% if forloop.first %}{{ photo.alt | escape }}{% endif %}"
       class="motion-reduce{% if cutout %} pg-cutout{% endif %}"
       data-pg-frame="{{ i }}"
