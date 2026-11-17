@@ -3,6 +3,7 @@
 
   @param {collection} card_collection - The collection to display. Pass a blank value to render a placeholder card.
   @param {number} columns - The number of columns used to calculate the responsive image size.
+  @param {number} [columns_mobile] - The number of columns on phones, for the image size. Defaults to `1`.
   @param {string} [media_aspect_ratio] - The image aspect ratio. Allowed values are `adapt`, `portrait`, and `square`. Defaults to `square`.
   @param {boolean} [extend_height] - Whether the card fills its available container space. Defaults to `false`.
   @param {string} [wrapper_class] - A custom wrapper class. When blank or `none`, the collection-card wrapper and settings are used.
@@ -79,22 +80,25 @@
             {%- if tile_image == null -%}
               {{- pg_photo -}}
             {%- else -%}
+            {%- comment -%} shortcut: `quality` on Shopify's image CDN is not documented (checked 2026-11-17); ignored, it only means default quality. {%- endcomment -%}
+            {%- assign pg_q = '&quality=75' -%}
             <img
               srcset="
-                {%- if tile_image.width >= 165 -%}{{ tile_image | image_url: width: 165 }} 165w,{%- endif -%}
-                {%- if tile_image.width >= 330 -%}{{ tile_image | image_url: width: 330 }} 330w,{%- endif -%}
-                {%- if tile_image.width >= 535 -%}{{ tile_image | image_url: width: 535 }} 535w,{%- endif -%}
-                {%- if tile_image.width >= 750 -%}{{ tile_image | image_url: width: 750 }} 750w,{%- endif -%}
-                {%- if tile_image.width >= 1000 -%}{{ tile_image | image_url: width: 1000 }} 1000w,{%- endif -%}
-                {%- if tile_image.width >= 1500 -%}{{ tile_image | image_url: width: 1500 }} 1500w,{%- endif -%}
-                {%- if tile_image.width >= 3000 -%}{{ tile_image | image_url: width: 3000 }} 3000w,{%- endif -%}
-                {{ tile_image | image_url }} {{ tile_image.width }}w
+                {%- if tile_image.width >= 165 -%}{{ tile_image | image_url: width: 165 }}{{ pg_q }} 165w,{%- endif -%}
+                {%- if tile_image.width >= 330 -%}{{ tile_image | image_url: width: 330 }}{{ pg_q }} 330w,{%- endif -%}
+                {%- if tile_image.width >= 535 -%}{{ tile_image | image_url: width: 535 }}{{ pg_q }} 535w,{%- endif -%}
+                {%- if tile_image.width >= 750 -%}{{ tile_image | image_url: width: 750 }}{{ pg_q }} 750w,{%- endif -%}
+                {%- if tile_image.width >= 1000 -%}{{ tile_image | image_url: width: 1000 }}{{ pg_q }} 1000w,{%- endif -%}
+                {%- if tile_image.width >= 1500 -%}{{ tile_image | image_url: width: 1500 }}{{ pg_q }} 1500w,{%- endif -%}
+                {%- if tile_image.width >= 3000 -%}{{ tile_image | image_url: width: 3000 }}{{ pg_q }} 3000w,{%- endif -%}
+                {{ tile_image | image_url }}{{ pg_q }} {{ tile_image.width }}w
               "
-              src="{{ tile_image | image_url: width: 1500 }}"
+              src="{{ tile_image | image_url: width: 1500 }}{{ pg_q }}"
               sizes="
                 (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: columns }}px,
+                (min-width: 990px) calc((100vw - 10rem) / {{ columns }}),
                 (min-width: 750px) {% if columns > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %},
-                calc(100vw - 3rem)
+                calc((100vw - 3rem) / {{ columns_mobile | default: 1 }})
               "
               alt="{{ card_collection.featured_image.alt | escape }}"
               height="{{ tile_image.height }}"

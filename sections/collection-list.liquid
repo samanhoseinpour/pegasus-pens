@@ -55,10 +55,11 @@
         role="list"
       >
         {%- liquid
-          assign columns = section.blocks.size
-          if columns > 3
-            assign columns = 3
-          endif
+          comment
+            The tiles' image size follows the grid the section really draws: its desktop columns, but never more than
+            there are tiles, and its phone columns.
+          endcomment
+          assign columns = section.settings.columns_desktop | at_most: section.blocks.size | at_least: 1
         -%}
         {%- for block in section.blocks -%}
           <li
@@ -76,6 +77,7 @@
               card_collection: block.settings.collection,
               media_aspect_ratio: section.settings.image_ratio,
               columns: columns,
+              columns_mobile: section.settings.columns_mobile,
               placeholder_image: placeholder_image
             %}
           </li>
