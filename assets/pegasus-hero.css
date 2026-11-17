@@ -143,9 +143,11 @@
 }
 
 .pg-hero__heading {
-  max-width: 14ch;
+  /* 14ch of Pegasus Display at display sizes, in em so the box stays the same whichever font is showing. */
+  max-width: 8.4em;
   margin: 0;
-  font-family: var(--font-heading-family);
+  /* --pg-hero-family exists only while the Pegasus fonts are on (theme.liquid): it adds the display-size stand-in. */
+  font-family: var(--pg-hero-family, var(--font-heading-family));
   font-weight: var(--font-heading-weight);
   font-size: clamp(4.8rem, 7.6vw, 11.6rem);
   line-height: 0.98;

@@ -4,28 +4,39 @@
    fonts from the `--font-*` variables (see layout/theme.liquid).
    ========================================================================== */
 
+/* The Pegasus faces (Display, its italic, Sans) are declared in layout/theme.liquid, where their URLs carry ?v= and
+   match the preloads. They carry only the weight and optical-size ranges the theme uses; a wider weight is drawn from
+   the nearest one (bold display text is synthesized). See docs/performance/PSI-2026-11-17.md. */
+
+/* Stand-ins sized like the real fonts (average advance and vertical metrics measured with fontTools), so text keeps
+   its lines and height when the Pegasus fonts arrive after the first paint. */
 @font-face {
-  font-family: 'Pegasus Display';
-  src: url('pegasus-display.woff2') format('woff2');
-  font-weight: 200 800;
-  font-style: normal;
-  font-display: swap;
+  font-family: 'Pegasus Display Fallback';
+  src: local('Georgia'), local('Noto Serif');
+  size-adjust: 94.77%;
+  ascent-override: 77.56%;
+  descent-override: 27.96%;
+  line-gap-override: 0%;
+}
+
+/* The hero headline is set at 50 to 116 px, where Pegasus Display (optical size 72) runs about 4% wider than at text
+   sizes, so it has its own stand-in; with the general one its lines re-wrapped and the slider grew when the font came. */
+@font-face {
+  font-family: 'Pegasus Display Fallback XL';
+  src: local('Georgia'), local('Noto Serif');
+  size-adjust: 98.71%;
+  ascent-override: 74.46%;
+  descent-override: 26.85%;
+  line-gap-override: 0%;
 }
 
 @font-face {
-  font-family: 'Pegasus Display';
-  src: url('pegasus-display-italic.woff2') format('woff2');
-  font-weight: 200 800;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pegasus Sans';
-  src: url('pegasus-sans.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
+  font-family: 'Pegasus Sans Fallback';
+  src: local('Arial'), local('Liberation Sans'), local('Roboto'), local('Helvetica Neue');
+  size-adjust: 101%;
+  ascent-override: 99.01%;
+  descent-override: 30%;
+  line-gap-override: 0%;
 }
 
 :root {
@@ -43,8 +54,9 @@
   --pg-gold-deep: #a8741f;
   --pg-maple: #8e221c;
 
-  --pg-display: 'Pegasus Display', 'Newsreader', Georgia, 'Times New Roman', serif;
-  --pg-sans: 'Pegasus Sans', 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --pg-display: 'Pegasus Display', 'Newsreader', 'Pegasus Display Fallback', Georgia, 'Times New Roman', serif;
+  --pg-sans: 'Pegasus Sans', 'Hanken Grotesk', 'Pegasus Sans Fallback', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --pg-display-xl: 'Pegasus Display', 'Newsreader', 'Pegasus Display Fallback XL', Georgia, 'Times New Roman', serif;
 
   --pg-ease: cubic-bezier(0.2, 0.7, 0.1, 1);
   --pg-ease-io: cubic-bezier(0.65, 0, 0.35, 1);

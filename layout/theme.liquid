@@ -292,20 +292,53 @@
     {% endstyle %}
 
     {%- if settings.pegasus_fonts -%}
+      {%- liquid
+        comment
+          The faces are declared here, not in pegasus.css, so their URLs carry ?v=: a new font file then gets a new URL
+          (a bare file name kept serving the old font from the CDN cache). The preloads use the very same URLs, so the
+          browser reuses them instead of downloading each font twice.
+        endcomment
+        assign pg_font_display = 'pegasus-display.woff2' | asset_url
+        assign pg_font_display_italic = 'pegasus-display-italic.woff2' | asset_url
+        assign pg_font_sans = 'pegasus-sans.woff2' | asset_url
+      -%}
       {% comment %}theme-check-disable AssetPreload{% endcomment %}
-      {%- comment -%}
-        No ?v= here: pegasus.css asks for the bare file name, and a preload is only reused when the URL is identical.
-      {%- endcomment -%}
-      <link rel="preload" as="font" href="{{ 'pegasus-sans.woff2' | asset_url | split: '?' | first }}" type="font/woff2" crossorigin>
-      <link rel="preload" as="font" href="{{ 'pegasus-display.woff2' | asset_url | split: '?' | first }}" type="font/woff2" crossorigin>
+      <link rel="preload" as="font" href="{{ pg_font_sans }}" type="font/woff2" crossorigin>
+      <link rel="preload" as="font" href="{{ pg_font_display }}" type="font/woff2" crossorigin>
       {% comment %}theme-check-enable AssetPreload{% endcomment %}
       {% style %}
+        /* Variable fonts narrowed to the ranges the theme uses (docs/performance/PSI-2026-11-17.md). */
+        @font-face {
+          font-family: 'Pegasus Display';
+          src: url('{{ pg_font_display }}') format('woff2');
+          font-weight: 320 400;
+          font-style: normal;
+          font-display: swap;
+        }
+
+        @font-face {
+          font-family: 'Pegasus Display';
+          src: url('{{ pg_font_display_italic }}') format('woff2');
+          font-weight: 340 400;
+          font-style: italic;
+          font-display: swap;
+        }
+
+        @font-face {
+          font-family: 'Pegasus Sans';
+          src: url('{{ pg_font_sans }}') format('woff2');
+          font-weight: 400 700;
+          font-style: normal;
+          font-display: swap;
+        }
+
         :root {
           --font-body-family: var(--pg-sans);
           --font-body-style: normal;
           --font-body-weight: 400;
           --font-body-weight-bold: 600;
           --font-heading-family: var(--pg-display);
+          --pg-hero-family: var(--pg-display-xl);
           --font-heading-style: normal;
           --font-heading-weight: 360;
         }
