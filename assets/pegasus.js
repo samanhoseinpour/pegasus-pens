@@ -98,17 +98,23 @@
     });
   }
 
-  // The header shrinks to one row after it has been scrolled past (see "Compact header" in pegasus-chrome.css). Keeping
-  // its full height reserved in the layout means the page never moves when that happens: browsers without scroll
-  // anchoring (Safari, so every iPhone and iPad) would otherwise jump by the difference. This holds at every width, because
-  // the header compacts at every width. The height changes with the width, so it is measured again after a resize.
-  var heldWidth = 0;
+  // The header shrinks after it has been scrolled past (see "Compact header" in pegasus-chrome.css). Keeping its full
+  // height reserved in the layout means the page never moves when that happens: browsers without scroll anchoring
+  // (Safari, so every iPhone and iPad) would otherwise jump by the difference. This holds at every width, because the
+  // header compacts at every width. A ResizeObserver on the bar measures it after each layout (fonts, width, the full
+  // header coming back), so nothing forces a layout of its own, and a compact bar is never taken as the full height.
+  var headerObserver = null;
   function holdHeader() {
     var header = document.querySelector('.section-header');
-    if (!header || header.classList.contains('scrolled-past-header')) return;
-    header.style.minHeight = '';
-    header.style.minHeight = header.offsetHeight + 'px';
-    heldWidth = window.innerWidth;
+    var bar = header && header.querySelector('.header-wrapper');
+    if (headerObserver) headerObserver.disconnect();
+    if (!bar || !('ResizeObserver' in window)) return;
+    headerObserver = new ResizeObserver(function (entries) {
+      if (header.classList.contains('scrolled-past-header')) return;
+      var box = entries[0].borderBoxSize && entries[0].borderBoxSize[0];
+      header.style.minHeight = (box ? box.blockSize : bar.getBoundingClientRect().height) + 'px';
+    });
+    headerObserver.observe(bar);
   }
 
   // Back-to-top button (snippet in layout/theme.liquid): appears after a screen and a bit of scrolling.
@@ -130,19 +136,15 @@
     ticking = true;
     requestAnimationFrame(function () {
       root.toggleAttribute('data-scrolled', window.scrollY > 8);
-      // A resize while the header was compact could not be measured; do it as soon as the full header is back.
-      if (window.scrollY < 8 && heldWidth !== window.innerWidth) holdHeader();
       if (topButton) topButton.classList.toggle('is-visible', window.scrollY > window.innerHeight * 1.2);
       ticking = false;
     });
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', holdHeader);
   onScroll();
   holdHeader();
-  window.addEventListener('load', holdHeader);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(holdHeader);
+  // A re-rendered header section (theme editor) is a new element to observe.
   document.addEventListener('shopify:section:load', holdHeader);
 
   // Outside links open in a new tab, announced by Craft's new-window message; in JS so merchant-typed links count too.

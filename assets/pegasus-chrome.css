@@ -5,10 +5,12 @@
 
 /* ---------- Header layout ---------- */
 
-/* Wide screens: the wordmark on the left, the search field in the middle, account and cart on the right, and the
-   links centered on a row of their own (the NOOK arrangement). Phones and tablets: menu button, wordmark and icons,
-   then the search as a full-width row. The grid areas use !important because Craft sets them per logo position and
-   per account/menu combination with stacked :not() selectors that are not worth matching one by one. */
+/* One row at every width (the owner's arrangement, 2026-11-16): menu button (below 990 px), wordmark, the links
+   centred in the free space (990 px and up), then the search icon, account and cart. The grid areas use !important
+   because Craft sets them per logo position and per account/menu combination with stacked :not() selectors that are
+   not worth matching one by one.
+   Layout belongs here, in a stylesheet loaded in <head>, never in the theme editor's Custom CSS: Shopify prints that
+   at the very end of <body>, so the header was first painted in its old layout and then jumped (CLS 0.5 on desktop). */
 
 .pg-search__label {
   display: none;
@@ -16,6 +18,10 @@
 
 .header > .header__search {
   display: block !important;
+  grid-area: search !important;
+  justify-self: end !important;
+  width: auto !important;
+  margin: 0 !important;
   line-height: normal;
 }
 
@@ -31,43 +37,39 @@
 
 @media screen and (min-width: 990px) {
   .header {
-    grid-template-areas: 'heading search icons' 'navigation navigation navigation' !important;
-    /* Equal side columns keep the search on the page's center line when there is room; each side never gets
-       narrower than its content (the wordmark, the icons). */
-    grid-template-columns: minmax(max-content, 1fr) minmax(24rem, 58rem) minmax(max-content, 1fr) !important;
-    column-gap: 4rem;
-  }
-
-  .header > .header__search {
-    grid-area: search !important;
-    justify-self: center !important;
-    width: 100% !important;
-    margin: 0 !important;
+    grid-template-areas: 'left-icons heading navigation search icons' !important;
+    grid-template-columns: auto auto minmax(0, 1fr) auto auto !important;
+    column-gap: 0 !important;
+    align-items: center;
   }
 
   .header .header__inline-menu {
     justify-self: center;
+    align-self: center;
     margin-left: 0;
+    padding: 0 2rem;
+  }
+
+  .header .header__inline-menu .list-menu--inline {
+    flex-wrap: nowrap;
+  }
+
+  .header .header__inline-menu .list-menu__item {
+    white-space: nowrap;
   }
 }
 
 @media screen and (max-width: 989px) {
   .header {
-    grid-template-areas: 'left-icons heading icons' 'search search search' !important;
-    grid-template-columns: auto 1fr auto !important;
+    grid-template-areas: 'left-icons heading search icons' !important;
+    grid-template-columns: auto 1fr auto auto !important;
     column-gap: 0.4rem;
-    row-gap: 1.2rem;
-  }
-
-  .header > .header__search {
-    grid-area: search !important;
-    justify-self: stretch !important;
-    width: 100% !important;
-    margin: 0 !important;
+    row-gap: 0 !important;
   }
 }
 
-/* The search trigger: a field-shaped button. */
+/* The search trigger: an icon button. Its visible label is hidden; the header setting `search_label` stays its
+   accessible name (aria-label on the summary). */
 .header > .header__search details {
   position: static;
 }
@@ -75,38 +77,22 @@
 .header > .header__search summary.header__icon--search {
   display: flex;
   align-items: center;
-  gap: 1.1rem;
-  width: 100%;
+  justify-content: center;
+  width: 4.4rem;
   height: 4.4rem;
-  padding: 0 1.4rem;
-  border: 1px solid rgba(var(--color-foreground), 0.35);
+  padding: 0;
   color: rgb(var(--color-foreground));
   text-decoration: none;
-  transition: border-color 0.25s var(--pg-ease);
 }
 
-.header > .header__search summary.header__icon--search:hover {
-  border-color: rgb(var(--color-foreground));
-}
-
-.header > .header__search summary .header__icon-close {
+.header > .header__search summary .header__icon-close,
+.header > .header__search summary .pg-search__label {
   display: none;
 }
 
 .header > .header__search summary .svg-wrapper {
   width: 2rem;
   height: 2rem;
-}
-
-.header > .header__search summary .pg-search__label {
-  display: block;
-  height: auto;
-  overflow: hidden;
-  font-size: 1.5rem;
-  line-height: 1.2;
-  opacity: 0.8;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .header > .header__search summary > span:first-child {
@@ -119,10 +105,10 @@
 /* ---------- Compact header ---------- */
 
 /* Once the header has been scrolled past and comes back (scroll up), Craft adds `scrolled-past-header` (only when a
-   sticky header type is chosen, so "None" keeps the full header). It shrinks to one row: menu button, smaller wordmark,
-   the search (a field on wide screens, an icon on small ones) and the icons. The links stay reachable through the menu
-   button. pegasus.js keeps the full header height reserved on the wrapper, so the empty strip under the compact row
-   must not catch clicks meant for the page. */
+   sticky header type is chosen, so "None" keeps the full header). It becomes a tighter row: menu button, smaller
+   wordmark, the search icon and the icons; the links are hidden and stay reachable through the menu button.
+   pegasus.js keeps the full header height reserved on the wrapper, so the empty strip under the compact row must not
+   catch clicks meant for the page. */
 .section-header.scrolled-past-header {
   pointer-events: none;
 }
@@ -160,30 +146,12 @@
 
 .section-header.scrolled-past-header .header > .header__search {
   grid-area: search !important;
-  justify-self: center !important;
-  width: min(100%, 40rem) !important;
 }
 
 @media screen and (max-width: 989px) {
   .section-header.scrolled-past-header .header {
     grid-template-columns: auto 1fr auto auto !important;
     column-gap: 0.4rem;
-  }
-
-  .section-header.scrolled-past-header .header > .header__search {
-    justify-self: end !important;
-    width: auto !important;
-  }
-
-  .section-header.scrolled-past-header .header > .header__search summary.header__icon--search {
-    width: 4.4rem;
-    padding: 0;
-    border-color: transparent;
-    justify-content: center;
-  }
-
-  .section-header.scrolled-past-header .header > .header__search summary .pg-search__label {
-    display: none;
   }
 }
 
@@ -510,6 +478,19 @@ predictive-search[loading] .pg-search-start {
     grid-area: language-currency;
     justify-self: end;
     align-self: center;
+  }
+}
+
+/* Below 990 px the bar is one column, and its rotating messages may shrink, so a long one never widens the page. */
+@media screen and (max-width: 989px) {
+  .utility-bar__grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .utility-bar__grid > *,
+  .announcement-bar-slider,
+  .announcement-bar-slider .slider {
+    min-width: 0;
   }
 }
 

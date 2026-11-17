@@ -199,13 +199,6 @@
       </a>
     {%- endif -%}
 
-    {%- comment -%}
-      Pegasus renders the search once, as a direct child of the header, right after the logo so that keyboard order
-      matches what is on screen (wordmark, search, icons): a field in the middle of the top row on wide screens, a row
-      of its own on small ones, whatever the logo position.
-    {%- endcomment -%}
-    {%- render 'header-search', input_id: 'Search-In-Modal-1' -%}
-
     {%- liquid
       if section.settings.menu != blank
         if section.settings.menu_type_desktop == 'dropdown'
@@ -215,6 +208,12 @@
         endif
       endif
     %}
+
+    {%- comment -%}
+      Pegasus renders the search once, as a direct child of the header, after the links so that keyboard order matches
+      what is on screen (wordmark, links, search, account, cart): an icon in the one-row header at every width.
+    {%- endcomment -%}
+    {%- render 'header-search', input_id: 'Search-In-Modal-1' -%}
 
     {%- if section.settings.logo_position == 'middle-center' -%}
       {%- comment -%} Never an h1: on the home page the first hero headline is the h1 (pegasus-hero-slide). {%- endcomment -%}
