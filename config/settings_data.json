@@ -109,7 +109,7 @@
     "sale_badge_color_scheme": "scheme-5",
     "sold_out_badge_color_scheme": "scheme-4",
     "brand_headline": "",
-    "brand_description": "<p>Handcrafted pens in wood, leather and date seed, made one at a time in Vancouver, British Columbia.</p>",
+    "brand_description": "<p>Handcrafted pens in wood, leather and date seed, made one at a time in Vancouver, British Columbia. Not a walk in store. Please contact us before visiting.</p>",
     "brand_image_width": 100,
     "social_facebook_link": "",
     "social_instagram_link": "https://www.instagram.com/pegasus.pens/",
@@ -404,7 +404,7 @@
       ".section-header .header > .header__search summary .pg-search__label {display: none;}",
       "@media (min-width: 990px) {.section-header .header {grid-template-areas: \"left-icons heading navigation search icons\" !important; grid-template-columns: auto auto minmax(0, 1fr) auto auto !important; column-gap: 0 !important; align-items: center; } .section-header .header__inline-menu {justify-self: center; align-self: center; padding: 0 2rem; } .section-header .header__inline-menu .list-menu--inline {flex-wrap: nowrap; } .section-header .header__inline-menu .list-menu__item {white-space: nowrap; }}",
       "@media (max-width: 989px) {.section-header .header {grid-template-areas: \"left-icons heading search icons\" !important; grid-template-columns: auto 1fr auto auto !important; row-gap: 0 !important; }}",
-      "@media (max-width:989px){.utility-bar__grid{grid-template-columns:minmax(0,1fr)!important}.utility-bar__grid>*,.announcement-bar-slider,.announcement-bar-slider .slider{min-width:0}}"
+      "@media (max-width: 989px) {.utility-bar__grid {grid-template-columns: minmax(0, 1fr) !important; } .utility-bar__grid > *, .announcement-bar-slider, .announcement-bar-slider .slider {min-width: 0; }}"
     ]
   }
 }
