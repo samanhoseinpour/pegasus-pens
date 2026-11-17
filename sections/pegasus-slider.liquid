@@ -1,5 +1,15 @@
-{{ 'pegasus-hero.css' | asset_url | stylesheet_tag }}
-{{ 'pegasus-slider.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  comment
+    Near the top of the page the hero is the largest paint: preload its CSS (a Link header, which Shopify also sends as
+    an early hint) so the hero is not held up waiting for it.
+  endcomment
+  assign pg_preload = false
+  if section.index <= 2
+    assign pg_preload = true
+  endif
+-%}
+{{ 'pegasus-hero.css' | asset_url | stylesheet_tag: preload: pg_preload }}
+{{ 'pegasus-slider.css' | asset_url | stylesheet_tag: preload: pg_preload }}
 <script src="{{ 'pegasus-slider.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
@@ -43,6 +53,7 @@
           height: section.settings.height,
           scheme: section.settings.color_scheme,
           lazy: slide_lazy,
+          defer: slide_lazy,
           heading_tag: slide_heading
         -%}
       </div>
@@ -107,7 +118,7 @@
       "type": "checkbox",
       "id": "autoplay",
       "label": "Change slides automatically",
-      "info": "Stops when the pointer or keyboard focus is on the slider, when it is off screen, and for visitors who prefer reduced motion.",
+      "info": "Starts after the visitor's first scroll, tap or key press. Stops when the pointer or keyboard focus is on the slider, when it is off screen, and for visitors who prefer reduced motion.",
       "default": true
     },
     {

@@ -8,6 +8,8 @@
   @param {string} [alt] - Alternative text. Defaults to empty, since these photos are decorative.
   @param {string} [sizes] - The `sizes` attribute for the responsive widths. Defaults to the browser's `100vw`.
   @param {string} [fetchpriority] - `high` for the photo that is the page's largest paint (the first hero slide).
+  @param {boolean} [defer] - Leave the photo unloaded: the URLs go into `data-src` and `data-srcset`, for a script to set
+    later (the slider's hidden slides, assets/pegasus-slider.js). Defaults to `false`.
 
   @example
   {% render 'pegasus-scene', name: 'burl', class: 'pg-hero__image', loading: 'eager' %}
@@ -36,15 +38,24 @@
       assign file_width = 1145
       assign file_height = 1526
   endcase
+
+  assign src_attr = 'src'
+  assign srcset_attr = 'srcset'
+  if defer
+    assign src_attr = 'data-src'
+    assign srcset_attr = 'data-srcset'
+  endif
 -%}
 {%- if file != blank -%}
   {%- comment -%}
-    shortcut: the 600/900 widths rely on Shopify's image CDN resizing theme assets with &width= (checked 2026-11-13, not documented for assets); if it ever stops, ship sized files instead.
+    shortcut: the widths and `quality` rely on Shopify's image CDN resizing and re-encoding theme assets with &width= and
+    &quality= (checked 2026-11-17, not documented for assets); if it ever stops, ship sized files instead. Without it the
+    photos only come back at full size and default quality, nothing breaks.
   {%- endcomment -%}
-  {%- assign src = file | asset_url -%}
+  {%- assign src = file | asset_url | append: '&amp;quality=75' -%}
   <img
-    src="{{ src }}"
-    srcset="{{ src }}&amp;width=600 600w, {{ src }}&amp;width=900 900w, {{ src }} {{ file_width }}w"
+    {{ src_attr }}="{{ src }}&amp;width=900"
+    {{ srcset_attr }}="{{ src }}&amp;width=500 500w, {{ src }}&amp;width=600 600w, {{ src }}&amp;width=750 750w, {{ src }}&amp;width=900 900w, {{ src }} {{ file_width }}w"
     {% if sizes != blank %}sizes="{{ sizes }}"{% endif %}
     alt="{{ alt | escape }}"
     width="{{ file_width }}"

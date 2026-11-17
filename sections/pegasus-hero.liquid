@@ -1,4 +1,13 @@
-{{ 'pegasus-hero.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  comment
+    Near the top of the page the hero is the largest paint: preload its CSS (a Link header, also sent as an early hint).
+  endcomment
+  assign pg_preload = false
+  if section.index <= 2
+    assign pg_preload = true
+  endif
+-%}
+{{ 'pegasus-hero.css' | asset_url | stylesheet_tag: preload: pg_preload }}
 
 {%- liquid
   assign hero_heading = 'h2'

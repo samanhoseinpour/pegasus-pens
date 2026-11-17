@@ -7,6 +7,8 @@
   @param {string} [scheme] - A color scheme ID such as `scheme-4`. Defaults to `s.color_scheme`.
   @param {boolean} [lazy] - Whether the images load lazily (slides after the first). Defaults to `false`.
   @param {string} [heading_tag] - `h1` when this headline is the page's main heading (the first hero on the home page). Defaults to `h2`.
+  @param {boolean} [defer] - Leave the photo unloaded (URLs in `data-src`/`data-srcset`) until assets/pegasus-slider.js sets
+    them: the slider's later slides, so they are not downloaded during the page load. Defaults to `false`.
 
   @example
   {% render 'pegasus-hero-slide', s: section.settings %}
@@ -47,24 +49,32 @@
 >
   <div class="pg-hero__media">
     {%- if has_image and use_medal == false -%}
-      {{
-        s.image
-        | image_url: width: 2400
-        | image_tag:
-          class: 'pg-hero__image',
-          widths: '800, 1200, 1600, 2000, 2400',
-          sizes: '100vw',
-          loading: load_mode,
-          fetchpriority: fetch_priority,
-          alt: s.image.alt
-      }}
+      {%- capture pg_photo -%}
+        {{
+          s.image
+          | image_url: width: 2400
+          | image_tag:
+            class: 'pg-hero__image',
+            widths: '800, 1200, 1600, 2000, 2400',
+            sizes: '100vw',
+            loading: load_mode,
+            fetchpriority: fetch_priority,
+            alt: s.image.alt
+        }}
+      {%- endcapture -%}
+      {%- if defer -%}
+        {{- pg_photo | replace: ' srcset=', ' data-srcset=' | replace: ' src=', ' data-src=' -}}
+      {%- else -%}
+        {{- pg_photo -}}
+      {%- endif -%}
     {%- elsif bg_scene != blank -%}
       {%- render 'pegasus-scene',
         name: bg_scene,
         class: 'pg-hero__image',
         loading: load_mode,
         fetchpriority: fetch_priority,
-        sizes: '100vw'
+        sizes: '100vw',
+        defer: defer
       -%}
     {%- else -%}
       <svg
@@ -103,25 +113,38 @@
         <circle class="pg-hero__rim-inner" cx="50" cy="50" r="45.6" pathLength="1"/>
       </svg>
       <div class="pg-hero__photo">
+        {%- comment -%}
+          The photo is 85% of the medal (inset 7.5%): the medal is min(40vw, 54rem) wide from 990 px, 50vw on tablets and
+          78vw on phones (pegasus-hero.css).
+        {%- endcomment -%}
+        {%- assign medal_sizes = '(min-width: 1350px) 459px, (min-width: 990px) 34vw, (min-width: 750px) 43vw, 67vw' -%}
         {%- if has_image -%}
-          {{
-            s.image
-            | image_url: width: 1200
-            | image_tag:
-              class: 'pg-hero__image',
-              widths: '600, 900, 1200',
-              sizes: '(min-width: 990px) 44vw, 80vw',
-              loading: load_mode,
-              fetchpriority: fetch_priority,
-              alt: s.image.alt
-          }}
+          {%- capture pg_photo -%}
+            {{
+              s.image
+              | image_url: width: 1200
+              | image_tag:
+                class: 'pg-hero__image',
+                widths: '500, 600, 750, 900, 1200',
+                sizes: medal_sizes,
+                loading: load_mode,
+                fetchpriority: fetch_priority,
+                alt: s.image.alt
+            }}
+          {%- endcapture -%}
+          {%- if defer -%}
+            {{- pg_photo | replace: ' srcset=', ' data-srcset=' | replace: ' src=', ' data-src=' -}}
+          {%- else -%}
+            {{- pg_photo -}}
+          {%- endif -%}
         {%- else -%}
           {%- render 'pegasus-scene',
             name: s.scene,
             class: 'pg-hero__image',
             loading: load_mode,
             fetchpriority: fetch_priority,
-            sizes: '(min-width: 990px) 44vw, 80vw'
+            sizes: medal_sizes,
+            defer: defer
           -%}
         {%- endif -%}
       </div>

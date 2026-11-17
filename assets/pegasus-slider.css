@@ -19,13 +19,18 @@
   height: 100%;
 }
 
-/* Without JavaScript only the first slide shows. */
+/* Without JavaScript only the first slide shows. The later slides and the control bar still take their place from the
+   first paint, so nothing below moves when the slider starts (their photos wait in data-src until it does). */
 pg-slider:not(:defined) .pg-slide:not(:first-child) {
-  display: none;
+  visibility: hidden;
+}
+
+pg-slider:not(:defined) .pg-slide:not(:first-child) * {
+  animation: none !important;
 }
 
 pg-slider:not(:defined) .pg-slider__bar {
-  display: none;
+  visibility: hidden;
 }
 
 pg-slider[data-ready] .pg-slide {
