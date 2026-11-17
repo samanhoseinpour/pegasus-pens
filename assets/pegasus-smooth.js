@@ -11,6 +11,8 @@
   if (typeof window.Lenis !== 'function') return;
   if (reduced.matches || designMode) return;
   if (root.getAttribute('data-pg-smooth') === 'off' || root.getAttribute('data-pg-motion') === 'off') return;
+  // Lenis only eases the mouse wheel: a phone or tablet would run its frame loop for nothing.
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
   // A wheel over something that scrolls by itself (a drawer, the search results, a long list, a textarea) must scroll
   // that, not the page. Lenis calls this for each node in the event's path.
