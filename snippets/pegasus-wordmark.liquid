@@ -3,7 +3,9 @@
   The first word is set upright and the remaining words in italic.
 
   @param {string} [class] - Extra CSS classes for the wrapper.
-  @param {boolean} [text_only] - Whether to omit the emblem. Defaults to `false`.
+  @param {boolean} [text_only] - Whether to omit the emblem. Defaults to `false`. The text-only wordmark is the footer's
+    giant decorative watermark: its words are drawn by CSS from data attributes (pegasus.css), so they are a picture of
+    the name rather than page text; keep it inside an `aria-hidden` wrapper.
 
   @example
   {% render 'pegasus-wordmark' %}
@@ -15,14 +17,27 @@
   assign other_words = name_words | slice: 1, 8 | join: ' '
 -%}
 <span class="pg-wordmark{% if class != blank %} {{ class }}{% endif %}">
-  {%- unless text_only -%}
+  {%- if text_only -%}
+    <span
+      class="pg-wordmark__name pg-wordmark__name--drawn"
+      data-first="{{ first_word | escape }}"
+      {% if other_words != blank %}
+        data-rest="{{ other_words | escape }}"
+      {% endif %}
+    ></span>
+  {%- else -%}
+    {%- comment -%}
+      The 200 px emblem is shown at 34 to 52 px: Shopify's CDN resizes it (&width=, as for the bundled scenes).
+    {%- endcomment -%}
+    {%- assign emblem = 'pegasus-emblem.png' | asset_url -%}
     <img
       class="pg-wordmark__mark"
-      src="{{ 'pegasus-emblem.png' | asset_url }}"
+      src="{{ emblem }}&amp;width=112"
+      srcset="{{ emblem }}&amp;width=56 1x, {{ emblem }}&amp;width=112 2x, {{ emblem }}&amp;width=168 3x"
       alt=""
       width="56"
       height="56"
     >
-  {%- endunless -%}
-  <span class="pg-wordmark__name">{{ first_word }}{% if other_words != blank %} <i>{{ other_words }}</i>{% endif %}</span>
+    <span class="pg-wordmark__name">{{ first_word }}{% if other_words != blank %} <i>{{ other_words }}</i>{% endif %}</span>
+  {%- endif -%}
 </span>

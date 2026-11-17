@@ -24,8 +24,9 @@
 
 /* Only when the script has taken over: without it (or without motion) every word is fully visible. */
 .pg-scrub.is-scrub .pg-scrub__w {
-  /* --p is the scroll progress 0 to 1; a word reaches full strength three "words" after the wave passes it. */
-  opacity: clamp(0.14, calc((var(--p, 0) * (var(--n) + 3) - var(--i)) / 3), 1);
+  /* --p is the scroll progress 0 to 1; a word reaches full strength three "words" after the wave passes it.
+     The floor of 0.5 keeps a word not yet reached readable: 3.2:1 on parchment, above the 3:1 large text needs. */
+  opacity: clamp(0.5, calc((var(--p, 0) * (var(--n) + 3) - var(--i)) / 3), 1);
 }
 
 .pg-scrub__button {

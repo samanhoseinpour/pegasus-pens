@@ -335,8 +335,9 @@ volume-pricing li,
     height: 4.2rem;
   }
 
-  /* Visually hidden, still announced: the emblem carries the name on the smallest phones. */
-  .pg-wordmark__name {
+  /* Visually hidden, still announced: the emblem carries the name on the smallest phones (the header only; the
+     footer's watermark keeps its words). */
+  .header__heading-link .pg-wordmark__name {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -347,9 +348,20 @@ volume-pricing li,
   }
 }
 
-.pg-wordmark__name i {
+.pg-wordmark__name i,
+.pg-wordmark__name--drawn::after {
   font-style: italic;
   font-weight: 350;
+}
+
+/* The footer's giant watermark is decoration (aria-hidden), so its words are drawn from data attributes rather than
+   written as page text: WCAG exempts logotypes and decoration from the contrast minimum, and it keeps its 15% tint. */
+.pg-wordmark__name--drawn::before {
+  content: attr(data-first);
+}
+
+.pg-wordmark__name--drawn[data-rest]::after {
+  content: '\00a0' attr(data-rest);
 }
 
 .header__heading-link {
