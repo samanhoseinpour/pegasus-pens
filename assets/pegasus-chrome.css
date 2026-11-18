@@ -647,8 +647,26 @@ predictive-search[loading] .pg-search-start {
   height: auto;
 }
 
+/* Copyright · credit on one line, the policy links on the next. */
+.footer .footer__copyright > .copyright__content + .copyright__content::before {
+  content: '\00B7';
+  padding: 0 0.8rem;
+}
+
+.footer .policies {
+  display: block;
+}
+
+.footer .policies li:first-child::before {
+  content: none;
+}
+
 /* Bottom row: copyright on the left, localization and payment icons on the right. */
 @media screen and (min-width: 750px) {
+  .footer .footer__content-bottom-wrapper .footer__copyright.caption {
+    text-align: left;
+  }
+
   .footer .footer__content-bottom {
     display: flex;
     flex-direction: row-reverse;
