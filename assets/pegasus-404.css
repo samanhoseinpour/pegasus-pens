@@ -1,0 +1,178 @@
+/* Page not found: the address that failed, a way out (search, the links section below), and the Great Square with a
+   dashed line to the star that is missing. Gold lines, so the section sits on a dark scheme. */
+
+pg-404 {
+  display: block;
+}
+
+.pg-404__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3.2rem;
+  align-items: center;
+}
+
+.pg-404__map {
+  order: -1;
+  position: relative;
+  justify-self: start;
+  width: 100%;
+  max-width: 34rem;
+  aspect-ratio: 1000 / 700;
+}
+
+.pg-404__heading {
+  margin: 0;
+  max-width: 11em;
+}
+
+/* Display italic, not a code face: it reads as the brand's voice saying the address back. */
+.pg-404__address {
+  margin: 2rem 0 0;
+  font-family: var(--font-heading-family);
+  font-style: italic;
+  font-weight: 350;
+  font-size: 2.2rem;
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: var(--pg-gold);
+  overflow-wrap: anywhere;
+}
+
+.pg-404__text,
+.pg-404__suggest {
+  max-width: 34em;
+  margin: 1.6rem 0 0;
+  font-size: 1.7rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.pg-404__suggest a {
+  color: inherit;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 0.08em;
+}
+
+.pg-404__search {
+  max-width: 44rem;
+  margin-top: 3.2rem;
+}
+
+/* Map. Both SVGs share the viewBox, so the overlay lines up with the constellation snippet. */
+.pg-404__sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.pg-404__sky .pg-seg {
+  stroke: var(--pg-gold);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+}
+
+.pg-404__sky .pg-seg--5,
+.pg-404__sky .pg-seg--6 {
+  opacity: 0.5;
+}
+
+.pg-404__sky .pg-star__core,
+.pg-404__sky .pg-star__halo {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.pg-404__sky .pg-star__core { fill: rgb(var(--color-foreground)); }
+.pg-404__sky .pg-star__halo { fill: var(--pg-gold); fill-opacity: 0.3; filter: blur(3px); }
+.pg-404__sky .pg-star--5 > *,
+.pg-404__sky .pg-star--6 > * { opacity: 0.7; }
+
+.pg-404__trail,
+.pg-404__ring {
+  stroke: var(--pg-gold);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 2 12;
+}
+
+.pg-404__ring {
+  stroke-dasharray: 4 7;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* One sequence on load: the square draws, its stars come up, then the line runs out to the empty ring. */
+@media (prefers-reduced-motion: no-preference) {
+  html:not([data-pg-motion='off']) .pg-404__sky .pg-seg {
+    animation: pg-404-draw 0.9s var(--pg-ease-io) var(--d, 0s) both;
+  }
+
+  html:not([data-pg-motion='off']) .pg-404__sky .pg-star > * {
+    animation: pg-404-star 0.7s var(--pg-ease) var(--d, 0s) both;
+  }
+
+  html:not([data-pg-motion='off']) .pg-404__trail {
+    animation: pg-404-trail 0.8s var(--pg-ease-io) 1.6s both;
+  }
+
+  html:not([data-pg-motion='off']) .pg-404__ring {
+    animation: pg-404-ring 0.8s var(--pg-ease) 2.2s both;
+  }
+
+  /* Delays go through --d: the animation shorthand above is more specific and would reset animation-delay. */
+  .pg-404__sky .pg-star--1 { --d: 0.1s; }
+  .pg-404__sky .pg-seg--1 { --d: 0.2s; }
+  .pg-404__sky .pg-star--2 { --d: 0.45s; }
+  .pg-404__sky .pg-seg--2 { --d: 0.5s; }
+  .pg-404__sky .pg-star--3 { --d: 0.75s; }
+  .pg-404__sky .pg-seg--3 { --d: 0.8s; }
+  .pg-404__sky .pg-star--4 { --d: 1.05s; }
+  .pg-404__sky .pg-seg--4 { --d: 1.1s; }
+  .pg-404__sky .pg-seg--5 { --d: 1.4s; }
+  .pg-404__sky .pg-seg--6 { --d: 1.5s; }
+  .pg-404__sky .pg-star--5 { --d: 1.7s; }
+  .pg-404__sky .pg-star--6 { --d: 1.8s; }
+}
+
+@keyframes pg-404-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes pg-404-star {
+  from { opacity: 0; transform: scale(0.3); }
+}
+
+/* The dashed trail cannot also be drawn with its own dash pattern, so it is revealed by a clip instead. */
+@keyframes pg-404-trail {
+  from { clip-path: inset(0 100% 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes pg-404-ring {
+  from { opacity: 0; transform: scale(0.4) rotate(-90deg); }
+}
+
+@media screen and (min-width: 750px) {
+  .pg-404__address { font-size: 2.6rem; }
+  .pg-404__text,
+  .pg-404__suggest { font-size: 1.9rem; }
+  .pg-404__map { max-width: 40rem; }
+}
+
+@media screen and (min-width: 990px) {
+  .pg-404__grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 6.4rem;
+  }
+
+  .pg-404__map {
+    order: 0;
+    justify-self: end;
+    max-width: 56rem;
+  }
+}

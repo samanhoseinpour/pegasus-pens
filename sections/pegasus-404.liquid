@@ -1,0 +1,164 @@
+{{ 'pegasus-404.css' | asset_url | stylesheet_tag }}
+{{ 'component-search.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<script src="{{ 'pegasus-404.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign suggest = section.settings.suggest_label | escape
+  assign menus = 'main-menu,footer' | split: ','
+-%}
+
+<pg-404 class="pg-404 color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width pg-404__grid">
+    <div class="pg-404__copy">
+      <h1 class="pg-404__heading h0">{{ section.settings.heading | escape }}</h1>
+      {%- comment -%} Shopify renders a missing page as /404, so the script writes the real address here. {%- endcomment -%}
+      <p class="pg-404__address" data-pg-address hidden></p>
+      {%- if section.settings.text != blank -%}
+        <p class="pg-404__text">{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+      {%- comment -%}
+        One hidden line per page (from the menus), collection and pen; the script shows the one whose handle is the
+        last part of the address.
+      {%- endcomment -%}
+      {%- if suggest != blank -%}
+        {%- for m in menus -%}
+          {%- for link in linklists[m].links -%}
+            {%- if link.type == 'page_link' -%}
+              <p class="pg-404__suggest" data-handle="{{ link.object.handle }}" hidden>
+                {{ suggest }} <a href="{{ link.url }}">{{ link.title | escape }}</a>?
+              </p>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+        {%- for c in collections -%}
+          <p class="pg-404__suggest" data-handle="{{ c.handle }}" hidden>
+            {{ suggest }} <a href="{{ c.url }}">{{ c.title | escape }}</a>?
+          </p>
+        {%- endfor -%}
+        {%- for p in collections.all.products limit: 50 -%}
+          <p class="pg-404__suggest" data-handle="{{ p.handle }}" hidden>
+            {{ suggest }} <a href="{{ p.url }}">{{ p.title | escape }}</a>?
+          </p>
+        {%- endfor -%}
+      {%- endif -%}
+      {%- if section.settings.show_search -%}
+        <form action="{{ routes.search_url }}" method="get" role="search" class="search pg-404__search">
+          <div class="field">
+            <input
+              class="search__input field__input"
+              id="Search-{{ section.id }}"
+              type="search"
+              name="q"
+              placeholder="{{ 'general.search.search' | t }}"
+            >
+            <label class="field__label" for="Search-{{ section.id }}">{{ 'general.search.search' | t }}</label>
+            <input name="options[prefix]" type="hidden" value="last">
+            <button type="submit" class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+              <span class="svg-wrapper">
+                {{- 'icon-search.svg' | inline_asset_content -}}
+              </span>
+            </button>
+          </div>
+        </form>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} The Great Square, and a dashed line out to the star that is not there. {%- endcomment -%}
+    <div class="pg-404__map">
+      {%- render 'pegasus-constellation', class: 'pg-404__sky' -%}
+      <svg
+        class="pg-404__sky pg-404__lost"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1000 700"
+        fill="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path class="pg-404__trail" d="M700 470 857 584"/>
+        <circle class="pg-404__ring" cx="880" cy="601" r="28"/>
+      </svg>
+    </div>
+  </div>
+</pg-404>
+
+{% schema %}
+{
+  "name": "Pegasus page not found",
+  "tag": "section",
+  "class": "pg-404-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "There's no page at this address."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "info": "The address the visitor asked for is shown above this text.",
+      "default": "It may have moved, or the address has a typo. Search the pens, or pick a place to start below."
+    },
+    {
+      "type": "text",
+      "id": "suggest_label",
+      "label": "Suggestion",
+      "info": "Shown before a link when the address ends in the handle of a page, collection or product, e.g. \"Looking for About?\"",
+      "default": "Looking for"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "info": "The map is drawn in gold, so use a dark scheme.",
+      "default": "scheme-4"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 104
+    }
+  ]
+}
+{% endschema %}
