@@ -672,7 +672,7 @@ predictive-search[loading] .pg-search-start {
     justify-content: flex-start;
   }
 
-  /* The small links of the bottom row (shop name, Powered by Shopify, policies) stay at least 24 px tall (WCAG 2.5.8):
+  /* The small links of the bottom row (shop name, Powered by Perseus Creative Studio, policies) stay at least 24 px tall (WCAG 2.5.8):
      section-footer.css removes their padding from 750 px. */
   .footer .footer__copyright a {
     display: inline-block;

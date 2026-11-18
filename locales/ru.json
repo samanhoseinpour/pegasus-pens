@@ -9,6 +9,7 @@
  */
 {
   "general": {
+    "powered_by_html": "Powered by {{ studio }}",
     "password_page": {
       "login_form_heading": "Вход в магазин с помощью пароля:",
       "login_password_button": "Войти с помощью пароля",

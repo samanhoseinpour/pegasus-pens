@@ -9,6 +9,7 @@
  */
 {
   "general": {
+    "powered_by_html": "Powered by {{ studio }}",
     "password_page": {
       "login_form_heading": "Belépés a webáruházba jelszóval:",
       "login_password_button": "Belépés jelszóval",

@@ -9,6 +9,7 @@
  */
 {
   "general": {
+    "powered_by_html": "Powered by {{ studio }}",
     "password_page": {
       "login_form_heading": "Accesați magazinul folosind parola:",
       "login_password_button": "Accesați folosind parola",
