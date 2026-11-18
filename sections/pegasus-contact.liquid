@@ -112,6 +112,7 @@
                   id="PgContact-name"
                   name="contact[name]"
                   autocomplete="name"
+                  placeholder="{{ section.settings.name_placeholder | escape }}"
                   value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
                 >
               </div>
@@ -127,6 +128,7 @@
                   autocomplete="email"
                   spellcheck="false"
                   autocapitalize="off"
+                  placeholder="{{ section.settings.email_placeholder | escape }}"
                   required
                   value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
                   {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="PgContact-email-error"{% endif %}
@@ -148,6 +150,7 @@
                 id="PgContact-ref"
                 name="contact[{{ section.settings.ref_field | default: 'Pen or order' | escape }}]"
                 autocomplete="off"
+                placeholder="{{ section.settings.ref_placeholder | escape }}"
               >
             </div>
 
@@ -160,6 +163,7 @@
                 id="PgContact-body"
                 name="contact[body]"
                 rows="8"
+                placeholder="{{ section.settings.message_placeholder | escape }}"
                 required
                 aria-describedby="PgContactHint"
               >{{ form.body }}</textarea>
@@ -244,6 +248,12 @@
     },
     {
       "type": "text",
+      "id": "ref_placeholder",
+      "label": "Pen or order field placeholder",
+      "default": "e.g. the pen's name or #1001"
+    },
+    {
+      "type": "text",
       "id": "ref_field",
       "label": "Pen or order field name",
       "info": "How that field appears in the message you receive.",
@@ -254,6 +264,24 @@
       "id": "message_label",
       "label": "Message label",
       "default": "Message"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message placeholder",
+      "default": "Tell us what you have in mind."
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name placeholder",
+      "default": "Your name"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email placeholder",
+      "default": "you@example.com"
     },
     {
       "type": "text",
