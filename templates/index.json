@@ -51,10 +51,10 @@
             "scene": "desk",
             "background_scene": "leather",
             "overlay": 35,
-            "heading": "Made to be given.",
-            "text": "A one-of-a-kind gift for someone who seems to have everything.",
-            "button_label": "Shop gifts",
-            "button_link": "shopify://collections/gifts",
+            "heading": "150 collectible pens. Each one different.",
+            "text": "Every Pegasus pen is one of one. Choose a style, and we email you the pens available in it so you can pick yours.",
+            "button_label": "Shop all pens",
+            "button_link": "shopify://collections/all",
             "link_label": "",
             "link_url": "",
             "show_constellation": false
@@ -359,10 +359,10 @@
           "type": "tile",
           "settings": {
             "scene": "none",
-            "title": "Ready to give",
-            "text": "One-of-a-kind pens for someone who seems to have everything.",
-            "link_label": "Shop gifts",
-            "link": "shopify://collections/gifts",
+            "title": "A collection of 150",
+            "text": "150 collectible pens, each one different and each one of one.",
+            "link_label": "Shop all pens",
+            "link": "shopify://collections/all",
             "caption_style": "light",
             "color_scheme": "scheme-3"
           }
@@ -463,8 +463,8 @@
         "tab_1": {
           "type": "tab",
           "settings": {
-            "title": "Gift pens",
-            "collection": "gifts"
+            "title": "Hardwood",
+            "collection": "hardwood"
           }
         },
         "tab_2": {
@@ -488,8 +488,8 @@
         "tab_3"
       ],
       "settings": {
-        "heading": "Ready to give",
-        "description": "A gift they definitely won't already have.",
+        "heading": "Shop by category",
+        "description": "150 collectible pens, each one of one.",
         "products_to_show": 8,
         "image_ratio": "portrait",
         "show_secondary_image": true,
@@ -644,7 +644,7 @@
         "link_2": {
           "type": "link",
           "settings": {
-            "label": "Segmented wood",
+            "label": "Premium wood",
             "link": "shopify://collections/segmented-wood"
           }
         },
@@ -666,7 +666,7 @@
           "type": "link",
           "settings": {
             "label": "Gifts",
-            "link": "shopify://collections/gifts"
+            "link": "shopify://collections/all"
           }
         },
         "link_6": {
@@ -682,7 +682,6 @@
         "link_2",
         "link_3",
         "link_4",
-        "link_5",
         "link_6"
       ],
       "settings": {
