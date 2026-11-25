@@ -101,7 +101,7 @@
             "icon_2": "refill",
             "text_2": "Refillable",
             "icon_3": "gift",
-            "text_3": "One of a kind, only one made"
+            "text_3": "One of 150 collectible pens"
           }
         },
         "description": {
@@ -129,6 +129,7 @@
             "page": "shipping-returns"
           }
         },
+        "collectible": {"type": "text", "settings": {"text": "<strong>One of 150 collectible pens.</strong> The pen shown is a sample of this style. After you order, we email you the pens available in this category so you can choose your exact one. Every pen is one of one.", "use_product_type": false, "text_style": "body"}},
         "share": {
           "type": "share",
           "settings": {
@@ -140,6 +141,7 @@
         "text",
         "title",
         "price",
+        "collectible",
         "variant_picker",
         "personalize",
         "quantity_selector",
