@@ -784,7 +784,71 @@
       {%- endif -%}
 
       <script type="application/ld+json">
-        {{ product | structured_data }}
+        {%- comment -%} Google merchant listing data with shipping and return details. Standard shipping free (3 to 5 business days), Express 20 CAD (1 to 2 business days), Canada only. No general returns; damaged or faulty pens handled within 2 weeks per the refund policy. {%- endcomment -%}
+      {%- assign schema_origin = request.origin -%}
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": {{ product.url | prepend: schema_origin | append: '#product' | json }},
+        "name": {{ product.title | json }},
+        "url": {{ product.url | prepend: schema_origin | json }},
+        "description": {{ product.description | strip_html | strip_newlines | strip | truncate: 5000 | json }},
+        "brand": { "@type": "Brand", "name": {{ product.vendor | json }} },
+        "image": [
+          {%- for image in product.images limit: 10 -%}
+            {{ image | image_url: width: 1920 | prepend: 'https:' | json }}{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ],
+        "offers": [
+          {%- for variant in product.variants -%}
+          {
+            "@type": "Offer",
+            "@id": {{ variant.url | prepend: schema_origin | append: '#offer' | json }},
+            "url": {{ variant.url | prepend: schema_origin | json }},
+            {%- if variant.sku != blank %}
+            "sku": {{ variant.sku | json }},
+            {%- endif %}
+            "price": {{ variant.price | money_without_currency | remove: ',' | json }},
+            "priceCurrency": {{ cart.currency.iso_code | json }},
+            "availability": "https://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+            "itemCondition": "https://schema.org/NewCondition",
+            "seller": { "@type": "Organization", "name": {{ shop.name | json }} },
+            "shippingDetails": [
+              {
+                "@type": "OfferShippingDetails",
+                "shippingLabel": "Standard",
+                "shippingRate": { "@type": "MonetaryAmount", "value": 0, "currency": "CAD" },
+                "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "CA" },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "businessDays": { "@type": "OpeningHoursSpecification", "dayOfWeek": ["https://schema.org/Monday", "https://schema.org/Tuesday", "https://schema.org/Wednesday", "https://schema.org/Thursday", "https://schema.org/Friday"] },
+                  "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY" },
+                  "transitTime": { "@type": "QuantitativeValue", "minValue": 3, "maxValue": 5, "unitCode": "DAY" }
+                }
+              },
+              {
+                "@type": "OfferShippingDetails",
+                "shippingLabel": "Express",
+                "shippingRate": { "@type": "MonetaryAmount", "value": 20, "currency": "CAD" },
+                "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "CA" },
+                "deliveryTime": {
+                  "@type": "ShippingDeliveryTime",
+                  "businessDays": { "@type": "OpeningHoursSpecification", "dayOfWeek": ["https://schema.org/Monday", "https://schema.org/Tuesday", "https://schema.org/Wednesday", "https://schema.org/Thursday", "https://schema.org/Friday"] },
+                  "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY" },
+                  "transitTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 2, "unitCode": "DAY" }
+                }
+              }
+            ],
+            "hasMerchantReturnPolicy": {
+              "@type": "MerchantReturnPolicy",
+              "applicableCountry": "CA",
+              "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+              "merchantReturnLink": {{ shop.refund_policy.url | prepend: schema_origin | json }}
+            }
+          }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }
       </script>
     </div>
   </product-component>
